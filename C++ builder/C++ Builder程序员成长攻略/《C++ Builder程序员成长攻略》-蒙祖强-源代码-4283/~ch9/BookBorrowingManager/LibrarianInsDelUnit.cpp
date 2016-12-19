@@ -1,0 +1,33 @@
+//---------------------------------------------------------------------------
+
+#include <vcl.h>
+#pragma hdrstop
+
+#include "LibrarianInsDelUnit.h"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+#pragma resource "*.dfm"
+TLibrarianInsDel *LibrarianInsDel;
+//---------------------------------------------------------------------------
+__fastcall TLibrarianInsDel::TLibrarianInsDel(TComponent* Owner)
+        : TForm(Owner)
+{
+}
+//---------------------------------------------------------------------------
+void __fastcall TLibrarianInsDel::BitBtn2Click(TObject *Sender)
+{
+  if(MessageDlg("确认要删除该记录吗？",mtWarning,mbOKCancel,0)==2) return; //不删除
+  LibrarianInsDelTable->Delete();
+}
+//---------------------------------------------------------------------------
+void __fastcall TLibrarianInsDel::BitBtn1Click(TObject *Sender)
+{
+  LibrarianInsDelTable->Insert();
+  LibrarianInsDelTable->FieldByName("LibrarianId")->AsString = LibrarianIdEdit->Text;
+  LibrarianInsDelTable->FieldByName("Name")->AsString = NameEdit->Text;
+  LibrarianInsDelTable->FieldByName("Password")->AsString = LibrarianIdEdit->Text;  //密码默认为馆员编号
+  LibrarianInsDelTable->Post();
+  LibrarianInsDelTable->Refresh();
+}
+//---------------------------------------------------------------------------
+

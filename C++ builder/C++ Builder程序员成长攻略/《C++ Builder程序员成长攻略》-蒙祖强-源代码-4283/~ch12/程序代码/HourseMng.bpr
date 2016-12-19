@@ -1,0 +1,190 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<!-- C++Builder XML Project -->
+<PROJECT>
+  <MACROS>
+    <VERSION value="BCB.06.00"/>
+    <PROJECT value="..\output\HourseMng.exe"/>
+    <OBJFILES value="HourseMng.obj fmMainU.obj fmVBaseU.obj fmPPaperU.obj dmDataU.obj 
+      SysFuncs.obj fmUpdateU.obj fmUpdatePropU.obj fmHoursePropU.obj 
+      fmSharePropU.obj fmUpdateTaxU.obj fmUpdateOtherPropU.obj 
+      fmUpDateGroundPropU.obj fmMarkermanageU.obj fmCheckermanageU.obj 
+      fmManageUnitU.obj fmTaxTypeU.obj fmTaxRaceU.obj fmInitFileNoU.obj 
+      fmSharePropertyPapU.obj fmOtherPropU.obj fmStartU.obj fmAboutU.obj"/>
+    <RESFILES value="HourseMng.res"/>
+    <IDLFILES value=""/>
+    <IDLGENFILES value=""/>
+    <DEFFILE value=""/>
+    <RESDEPEN value="$(RESFILES) fmMainU.dfm fmVBaseU.dfm fmPPaperU.dfm dmDataU.dfm 
+      fmUpdateU.dfm fmUpdatePropU.dfm fmHoursePropU.dfm fmSharePropU.dfm 
+      fmUpdateTaxU.dfm fmUpdateOtherPropU.dfm fmUpDateGroundPropU.dfm 
+      fmMarkermanageU.dfm fmCheckermanageU.dfm fmManageUnitU.dfm fmTaxTypeU.dfm 
+      fmTaxRaceU.dfm fmInitFileNoU.dfm fmSharePropertyPapU.dfm fmOtherPropU.dfm 
+      fmStartU.dfm fmAboutU.dfm"/>
+    <LIBFILES value=""/>
+    <LIBRARIES value="EhLibB60.lib bdertl.lib vclx.lib qrpt.lib adortl.lib vcldb.lib dbrtl.lib 
+      rtl.lib vcl.lib"/>
+    <SPARELIBS value="vcl.lib rtl.lib dbrtl.lib vcldb.lib adortl.lib qrpt.lib vclx.lib 
+      bdertl.lib EhLibB60.lib"/>
+    <PACKAGES value="vcl.bpi rtl.bpi dbrtl.bpi adortl.bpi vcldb.bpi vclx.bpi bdertl.bpi 
+      vcldbx.bpi ibxpress.bpi dsnap.bpi cds.bpi bdecds.bpi qrpt.bpi teeui.bpi 
+      teedb.bpi tee.bpi dss.bpi teeqr.bpi visualclx.bpi visualdbclx.bpi 
+      dsnapcrba.bpi dsnapcon.bpi bcbsmp.bpi vclie.bpi xmlrtl.bpi inet.bpi 
+      inetdbbde.bpi inetdbxpress.bpi inetdb.bpi nmfast.bpi webdsnap.bpi 
+      bcbie.bpi websnap.bpi soaprtl.bpi dclocx.bpi dbexpress.bpi dbxcds.bpi 
+      indy.bpi bcb2kaxserver.bpi EhLibB60.bpi"/>
+    <PATHCPP value=".;"/>
+    <PATHPAS value=".;"/>
+    <PATHRC value=".;"/>
+    <PATHASM value=".;"/>
+    <DEBUGLIBPATH value="$(BCB)\lib\debug"/>
+    <RELEASELIBPATH value="$(BCB)\lib\release"/>
+    <LINKER value="ilink32"/>
+    <USERDEFINES value=""/>
+    <SYSDEFINES value="NO_STRICT"/>
+    <MAINSOURCE value="HourseMng.cpp"/>
+    <INCLUDEPATH value="..\..\..\组件\ehlib\ehlib;&quot;E:\Program Files\Borland\CBuilder6\Projects&quot;;$(BCB)\include;$(BCB)\include\vcl;$(BCB)\Component"/>
+    <LIBPATH value="..\..\..\组件\ehlib\ehlib;&quot;E:\Program Files\Borland\CBuilder6\Projects&quot;;$(BCB)\lib\obj;$(BCB)\lib;$(BCB)\component"/>
+    <WARNINGS value="-w-par"/>
+    <OTHERFILES value=""/>
+  </MACROS>
+  <OPTIONS>
+    <IDLCFLAGS value="-I..\..\..\组件\ehlib\ehlib 
+      -I&quot;E:\Program Files\Borland\CBuilder6\Projects&quot; -I$(BCB)\include 
+      -I$(BCB)\include\vcl -I$(BCB)\Component -src_suffix cpp -boa"/>
+    <CFLAG1 value="-O2 -H=$(BCB)\lib\vcl60.csm -Hc -Vx -Ve -X- -a8 -b- -k- -vi -c -tW -tWM"/>
+    <PFLAGS value="-$Y- -$L- -$D- -$A8 -v -JPHNE -M"/>
+    <RFLAGS value=""/>
+    <AFLAGS value="/mx /w2 /zn"/>
+    <LFLAGS value="-D&quot;&quot; -aa -Tpe -x -Gn"/>
+    <OTHERFILES value=""/>
+  </OPTIONS>
+  <LINKER>
+    <ALLOBJ value="c0w32.obj sysinit.obj $(OBJFILES)"/>
+    <ALLRES value="$(RESFILES)"/>
+    <ALLLIB value="$(LIBFILES) $(LIBRARIES) import32.lib cp32mt.lib"/>
+    <OTHERFILES value=""/>
+  </LINKER>
+  <FILELIST>
+      <FILE FILENAME="HourseMng.res" FORMNAME="" UNITNAME="HourseMng.res" CONTAINERID="ResTool" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="HourseMng.cpp" FORMNAME="" UNITNAME="HourseMng" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="fmMainU.cpp" FORMNAME="fmMain" UNITNAME="fmMainU" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="fmVBaseU.cpp" FORMNAME="fmVBase" UNITNAME="fmVBaseU" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="fmPPaperU.cpp" FORMNAME="fmPPaper" UNITNAME="fmPPaperU" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="dmDataU.cpp" FORMNAME="dmData" UNITNAME="dmDataU" CONTAINERID="CCompiler" DESIGNCLASS="TDataModule" LOCALCOMMAND=""/>
+      <FILE FILENAME="SysFuncs.cpp" FORMNAME="" UNITNAME="SysFuncs" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="fmUpdateU.cpp" FORMNAME="fmUpdate" UNITNAME="fmUpdateU" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="fmUpdatePropU.cpp" FORMNAME="fmUpdateProp" UNITNAME="fmUpdatePropU" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="fmHoursePropU.cpp" FORMNAME="fmHourseProp" UNITNAME="fmHoursePropU" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="fmSharePropU.cpp" FORMNAME="fmShareProp" UNITNAME="fmSharePropU" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="fmUpdateTaxU.cpp" FORMNAME="fmUpdateTax" UNITNAME="fmUpdateTaxU" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="fmUpdateOtherPropU.cpp" FORMNAME="fmUpdateOtherProp" UNITNAME="fmUpdateOtherPropU" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="fmUpDateGroundPropU.cpp" FORMNAME="fmUpDateGroundProp" UNITNAME="fmUpDateGroundPropU" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="fmMarkermanageU.cpp" FORMNAME="fmMarkermanage" UNITNAME="fmMarkermanageU" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="fmCheckermanageU.cpp" FORMNAME="fmCheckermanage" UNITNAME="fmCheckermanageU" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="fmManageUnitU.cpp" FORMNAME="fmManageUnit" UNITNAME="fmManageUnitU" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="fmTaxTypeU.cpp" FORMNAME="fmTaxType" UNITNAME="fmTaxTypeU" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="fmTaxRaceU.cpp" FORMNAME="fmTaxRace" UNITNAME="fmTaxRaceU" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="fmInitFileNoU.cpp" FORMNAME="fmInitFileNo" UNITNAME="fmInitFileNoU" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="fmSharePropertyPapU.cpp" FORMNAME="fmSharePropertyPap" UNITNAME="fmSharePropertyPapU" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="fmOtherPropU.cpp" FORMNAME="fmOtherProp" UNITNAME="fmOtherPropU" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="fmStartU.cpp" FORMNAME="StartupForm" UNITNAME="fmStartU" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="fmAboutU.cpp" FORMNAME="fmAbout" UNITNAME="fmAboutU" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+  </FILELIST>
+  <BUILDTOOLS>
+  </BUILDTOOLS>
+
+  <IDEOPTIONS>
+[Version Info]
+IncludeVerInfo=0
+AutoIncBuild=0
+MajorVer=1
+MinorVer=0
+Release=0
+Build=0
+Debug=0
+PreRelease=0
+Special=0
+Private=0
+DLL=0
+Locale=2052
+CodePage=936
+
+[Version Info Keys]
+CompanyName=
+FileDescription=
+FileVersion=1.0.0.0
+InternalName=
+LegalCopyright=
+LegalTrademarks=
+OriginalFilename=
+ProductName=
+ProductVersion=1.0.0.0
+Comments=
+
+[HistoryLists\hlIncludePath]
+Count=3
+Item0=E:\Program Files\Borland\CBuilder6\Projects;$(BCB)\include;$(BCB)\include\vcl;$(BCB)\Component
+Item1=E:\Program Files\Borland\CBuilder6\Projects;$(BCB)\include;$(BCB)\include\vcl;$(BCB)\Component\ehlib
+Item2=E:\Program Files\Borland\CBuilder6\Projects;C:\Program Files\Borland\CBuilder6\Projects;D:\房屋管理\SOUR;$(BCB)\include;$(BCB)\include\vcl
+
+[HistoryLists\hlLibraryPath]
+Count=3
+Item0=E:\Program Files\Borland\CBuilder6\Projects;$(BCB)\lib\obj;$(BCB)\lib;$(BCB)\component
+Item1=E:\Program Files\Borland\CBuilder6\Projects;$(BCB)\lib\obj;$(BCB)\lib;$(BCB)\component\ehlib
+Item2=E:\Program Files\Borland\CBuilder6\Projects;C:\Program Files\Borland\CBuilder6\Projects;D:\房屋管理\SOUR;$(BCB)\lib\obj;$(BCB)\lib
+
+[HistoryLists\hlDebugSourcePath]
+Count=1
+Item0=$(BCB)\source\vcl
+
+[HistoryLists\hlIntOutputDir]
+Count=5
+Item0=F:\房屋管理3\SOUR
+Item1=F:\房屋管理\SOUR
+Item2=G:\房屋管理2\房屋管理\SOUR
+Item3=D:\房屋管理2\房屋管理\房屋管理\房屋管理\output
+Item4=D:\房屋管理2\房屋管理\房屋管理\房屋管理\output\
+
+[HistoryLists\hlFinalOutputDir]
+Count=9
+Item0=..\output\
+Item1=..\output
+Item2=F:\房屋管理3\output\
+Item3=F:\房屋管理\output\
+Item4=F:\房屋管理\output
+Item5=G:\房屋管理2\房屋管理\output\
+Item6=G:\房屋管理2\房屋管理\output
+Item7=D:\房屋管理2\房屋管理\房屋管理\房屋管理\output\
+Item8=D:\房屋管理2\房屋管理\房屋管理\房屋管理\output
+
+[Debugging]
+DebugSourceDirs=$(BCB)\source\vcl
+
+[Parameters]
+RunParams=
+Launcher=
+UseLauncher=0
+DebugCWD=
+HostApplication=
+RemoteHost=
+RemotePath=
+RemoteLauncher=
+RemoteCWD=
+RemoteDebug=0
+
+[Compiler]
+ShowInfoMsgs=0
+LinkDebugVcl=0
+LinkCGLIB=0
+
+[CORBA]
+AddServerUnit=1
+AddClientUnit=1
+PrecompiledHeaders=1
+
+[Language]
+ActiveLang=
+ProjectLang=
+RootDir=
+  </IDEOPTIONS>
+</PROJECT>

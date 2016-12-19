@@ -1,0 +1,13 @@
+Listener 是Servlet的监听器，它可以监听客户端的请求、服务端的操作等。通过监听器，可以自动激发一些操作，比如监听在线的用户的数量。当增加一个 HttpSession时，就激发sessionCreated(HttpSessionEvent se)方法，这样就可以给在线人数加1。常用的监听接口有以下几个：
+================================================================= 
+1.ServletContextListener监听ServletContext。当创建ServletContext时，激发 contextInitialized(ServletContextEvent sce)方法；当销毁ServletContext时，激发contextDestroyed(ServletContextEvent sce)方法。 
+=================================================================
+2.HttpSessionListener 监听HttpSession的操作。当创建一个Session时，激发session Created(HttpSessionEvent se)方法；当销毁一个Session时，激发sessionDestroyed (HttpSessionEvent se)方法。 
+===========================================================
+3.HttpSessionAttributeListener监听HttpSession中的属性的操作。当在Session增加一个属性时，激发 attributeAdded(HttpSessionBindingEvent se) 方法；当在Session删除一个属性时，激发attributeRemoved(HttpSessionBindingEvent se)方法；当在Session属性被重新设置时，激发attributeReplaced(HttpSessionBindingEvent se) 方法。
+================================================================
+注意配置xml文件
+<listener>
+	<listener-class>com.listener</listener-class>
+</listener>
+

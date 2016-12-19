@@ -1,0 +1,31 @@
+1.JavaBean是一种可重复使用，且跨平台的软件组件。JavaBean可分为两种：一种是有用户界面(UI,User Interface)的JavaBean；还有一种是没有用户界面main，主要负责处理事务(如数据运算，操纵数据库)的javaBean.JSP通常访问的是最后一种JavaBean
+=====================================================================
+2.JavaBean的特征
+a.javaBean是一个公共的(public)类
+b.javaBean有一个不带参数的构造方法
+c.javaBean通过set***方法设置属性，通过get***方法获取属性
+=====================================================================
+3.最典型的javaBean代码
+public class JavaBean1 {
+
+	private int count = 0;
+	public JavaBean1(){}
+	
+	public int getCount() {
+		return count;
+	}
+	public void setCount(int count) {
+		this.count = count;
+	}
+	
+}
+======================================================================
+4.JSP访问JavaBean的语法
+1.导入JavaBean类------<%@ page import="mypack.CounterBean"%>
+2.声明JavaBean对象-----<jsp:useBean id="myBean" class="mypack.CounterBean" scope="session"/>
+3.访问JavaBean属性-----<jsp:getProperty name="myBean" property="count"/>
+---------<jsp:setProperty name="myBean" property="count" value="0"/>
+=====================================================================
+5.scope属性决定了JavaBean对象存在的范围，scope的可选值包括：page(默认值)，request，session，application。
+=========================================================================
+6.

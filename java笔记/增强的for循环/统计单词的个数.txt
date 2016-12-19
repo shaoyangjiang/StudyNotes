@@ -1,0 +1,36 @@
+/**
+ * 统计单词的个数。把单词作为key，个数作为value存放在HashMap里面。如果单词相同，key不变，value++
+ * @author Administrator
+ *
+ */
+public class WordAccount {
+
+	public static void main(String[] args) {
+		Map<String,Integer> map = new HashMap<String,Integer>();
+		//遍历控制台输入的内容
+		for(String word : args){
+			Integer account = map.get(word);
+			map.put(word, (account == null) ? 1 :account + 1 );
+		}
+		//得到map里的key集合
+		Set set = map.keySet();
+		//迭代
+		for(Iterator iter = set.iterator();iter.hasNext();){
+			//得到每一个key
+			String key = (String)iter.next();
+			//得到key对应的value值
+			Integer value = (Integer)map.get(key);
+			System.out.println(key + ":" + value);
+		}
+	}
+}
+
+
+///////////////////////////////////////////////////////////
+在控制台输入：
+hello word java welcome hello hello
+运行结果：
+hello:3
+java:1
+word:1
+welcome:1

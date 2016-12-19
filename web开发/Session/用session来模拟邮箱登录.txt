@@ -1,0 +1,39 @@
+mialLogin.jsp代码:
+  <body>
+  	<%String username = "";
+  	
+  	if(!session.isNew()){
+  		username = (String)session.getAttribute("username");
+  		if(null == username){
+  			username = "";
+  		}
+  	}
+  	%>
+  <p>Session id:<%= session.getId() %></p>
+    <form action="mailCheck.jsp">
+    	用户名:<input type="text" name="username" value="<%= username%>">
+    	<input type="submit" value="提交">
+    </form>
+  </body>
+-------------------------
+mailCheck.jsp代码
+  <body>
+    <%String username = request.getParameter("username");
+      session.setAttribute("username", username);
+    %>
+    <a href="mailLogin.jsp">转向登入</a><br>
+    <a href="mailLogout.jsp">注销</a><br>
+    你好:<%= username %><br>
+    <p>你有1000封未读邮件</p>
+  </body>
+-----------------------------
+mailLogout.jsp代码：
+  <body>
+    <%String username = (String)session.getAttribute("username");
+      session.invalidate();
+    %>
+    <%= username %>再见
+    <a href="mailLogin.jsp">重新登录</a>
+  </body>
+============================================
+运行结果：在没注销之前，都是同一个Session。

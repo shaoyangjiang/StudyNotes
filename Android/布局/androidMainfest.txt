@@ -1,0 +1,2 @@
+1.横竖屏切换之后无影响
+android:configChanges="orientation|keyboardHidden"

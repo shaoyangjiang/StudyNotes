@@ -1,0 +1,41 @@
+public class Factorial {
+	/**
+	 * 一般方法实现
+	 * @param num
+	 * @return
+	 */
+	private int computer(int num){
+		int sum =1;
+		if(num == 1){
+			return 1;
+		}
+		
+		for(int i=1; i<=num; i++){
+			sum = sum*i;			
+		}						
+		return sum;
+	}
+	/**
+	 * 递归
+	 * @param num
+	 * @return
+	 */
+	private int computer2(int num){
+		if(num == 1){
+			return 1;
+		}
+		
+		return num*computer2(num -1);
+	}
+	
+	public static void main(String[] args) {
+		Factorial fact1 = new Factorial();
+		System.out.println(fact1.computer(5));
+		System.out.println(fact1.computer2(5));
+	}
+}
+
+=====================================================================
+运行结果：
+120
+120

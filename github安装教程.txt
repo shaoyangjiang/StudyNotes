@@ -1,0 +1,14 @@
+github视频安装教程
+http://edu.csdn.net/course/detail/3290/55007?auto_start=1
+======================================
+首先下载git for window 和TortoiseGit(小乌龟) 然后默认傻瓜安装
+=================================
+1.鼠标右键，选择TortoiseGit-->Settings 打开后，点击Git菜单 填写github的用户名和邮箱，确定
+-----------------------
+2.随便新建一个文件夹，里面新建一个文件。然后右键文件夹，选择git create repostiory here...
+接着还是右键点击Git comment.填写一些信息，一些要上传的文件选择add，上传commit。
+--------------------------------------------
+3.打开github官网，创建仓库
+----------------------------------
+4.鼠标右键文件夹，TortoiseGit-->push点击，然后在点击Manage，填写URL和PushURL，这个url就是github里创建项目成功后的Https，比如:https://github.com/shaoyangjiang/gitTest.git
+然后点击确定即可。刷新github网站，就可以看到文档了

@@ -1,0 +1,53 @@
+SELECT COUNT(*), `departmentno`, 
+GROUP_CONCAT(`name`) 
+	#多个`name`字段的合并字符串
+FROM `employee` 
+
+GROUP BY `departmentno` 
+	#根据`departmentno`这个字段来分组
+HAVING COUNT(*) > 0;	#在分组的结果中再进行条件删选（数量>0）
+
+上述sql表示：
+在`employee`中根据`departmentno`字段来分组（每组的数量要大于0）。
+返回：
+（每组的数量、每组的`departmentno`字段、该组的所有数据的`name`字段的合并字符串）
+所组成的虚拟表
+
+结果如下：
+-----------------------------------------------------------------------------
+count(*)	departmentno		group_concat(`name`)
+-----------------------------------------------------------------------------
+2	Marketing Department 	wangwu,welcome
+2	Personnel department	zhangsan,world
+2	Product department		google,baidu
+2	Treasury department	lisi,hello
+-----------------------------------------------------------------------------
+————————————————————————————————
+————————————————————————————————
+SELECT `departmentno` 'department', 
+GROUP_CONCAT(`num`) 'nums', 	#合并，把这列取名为“nums”
+GROUP_CONCAT(`name`) 'names', 	#合并，把这列取名为“names”
+COUNT(*)  'counts'			#合并，把这列取名为“counts”
+FROM `employee` 
+
+GROUP BY `departmentno` 		
+
+HAVING COUNT(*) > 0
+		#分组的结果中条件删选
+ORDER BY `departmentno` DESC;	#按departmentno的倒序排序
+
+结果如下：
+--------------------------------------------------------------------------------
+department		nums	names		counts
+--------------------------------------------------------------------------------
+Treasury department	2,4	lisi,hello		2
+Product department		7,8	google,baidu	2
+Personnel department	1,5	zhangsan,world	2
+Marketing Department 	3,6	wangwu,welcome	2
+--------------------------------------------------------------------------------
+
+
+
+
+
+

@@ -1,0 +1,16 @@
+console.log("hello");打印语句，类似java中的system.out
+==================================================
+小技巧：
+function showLog(message){
+	console.log(message);//以后只要注释这句话看可以了
+	console.info(message);
+	console.warn(message);
+	console.error(message);
+	console.debug(message);
+}
+
+function test(name){
+	showLog(name);
+}
+
+test("hello");

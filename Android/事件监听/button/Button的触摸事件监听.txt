@@ -1,0 +1,25 @@
+//定义一个button控件
+private Button myButton;
+
+//绑定Button控件
+myButton = (Button)findViewById(R.id.myButton);
+
+        //添加对按键的触控事件
+        myButton.setOnTouchListener(new OnTouchListener() {
+			
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				switch(event.getAction()){
+					case MotionEvent.ACTION_DOWN://按下按键
+						System.out.println("Action down");
+						break;
+					case MotionEvent.ACTION_UP:
+						System.out.println("Action up");//释放按键
+						break;
+					case MotionEvent.ACTION_MOVE://移动按键
+						System.out.println("Action move");
+						break;
+				}
+				return false;
+			}
+		});

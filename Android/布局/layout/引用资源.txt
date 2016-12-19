@@ -1,0 +1,13 @@
+//使用背景图片
+android:background="@drawable/background"
+//使用ImageButton图片
+android:src="@drawable/enter"
+//使用外部的高度
+android:layout_height="@dimen/actionbar_height"
+//使用外部的string
+android:text="@string/Share"
+
+//使用actionbar布局
+layout="@layout/actionbar"
+//导入外部布局
+<include />

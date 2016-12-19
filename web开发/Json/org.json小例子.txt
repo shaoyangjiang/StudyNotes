@@ -1,0 +1,33 @@
+得到json里的数据
+	public static void main(String[] args) throws Exception {
+		//构造一个json格式的字符串
+		String jsonContent = "{'name':'shaoyangjiang','age':'22'}";
+		//构造方法
+		JSONObject jsonObject = new JSONObject(jsonContent);
+		//得到相应的值
+		String str1 = jsonObject.getString("name");
+		String str2 = jsonObject.getString("age");
+		System.out.println(str1);
+		System.out.println(str2);
+		System.out.println("---------------------------");
+		//构造一个json格式得 数组
+		jsonContent = "[{'name':'shaoyangjiang','age':22,'gender':true},{'name':'wangjie','age':21,'gender':false}]";
+		//构造方法
+		JSONArray jsonArray = new JSONArray(jsonContent);
+		for(int i=0;i<jsonArray.length();i++){
+			//得到数组里的对象
+			JSONObject jsonObject2 = jsonArray.getJSONObject(i);
+			//得到数组里的值
+			String name = jsonObject2.getString("name");
+			int age = jsonObject2.getInt("age");
+			boolean gender = jsonObject2.getBoolean("gender");
+			System.out.println("name:"+name+"--age:"+age+"--gender:"+gender);
+		}
+	}
+===============================================
+运行结果：
+shaoyangjiang
+22
+---------------------------
+name:shaoyangjiang--age:22--gender:true
+name:wangjie--age:21--gender:false

@@ -1,0 +1,27 @@
+按钮：
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 默认时的背景图片 -->
+    <item android:drawable="@drawable/start" android:state_focused="false" android:state_pressed="false"/>
+    <!-- 触摸模式下单击时的背景图片 -->
+    <item android:drawable="@drawable/start_b" android:state_focused="false" android:state_pressed="true"/>
+</selector>
+==============================================
+radioButton：
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 默认时的图片 -->
+    <item android:drawable="@drawable/tab_black" android:state_checked="false"/>
+    <!-- 选择时的图片 -->
+    <item android:drawable="@drawable/tab_red" android:state_checked="true"/>
+</selector>
+------------------------------------------------------------------------------------
+<selector
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 按下时候的效果 -->
+    <item 
+    android:state_pressed="true" 
+    android:drawable="@color/green_color"/>
+    <!-- 选择时候的效果  -->
+    <item 
+    android:state_checked="true" 
+    android:drawable="@color/green_color"/> 
+</selector>

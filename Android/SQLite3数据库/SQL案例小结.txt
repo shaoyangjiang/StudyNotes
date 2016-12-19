@@ -1,0 +1,82 @@
+1.Ê×ÏÈ´´½¨Ò»¸öÊµÌåÀà£¨javabean£¨model£©£©£¬ÓĞÊôĞÔ£¬¹¹Ôì·½·¨£¬get£¬set·½·¨¡£
+public class Tb_flag{
+	private int _id;
+	private String flag;
+	Ä¬ÈÏ¹¹Ôì·½·¨¡£¡£¡£
+	¶¨ÒåÓĞ²ÎÊı¹¹Ôì·½·¨£¬ÓÃÀ´³õÊ¼»¯¡£¡£¡£
+	¡£¡£¡£get(),set()·½·¨
+}
+================================================================
+2.´´½¨Êı¾İ¿â°ï×éÀà£¨dao£©£¬Ò»°ã¶¼ÊÇÏÂÃæÕâÖÖÇé¿öDBOpenHelper.java¡£
+public class DBOpenHelper extends SQLiteOpenHelper {
+	private static final int VERSION = 1;// ¶¨ÒåÊı¾İ¿â°æ±¾ºÅ
+	private static final String DBNAME = "account.db";// ¶¨ÒåÊı¾İ¿âÃû
+
+	public DBOpenHelper(Context context){// ¶¨Òå¹¹Ôìº¯Êı
+	
+		super(context, DBNAME, null, VERSION);// ÖØĞ´»ùÀàµÄ¹¹Ôìº¯Êı
+	}
+
+	@Override
+	public void onCreate(SQLiteDatabase db){// ´´½¨Êı¾İ¿â
+	
+		db.execSQL("create table tb_outaccount (_id integer primary key,money decimal,time varchar(10),"
+				+ "type varchar(10),address varchar(100),mark varchar(200))");// ´´½¨Ö§³öĞÅÏ¢±í
+		db.execSQL("create table tb_inaccount (_id integer primary key,money decimal,time varchar(10),"
+				+ "type varchar(10),handler varchar(100),mark varchar(200))");// ´´½¨ÊÕÈëĞÅÏ¢±í
+		db.execSQL("create table tb_pwd (password varchar(20))");// ´´½¨ÃÜÂë±í
+		db.execSQL("create table tb_flag (_id integer primary key,flag varchar(200))");// ´´½¨±ãÇ©ĞÅÏ¢±í
+	}
+
+	@Override
+	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)// ¸²Ğ´»ùÀàµÄonUpgrade·½·¨£¬ÒÔ±ãÊı¾İ¿â°æ±¾¸üĞÂ
+	{
+	}
+}
+=================================================================
+3.Êı¾İ¿â²Ù×÷Àà(dao)£¬ÔöÉ¾¸Ä²éFlagDAO.java
+public class FlagDAO {
+	private DBOpenHelper helper;// ´´½¨DBOpenHelper¶ÔÏó
+	private SQLiteDatabase db;// ´´½¨SQLiteDatabase¶ÔÏó
+
+	public FlagDAO(Context context)// ¶¨Òå¹¹Ôìº¯Êı
+	{
+		helper = new DBOpenHelper(context);// ³õÊ¼»¯DBOpenHelper¶ÔÏó
+	}
+
+	/**
+	 * Ìí¼Ó±ãÇ©ĞÅÏ¢,×¢ÒâÕâÀïadd·½·¨ÀïÊÇ²ÎÊıÊÇ¶ÔÏó£¬¿ÉÒÔÍ¨¹ıget£¬set·½·¨È¡µÃ¶ÔÏóÀïµÄÊôĞÔÖµ
+	 */
+	public void add(Tb_flag tb_flag) {
+		db = helper.getWritableDatabase();// ³õÊ¼»¯SQLiteDatabase¶ÔÏó
+		db.execSQL("insert into tb_flag (_id,flag) values (?,?)", new Object[] {
+				tb_flag.getid(), tb_flag.getFlag() });// Ö´ĞĞÌí¼Ó±ãÇ©ĞÅÏ¢²Ù×÷
+	}
+	}
+	=====================================================================
+	5.activityÀàÖĞµ÷ÓÃÊı¾İ¿â²Ù×÷Àà
+	FlagDAO flagDAO = new FlagDAO(Accountflag.this);// ´´½¨FlagDAO¶ÔÏó
+	Tb_flag tb_flag = new Tb_flag(flagDAO.getMaxId() + 1, strFlag);// ´´½¨Tb_flag¶ÔÏó£¬µÚÒ»¸ö²ÎÊıÊÇidß
+	flagDAO.add(tb_flag);// Ìí¼ÓĞÅÏ¢
+======================================================================
+´óÖÂÁ÷³Ì¾ÍÊÇÕâÑùµÄ
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+½øÈëÊı¾İ¿âµÄÃüÁî
+adb
+adb shell
+ls -l
+cd data
+ls -l
+cd data
+ls -l
+cd tiantian.Package
+ls
+cd databases
+ls
+sqlite3 tiantian_text_db(½øÈëÃûÎªtiantian_text_dbµÄÊı¾İ¿â)
+É¾³ıÊı¾İ¿â rm -r Êı¾İ¿â
+·µ»ØÉÏÒ»²½ cd ..
+
+ÃüÁî(.schema)ÏÔÊ¾µ±Ç°Êı¾İ¿âËùÓĞµÄ±í¼°´´½¨ËüµÄÓï¾äÊÇÊ²Ã´
+ÃüÁî(select * from user;)ÏÔÊ¾±íuserµÄÄÚÈİ

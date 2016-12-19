@@ -1,0 +1,12 @@
+传送值：
+Intent intent = new Intent(Text1Activity.this,DialogTest1.class);
+Bundle bundle = new Bundle();
+bundle.putString("name", "shaoyangjiang");
+bundle.putString("age", "18");
+intent.putExtras(bundle);
+startActivity(intent);
+
+接受值：
+Bundle bundle = getIntent().getExtras();
+String name = bundle.getString("name");
+String age = bundle.getString("age");

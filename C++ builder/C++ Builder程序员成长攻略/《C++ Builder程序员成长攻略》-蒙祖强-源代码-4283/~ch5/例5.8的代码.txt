@@ -1,0 +1,22 @@
+//OnClick事件处理程序代码，结果如下：
+
+void __fastcall TForm1::Button1Click(TObject *Sender)
+{
+  MEMORYSTATUS *memory;
+  memory = new MEMORYSTATUS();
+  memory->dwLength = sizeof(MEMORYSTATUS);
+  GlobalMemoryStatus(memory);
+
+  ListBox1->Clear();
+  ListBox1->Items->Add("已用内存空间占总内存空间的百分比："+
+(String)memory->dwMemoryLoad+"%");
+  ListBox1->Items->Add("总的物理内存空间（Mb）："+(String)(memory->dwTotalPhys / 1024 / 1024));
+  ListBox1->Items->Add("可用物理内存空间（Mb）："+(String)(memory->dwAvailPhys / 1024 / 1024));
+  ListBox1->Items->Add("总的页面交换文件空间（Mb）："+
+(String)(memory->dwTotalPageFile / 1024 / 1024));
+  ListBox1->Items->Add("可用页面交换文件空间（Mb）："+
+(String)(memory->dwAvailPageFile / 1024 / 1024));
+  ListBox1->Items->Add("总的虚拟内存（Mb）："+(String)(memory->dwTotalVirtual / 1024 / 1024));
+  ListBox1->Items->Add("可用虚拟内存（Mb）："+(String)(memory->dwAvailVirtual / 1024 / 1024));
+}
+

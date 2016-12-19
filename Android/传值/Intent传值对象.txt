@@ -1,0 +1,34 @@
+intent传值对象有3种方法http://www.jcodecraeer.com/a/anzhuokaifa/androidkaifa/2015/0104/2256.html
+-------------------------------
+序列化对象可以使用Java的Serializable的接口、Parcelable接口。转化成JSON字符串，可以使用Gson等库。
+
+1.Serializable
+Model
+public class Author implements Serializable{
+    private int id;
+ 
+    private String name;
+ 
+    //...
+}
+
+public class Book implements Serializable{
+    private String title;
+    private Author author;
+    //...
+}
+传递数据
+  Book book=new Book(); 
+  book.setTitle("Java编程思想"); 
+  Author author=new Author(); 
+  author.setId(1); 
+  author.setName("Bruce Eckel"); 
+  book.setAuthor(author); 
+  Intent intent=new Intent(this,SecondActivity.class); 
+  intent.putExtra("book",book); 
+  startActivity(intent);
+接收数据
+
+ Book book= (Book) getIntent().getSerializableExtra("book");
+ Log.d(TAG,"book title->"+book.getTitle());
+ Log.d(TAG,"book author name->"+book.getAuthor().getName());

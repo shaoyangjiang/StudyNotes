@@ -1,0 +1,20 @@
+  //创建menu
+  public boolean onCreateOptionsMenu(Menu menu){
+	  menu.add(0,0,0,"OK");
+	  menu.add(0,1,1,"back");
+	return true;  
+  }
+  
+  //处理menu事件
+  public boolean onOptionsItemSelected(MenuItem item){
+	  int item_id = item.getItemId();
+	  switch(item_id){
+	  case 0:
+
+		  break;
+	  case 1:
+
+		  break;
+	  }
+	return true;
+  }

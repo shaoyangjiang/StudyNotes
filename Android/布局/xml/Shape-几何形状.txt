@@ -1,0 +1,46 @@
+Shape
+作用：XML中定义的几何形状
+位置：res/drawable/文件的名称.xml
+使用的方法：
+Java代码中：R.drawable.文件的名称
+XML中：Android:background="@drawable/文件的名称"
+
+属性：
+<shape>  Android:shape=["rectangle" | "oval" | "line" | "ring"]
+其中rectagle矩形，oval椭圆，line水平直线，ring环形
+
+<shape>中子节点的常用属性：
+★<gradient>  渐变
+Android:startColor  起始颜色
+Android:endColor  结束颜色             
+Android:angle  渐变角度，0从上到下，90表示从左到右，数值为45的整数倍默认为0；
+Android:type  渐变的样式 liner线性渐变 radial环形渐变 sweep
+
+★<solid >  填充
+Android:color  填充的颜色
+
+★<stroke > 描边
+Android:width 描边的宽度
+Android:color 描边的颜色
+Android:dashWidth 表示'-'横线的宽度
+Android:dashGap 表示'-'横线之间的距离
+
+★<corners > 圆角
+Android:radius  圆角的半径 值越大角越圆
+Android:topRightRadius  右上圆角半径
+Android:bottomLeftRadius 右下圆角角半径
+Android:topLeftRadius 左上圆角半径
+Android:bottomRightRadius 左下圆角半径
+-------------------------------------------------------------------------------------
+圆角背景：
+<?xml version="1.0" encoding="UTF-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>  
+        <shape>  
+            <solid android:color="#FFFFFF" />  
+            <corners android:topLeftRadius="10dp" android:topRightRadius="10dp"  
+                android:bottomRightRadius="10dp" android:bottomLeftRadius="10dp" />  
+            <stroke android:width="1dp" android:color="#ffa8abad" />  
+        </shape>  
+    </item>  
+</layer-list> 

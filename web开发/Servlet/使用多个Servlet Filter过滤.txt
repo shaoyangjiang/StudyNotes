@@ -1,0 +1,62 @@
+使用多个Filter过滤，主要掌握过滤流程，看输出结果语句
+=======================================================
+JSP代码：info.jsp主要是用来输入用户名
+    <form action="InfoServlet" method="post">
+    	username:<input type="text" name="username">
+    	<input type="submit" value="submit">
+    </form>
+==================================================
+Servlet代码：InfoServlet.java，用来跳转
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		System.out.println("InfoServlet is start");
+		req.getRequestDispatcher("infoResult.jsp").forward(req,resp);
+	}
+====================================================
+JSP代码：infoResult.jsp用来显示结果
+  <body>
+    <%= request.getParameter("username") %>
+  </body>
+===================================================
+过滤器1，Filter1.java
+	public void doFilter(ServletRequest request, ServletResponse response,
+			FilterChain chain) throws IOException, ServletException {
+		System.out.println("Filter1 is before Chaindo");
+		chain.doFilter(request,response);
+		System.out.println("Filter1 is after Chaindo");
+	}
+====================================================
+过滤器2:Filter2.java
+	public void doFilter(ServletRequest request, ServletResponse response,
+			FilterChain chain) throws IOException, ServletException {
+		System.out.println("Filter2 is before Chaindo");
+		chain.doFilter(request,response);
+		System.out.println("Filter2 is after Chaindo");
+	}
+=======================================================
+web.xml配置文件
+	<filter>
+		<filter-name>InfoFilter1</filter-name>
+		<filter-class>com.filter.Filter1</filter-class>
+	</filter>
+	
+	<filter>
+		<filter-name>InfoFilter2</filter-name>
+		<filter-class>com.filter.Filter2</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>InfoFilter1</filter-name>
+		<url-pattern>/InfoServlet</url-pattern>
+	</filter-mapping>
+	
+	<filter-mapping>
+		<filter-name>InfoFilter2</filter-name>
+		<url-pattern>/InfoServlet</url-pattern>
+	</filter-mapping>
+==============================================================
+运行结果：
+Filter1 is before Chaindo
+Filter2 is before Chaindo
+InfoServlet is start
+Filter2 is after Chaindo
+Filter1 is after Chaindo

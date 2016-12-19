@@ -1,0 +1,33 @@
+http://www.cnblogs.com/shaoyangjiang/archive/2012/03/08/2385331.html
+--------------------------------------------------------------------
+作用：主要用来存储数据比较少的配置信息。以key-value对的方式将数据保存在一个xml配置文件中。
+====================================================================
+同个应用程序中
+SharedPreferences.Editor editor;//全局变量，用来写
+SharedPreferences perfer;//全局变量，用来读
+int mode=MODE_WORLD_READABLE+MODE_WORLD_WRITEABLE;//这个是可以在不同应用程序之间可读和可写
+
+perfer=getSharedPreferences("syj",mode);//第一个参数为创建一个文件名为syj，具体目录在data/data下，第二个参数是读写模式（这里是可以在不通应用程序之间可读可写）
+editor=perfer.edit();//创建可编辑对象
+editor.putString("name", "hello java");//写入键值对，类似MAP
+editor.commit();//提交修改
+      
+String data = perfer.getString("name", null);//读要显示的内容
+在不同的Activity下，读内容的方法
+SharedPreferences sharedata = getSharedPreferences("syj", 0);
+String data = sharedata.getString("name", null);
+
+读、写其他应用的SharedPreferences
+ Context myContext=null;//生成全局变量
+SharedPreferences perfer;
+SharedPreferences.Editor editor;
+
+myContext=createPackageContext("cn.edu.zwu.tel",Context.CONTEXT_IGNORE_SECURITY);//注意这句要进行异常处理，访问者需要知道共享者的包名称
+perfer=myContext.getSharedPreferences("lgs000", Context.MODE_WORLD_READABLE+ Context.MODE_WORLD_WRITEABLE); //第一个参数是得到那个文件，第二个参数是可以对文件可读可写
+editor=perfer.edit();//创建可编辑对象
+
+perfer.getString("name",null)//读显示内容
+
+editor.putString("name", zh);//写入内容
+editor.commit();//每次写完要注意保存
+

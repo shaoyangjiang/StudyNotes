@@ -1,0 +1,9 @@
+1.xml布局：
+android:shadowColor="#B0000000"//定义阴影的颜色
+android:shadowRadius="3.0"//阴影半径
+android:shadowDx="3.0"//定义阴影的水平方向位移
+android:shadowDy="3.0"//定义阴影的垂直方向位移
+============================
+2.代码
+mTextView = (TextView)findViewById(R.id.serif4);  
+mTextView.setShadowLayer(3, 3.0f, 3.0f, Color.BLACK); 

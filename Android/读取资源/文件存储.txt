@@ -1,0 +1,22 @@
+首先是新建一个文件
+private final String FILE_NAME = "Myfile01.txt";
+写文件
+FileOutputStream fos = null;//声明一个全局变量
+//注意下面的语句要进行抛异常处理FileNotFoundException e，IOException e
+fos = openFileOutput(FILE_NAME,Context.MODE_PRIVATE);//写流式文件过程的函数，这里的权限是私有的
+String text = entryText.getText().toString();//把输入的内容转化为字符串
+fos.write(text.getBytes());//把转化为字符串的内容转化为字节，然后写入
+//下面语句写在finally里面
+fos.flush();//把缓存里的内容写入到文件
+fos.close();//关闭流
+
+读文件
+FileInputStream fis = null;//定义一个全局变量
+fis = openFileInput(FILE_NAME);//打开要读取的文件
+if (fis.available() == 0){//判断文件是否为空，为空就直接返回
+	return;
+}
+byte[] readBytes = new byte[fis.available()];//把文件里的内容转化为字节
+while(fis.read(readBytes) != -1){//读文件，直到读到最后
+}
+String text = new String(readBytes);//把读到的字节转化为字符串

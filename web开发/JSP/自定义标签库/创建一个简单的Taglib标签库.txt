@@ -1,0 +1,59 @@
+1..创建客户化JSP标签的步骤
+a.创建标签的处理类
+b.创建标签库描述文件
+c.在jsp文件中引入标签库，然后插入标签，例如：<mm:hello/>
+==============================================
+处理类：MyTag.java
+public class MyTag extends TagSupport {
+
+	@Override
+	public int doStartTag() throws JspException {
+		try {
+			//向页面输出字符串
+			this.pageContext.getOut().println("hello world");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return EVAL_BODY_INCLUDE;
+	}
+	
+	@Override
+	public int doEndTag() throws JspException {
+		try {
+			this.pageContext.getOut().println("welcome");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return EVAL_PAGE;
+	}
+}
+========================================================
+创建标签库描述文件：
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE taglib PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.2//EN" "http://java.sun.com/dtd/web-jsptaglibrary_1_2.dtd">
+<taglib>
+
+	<tlib-version>1.0</tlib-version>
+	<jsp-version>1.1</jsp-version>
+	<short-name>myTag</short-name>
+	<uri>/myTag</uri>
+
+	<tag>
+		<name>firstTag</name>
+		<tag-class>com.tag.MyTag</tag-class>
+		<body-content>empty</body-content>
+	</tag>
+	
+
+</taglib>
+==========================================================
+在jsp文件中引入标签库
+<%@ taglib uri="/myTag" prefix="hello" %>
+
+  <body>
+    <p><hello:firstTag /></p>
+  </body>
+========================================================
+运行结果：在浏览器页面出现hello world welcome

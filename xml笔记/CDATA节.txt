@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<root>
+	<![CDATA[
+		nihao,shaoyangjiang
+		<hello>
+  ]]>
+  
+	<subRoot>
+	</subRoot>
+</root>
+====================================================
+CDATA里面可以放任何文本信息

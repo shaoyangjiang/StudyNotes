@@ -1,0 +1,32 @@
+/**
+ * 用jdom来得到xml里的信息，jdom.xml文件为上个笔记里得到的内容
+ * @author Administrator
+ *
+ */
+public class JdomTest2 {
+
+	public static void main(String[] args) throws Exception {
+		//得到一个解析器
+		SAXBuilder bulider = new SAXBuilder();
+		//得到jdom.xml文件
+		Document doc = bulider.build(new File("jdom.xml"));
+		//得到根元素
+		Element root = doc.getRootElement();
+		System.out.println(root.getName());
+		//得到book为标签的子元素
+		Element book = root.getChild("book");
+		//得到book标签里所有的属性
+		List list = book.getAttributes();
+		//遍历所有的属性
+		for(int i = 0;i <list.size(); i++){
+			Attribute attr = (Attribute)list.get(i);
+			String attrName = attr.getName();
+			String attrValue = attr.getValue();
+			System.out.println(attrName + "=" +attrValue);
+		}
+	}
+}
+=================================================================
+运行结果：
+root
+百度=www.baidu.com

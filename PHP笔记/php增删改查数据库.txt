@@ -1,0 +1,105 @@
+1.插入数据
+语法：INSERT INTO table_name VALUES (value1,value2,...)或者INSERT INTO table_name(column1,column2,...)VALUES(value1,value2,...)
+例子：
+<?php
+$con = mysql_connect("localhost","peter","abc123");
+if (!$con)
+  {
+  die('Could not connect: ' . mysql_error());
+  }
+
+mysql_select_db("my_db", $con);
+
+mysql_query("INSERT INTO Persons (FirstName, LastName, Age) 
+VALUES ('Peter', 'Griffin', '35')");
+
+mysql_query("INSERT INTO Persons (FirstName, LastName, Age) 
+VALUES ('Glenn', 'Quagmire', '33')");
+
+mysql_close($con);
+?>
+=================================================================
+2.WHERE 字句 用于选取匹配指定条件的数据
+语法：SELECT column FROM table WHERE column operator value
+例子：
+<?php
+$con = mysql_connect("localhost","peter","abc123");
+if (!$con)
+  {
+  die('Could not connect: ' . mysql_error());
+  }
+
+mysql_select_db("my_db", $con);
+
+$result = mysql_query("SELECT * FROM Persons
+WHERE FirstName='Peter'");
+
+while($row = mysql_fetch_array($result))
+  {
+  echo $row['FirstName'] . " " . $row['LastName'];
+  echo "<br />";
+  }
+
+?>
+====================================================================
+3.ORDER BY关键字用于对记录集中地数据进行排序
+语法：SELECT column_name(s) FROM table_name ORDER BY column_name
+升序或降序排序SELECT column_name(s) FROM table_name ORDER BY column_name DESE
+例子：
+<?php
+$con = mysql_connect("localhost","peter","abc123");
+if (!$con)
+  {
+  die('Could not connect: ' . mysql_error());
+  }
+
+mysql_select_db("my_db", $con);
+
+$result = mysql_query("SELECT * FROM Persons ORDER BY age");
+
+while($row = mysql_fetch_array($result))
+  {
+  echo $row['FirstName'];
+  echo " " . $row['LastName'];
+  echo " " . $row['Age'];
+  echo "<br />";
+  }
+
+mysql_close($con);
+?>
+=============================================================
+4.UPDATE 语句用于在数据库表中修改数据
+语法：UPDATE table_name SET column_name = new_value WHERE column_name = some_value
+例子：
+<?php
+$con = mysql_connect("localhost","peter","abc123");
+if (!$con)
+  {
+  die('Could not connect: ' . mysql_error());
+  }
+
+mysql_select_db("my_db", $con);
+
+mysql_query("UPDATE Persons SET Age = '36'
+WHERE FirstName = 'Peter' AND LastName = 'Griffin'");
+
+mysql_close($con);
+?>
+======================================================
+5.DELETE FROM 语句用来删除数据库里的数据
+语法：DELETE FROM table_name WHERE column_name = some_value
+例子：
+<?php
+$con = mysql_connect("localhost","peter","abc123");
+if (!$con)
+  {
+  die('Could not connect: ' . mysql_error());
+  }
+
+mysql_select_db("my_db", $con);
+
+mysql_query("DELETE FROM Persons WHERE LastName='Griffin'");
+
+mysql_close($con);
+?>
+============================================================

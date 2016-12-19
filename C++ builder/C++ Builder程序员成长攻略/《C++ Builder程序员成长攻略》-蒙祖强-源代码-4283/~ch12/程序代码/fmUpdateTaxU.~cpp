@@ -1,0 +1,170 @@
+/* 这份源代码文件已被未注册的SourceFormatX格式化过 */
+/* 如果您想不再添加此类信息，请您注册这个共享软件  */
+/* 更多相关信息请访问网站: http://cn.textrush.com  */
+
+//---------------------------------------------------------------------------
+
+#include <vcl.h>
+#pragma hdrstop
+
+#include "fmUpdateTaxU.h"
+#include "fmPPaperU.h"
+#include "dmDataU.h"
+#include "SysFuncs.h"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+#pragma resource "*.dfm"
+TfmUpdateTax *fmUpdateTax;
+//---------------------------------------------------------------------------
+__fastcall TfmUpdateTax::TfmUpdateTax(TComponent *Owner): TForm(Owner){}
+//---------------------------------------------------------------------------
+void __fastcall TfmUpdateTax::BitBtn1Click(TObject *Sender)
+{
+    int nTaxType_ID;
+    int nTaxRace_ID;
+    AnsiString sDate;
+    AnsiString sSql;
+    TADOQuery *q(dmData->qry);
+    if (EnsureDatAvalidFun() == false)
+    {
+        return ;
+    }
+    //获取契税种类ID
+    nTaxType_ID = GetID(q, "A_TaxType", "RID", "TaxType", cmbTaxType->Text);
+
+    //获取契税税率ID
+    nTaxRace_ID = GetID(q, "A_TaxRace", "RID", "TaxRace", cmbTaxRace->Text);
+
+    //获取日期
+    sDate = FormatDateTime("YYYY.MM.DD", dataStartData->Date);
+
+    if (m_bInsertFlag == true)
+    {
+        if ((EdtPrice->Text == "") || (cmbTaxType->Text == "") || (cmbTaxRace
+            ->Text == "") || (edtTax->Text == ""))
+        {
+            return ;
+        }
+        else
+        {
+            sSql = "insert into P_Contract_Tax values(";
+            sSql += "'0',"; //唯一的内部编号
+            sSql += "'" + fmPPaper->edtPaper_No->Text + "',"; //所有权证编号
+            sSql += "'" + sDate + "',"; //立契日期
+            sSql += EdtPrice->Text + ","; //契价
+            sSql += IntToStr(nTaxType_ID) + ","; //外键，契税种类
+            sSql += IntToStr(nTaxRace_ID) + ","; //外键，契税税率
+            sSql += edtTax->Text + ","; //金额
+            sSql += "'" + edtNote->Text + "')"; //备注
+            ExecuteSql(q, sSql);
+        }
+    }
+    else
+    {
+        sSql = "update P_Contract_Tax set ";
+        sSql += "StartDate='" + sDate + "',";
+        sSql += "Price=" + EdtPrice->Text + ",";
+        sSql += "K_TaxType_ID=" + IntToStr(nTaxType_ID) + ",";
+        sSql += "K_TaxRace_ID=" + IntToStr(nTaxRace_ID) + ",";
+        sSql += "Tax=" + edtTax->Text + ",";
+        sSql += "Note='" + edtNote->Text + "'";
+        ExecuteSql(q, sSql);
+    }
+
+    fmPPaper->dataStartData->DateTime = this->dataStartData->DateTime;
+    fmPPaper->EdtPrice->Text = this->EdtPrice->Text;
+    fmPPaper->cmbTaxType->Text = this->cmbTaxType->Text;
+    fmPPaper->cmbTaxRace->Text = this->cmbTaxRace->Text;
+    fmPPaper->edtTax->Text = this->edtTax->Text;
+    fmPPaper->edtNote->Text = this->edtNote->Text;
+}
+
+//---------------------------------------------------------------------------
+void __fastcall TfmUpdateTax::FormCreate(TObject *Sender)
+{
+    TADOQuery *q(dmData->qry);
+    FillCB(cmbTaxType, q, "A_TaxType", "TaxType", "");
+        //填充   契税种类   组合框
+    FillCB(cmbTaxRace, q, "A_TaxRace", "TaxRace", ""); //填充   契税税率 组合框
+
+    this->dataStartData->DateTime = fmPPaper->dataStartData->DateTime;
+    this->EdtPrice->Text = fmPPaper->EdtPrice->Text;
+    this->cmbTaxType->Text = fmPPaper->cmbTaxType->Text;
+    this->cmbTaxRace->Text = fmPPaper->cmbTaxRace->Text;
+    this->edtTax->Text = fmPPaper->edtTax->Text;
+    this->edtNote->Text = fmPPaper->edtNote->Text;
+    this->panPaperNo->Caption = "桂房证字第：" + fmPPaper->edtPaper_No->Text +
+        "号";
+
+    if ((EdtPrice->Text == "") || (cmbTaxType->Text == "") || (cmbTaxRace->Text
+        == "") || (edtTax->Text == ""))
+    {
+        m_bInsertFlag = true;
+    }
+
+
+}
+
+//---------------------------------------------------------------------------
+void __fastcall TfmUpdateTax::cmbTaxTypeKeyPress(TObject *Sender, char &Key)
+{
+    cmbTaxType->Text = "";
+    Key = 0;
+}
+
+//---------------------------------------------------------------------------
+
+void __fastcall TfmUpdateTax::cmbTaxRaceKeyPress(TObject *Sender, char &Key)
+{
+    cmbTaxRace->Text = "";
+    Key = 0;
+}
+
+//---------------------------------------------------------------------------
+bool __fastcall TfmUpdateTax::EnsureDatAvalidFun()
+{
+    if (EdtPrice->Text == "")
+    {
+        ::MessageBox(this->Handle, "契价不能为空！", "警告", MB_ICONERROR);
+        return false;
+    }
+    if (cmbTaxType->Text == "")
+    {
+        ::MessageBox(this->Handle, "契税种类不能为空！", "警告", MB_ICONERROR);
+        return false;
+    }
+    if (cmbTaxRace->Text == "")
+    {
+        ::MessageBox(this->Handle, "契税税率不能为空！", "警告", MB_ICONERROR);
+        return false;
+    }
+    if (edtTax->Text == "")
+    {
+        ::MessageBox(this->Handle, "纳税金额不能为空！", "警告", MB_ICONERROR);
+        return false;
+    }
+    try
+    {
+        float fBuf = StrToFloat(EdtPrice->Text);
+    }
+    catch (EConvertError *E)
+    {
+
+        ::MessageBox(this->Handle, "契价只能为小数或整数！", "警告",
+            MB_ICONERROR);
+        return false;
+    }
+
+    try
+    {
+        float fBuf = StrToFloat(edtTax->Text);
+    }
+    catch (EConvertError *E)
+    {
+
+        ::MessageBox(this->Handle, "纳税金额只能为小数或整数！", "警告",
+            MB_ICONERROR);
+        return false;
+    }
+
+}

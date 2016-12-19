@@ -1,0 +1,38 @@
+先把数据库复制到assets目录中，然后再把目录拷贝到databases文件夹下
+：
+public static final String DB_PATH = "/data" 
+            + Environment.getDataDirectory().getAbsolutePath() + "/" 
+            + "com.tiantian.supermarket/databases";  //在手机里存放数据库的位置
+private static String DB_NAME = "supermarket_food.db";
+
+/**
+* 该方法用来拷贝数据库到DB_PATH该目录下
+* @author com.tiantian
+*/
+private void AddQuestionsDatabase(){
+	System.out.println("AddQuestionsDatabase");
+	File pathFile = new File(DB_PATH);
+	if(!pathFile.exists()){  //判断databases目录是否存在
+		pathFile.mkdirs();
+	}
+	InputStream is = null;
+	OutputStream os = null;
+	try {
+		is = getAssets().open("color_character_questions.db");
+		os = new FileOutputStream(new File(pathFile.getAbsolutePath() + "/" + DB_NAME));
+		byte[] buffer = new byte[1024];
+		int len = 0;
+		while((len = is.read(buffer)) != -1){
+			os.write(buffer, 0, len);
+		}	
+	} catch (IOException e) {
+		e.printStackTrace();
+	}finally{
+		try {
+			is.close();
+			os.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+}

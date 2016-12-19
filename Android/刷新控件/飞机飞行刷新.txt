@@ -1,0 +1,60 @@
+项目地址：
+https://github.com/race604/FlyRefresh
+
+在build.gradle中添加
+    compile 'com.race604.flyrefresh:library:2.0.0'
+    compile 'com.android.support:recyclerview-v7:23.0.1'
+    compile 'jp.wasabeef:recyclerview-animators:1.2.0@aar'
+=============================
+layout中添加
+<com.race604.flyrefresh.FlyRefreshLayout
+  android:id="@+id/fly_layout"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent">
+
+    <android.support.v7.widget.RecyclerView
+      android:id="@+id/list"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:paddingTop="24dp"
+      android:background="#FFFFFF"/>
+</com.race604.flyrefresh.FlyRefreshLayout>
+=======================
+
+然后在activity中继承implements FlyRefreshLayout.OnPullRefreshListener方法
+
+重写方法
+    @Override
+    public void onRefresh(FlyRefreshLayout view) {
+
+        mHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mFlylayout.onRefreshFinish();
+            }
+        }, 2000);
+    }
+
+    @Override
+    public void onRefreshAnimationEnd(FlyRefreshLayout flyRefreshLayout) {
+
+    }
+==============================================
+申明变量
+    private Handler mHandler = new Handler();
+    private FlyRefreshLayout mFlylayout;
+======================================
+在主activity中写入
+        mFlylayout = (FlyRefreshLayout) findViewById(R.id.fly_layout);
+        mFlylayout.setOnPullRefreshListener(this);
+        //对actionbutton进行监听
+        View actionButton = mFlylayout.getHeaderActionButton();
+        if (actionButton != null) {
+            actionButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mFlylayout.startRefresh();
+                }
+            });
+        }
+=================================

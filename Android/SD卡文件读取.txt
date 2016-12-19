@@ -1,0 +1,46 @@
+写入文件到sd卡
+//如果手机插入了SD卡，而且应用程序具有访问SD的权限
+if (Environment.getExternalStorageState()
+	.equals(Environment.MEDIA_MOUNTED))
+{
+	//获取SD卡的目录
+	File sdCardDir = Environment.getExternalStorageDirectory();
+	File targetFile = new File(sdCardDir.getCanonicalPath()+ FILE_NAME);
+	//以指定文件创建	
+        RandomAccessFile对象,第一个参数是文件名称，第二个参数是读写模式
+	RandomAccessFile raf = new RandomAccessFile(targetFile , "rw");
+	//将文件记录指针移动到最后
+	raf.seek(targetFile.length());
+	// 输出文件内容
+	raf.write(content.getBytes());
+	raf.close();
+}
+
+读取sd卡的文件
+//如果手机插入了SD卡，而且应用程序具有访问SD的权限
+if (Environment.getExternalStorageState()
+	.equals(Environment.MEDIA_MOUNTED))
+	{
+	//获取SD卡对应的存储目录
+	File sdCardDir = Environment.getExternalStorageDirectory();
+	//获取指定文件对应的输入流
+	FileInputStream fis = new FileInputStream(sdCardDir.getCanonicalPath()	+ FILE_NAME);
+	//将指定输入流包装成BufferedReader
+	BufferedReader br = new BufferedReader(new InputStreamReader(fis));
+	StringBuilder sb = new StringBuilder("");
+	String line = null;
+//一直读，直到读到最后跳出
+	while((line = br.readLine()) != null)
+		{	
+//一直追加读出的内容
+		    sb.append(line);
+		}
+//返回读出的内容，并把它转化为字符串
+	            return sb.toString();
+		}
+
+注意，还要加权限
+<!-- 在SD卡中创建与删除文件权限 -->
+<uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
+<!-- 向SD卡写入数据权限 -->
+<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>

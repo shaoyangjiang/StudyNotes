@@ -1,0 +1,125 @@
+运行结果：把服务器发送给客户端的xml用表单动态的显示出来。
+1.person类：
+public class Person {
+	private int id;
+	
+	private String name;
+	
+	private int age;
+	
+	private String address;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public int getAge() {
+		return age;
+	}
+
+	public void setAge(int age) {
+		this.age = age;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+}
+==============================================
+服务器端代码：XMLServlet.java
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		String name = req.getParameter("name");//得到用户选择的名字
+		Person person = new Person();
+		if("zhangsan".equals(name)){
+			person.setId(1);
+			person.setName("zhangsan");
+			person.setAddress("beijing");
+			person.setAge(30);
+		}
+		else{
+			person.setId(2);
+			person.setName("lisi");
+			person.setAddress("shanghai");
+			person.setAge(20);
+		}
+		
+		Document document = DocumentHelper.createDocument();//创建文档
+		Element rootElement = document.addElement("users");//加入根元素
+		rootElement.addComment("This is a comment!");//添加注释
+		Element userElement = rootElement.addElement("user");//为根元素添加节点
+		
+		Element idElement = userElement.addElement("id");//为用户元素加入子节点
+		Element nameElement = userElement.addElement("name");
+		Element ageElement = userElement.addElement("age");
+		Element addressElement = userElement.addElement("address");
+		
+		idElement.setText(person.getId() + "");//为子节点加入内容
+		nameElement.setText(person.getName());
+		ageElement.setText(person.getAge() + "");
+		addressElement.setText(person.getAddress());
+		
+		resp.setContentType("text/xml; charset=utf-8");//这行代码很重要
+		resp.setHeader("pragma", "no-cache");//清楚浏览器缓存
+		resp.setHeader("cache-control", "no-cache");
+		
+		PrintWriter out = resp.getWriter();
+		
+		OutputFormat format = OutputFormat.createPrettyPrint();
+		format.setEncoding("utf-8");
+		
+		XMLWriter xmlWriter = new XMLWriter(out, format);	
+		xmlWriter.write(document);//写文档
+		
+		out.flush();
+	}
+======================================================
+客户端：
+  <body id="theBody">
+    <select id="name">
+    	<option value="zhangsan">zhangsan</option>
+    	<option value="lisi">lisi</option>
+    </select> 
+    <input type="button" id="button1" value="get content from server">
+  </body>
+-------------------------------
+	<script type="text/javascript">
+		$(function(){
+			$("#button1").click(function(){
+				$.ajax({
+					type: "POST",
+					url: "XMLServlet",//要响应的目标源文件
+					dateType: "xml",
+					data: {name: $("#name").val()},
+					success: function(returnedData){//接受服务器端发送的信息
+						var id = $(returnedData).find("id").text();
+						var name = $(returnedData).find("name").text();
+						var age = $(returnedData).find("age").text();
+						var address = $(returnedData).find("address").text();
+						var html = "<table width='60%' border='1' align='center'><tr><th>id</th><th>name</th><th>age</th><th>address</th><tr align='center'><td>" + id + "</td><td>" + name + "</td><td>" + age + "</td><td>" + address + "</td></tr></table>";
+					
+						$("#theBody table:eq(0)").remove();
+						$("#theBody").append(html);			
+					}
+				});
+			});
+		})
+	</script>
+===========================================================
+运行结果：客户端选择一个名字，会动态的创建表格，显示这个人的信息。

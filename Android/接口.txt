@@ -1,0 +1,23 @@
+首先写一个接口
+public interface ChangeLinkListener {
+
+    public void onLinkChange(String link);
+
+}
+然后在MainActivity中实现这个接口的方法
+  /*
+    当点击了RecyclerView里的item时候，把这个link（url）发送给webview
+     */
+    @Override
+    public void onLinkChange(String link) {
+        Intent i = new Intent(this, WebViewActivity.class);
+        i.putExtra("link", link);
+        startActivity(i);
+        break;
+              
+        }
+接着在MainActivity中写入代码即可
+MainActivity.this.onLinkChange(UrlDate.question);
+=============================================================
+如果在FrgmentActivity中
+( (ChangeLinkListener)  getActivity()).onLinkChange(UrlDate.question);

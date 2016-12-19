@@ -1,0 +1,42 @@
+多态之晚绑定 late binding
+public class Test {
+	public static void main(String[] args) {
+		A a = null;//生成一个A的引用
+		if (args[0].equals("1")) {
+			a = new B();//父类引用指向子类对象
+		} else if (args[0].equals("2")) {
+			a = new C();
+		} else if (args[0].equals("3")) {
+			a = new D();
+		}
+		a.method();
+	}
+}
+
+class A {
+	public void method() {
+		System.out.println("A");
+	}
+}
+
+class B extends A {
+	public void method() {
+		System.out.println("B");
+	}
+}
+
+class C extends A {
+	public void method() {
+		System.out.println("C");
+	}
+}
+
+class D extends A {
+	public void method() {
+		System.out.println("D");
+	}
+}
+运行结果--------------------------
+当输入参数1是打印出B
+当输入参数2是打印出C
+当输入参数3是打印出D

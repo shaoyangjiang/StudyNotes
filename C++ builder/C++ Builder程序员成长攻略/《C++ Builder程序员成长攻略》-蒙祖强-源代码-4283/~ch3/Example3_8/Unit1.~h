@@ -1,0 +1,132 @@
+//---------------------------------------------------------------------------
+
+#ifndef Unit1H
+#define Unit1H
+//---------------------------------------------------------------------------
+#include <Classes.hpp>
+#include <Controls.hpp>
+#include <StdCtrls.hpp>
+#include <Forms.hpp>
+#include <ExtCtrls.hpp>
+#include <ImgList.hpp>
+#include <Menus.hpp>
+#include <ComCtrls.hpp>
+#include <ToolWin.hpp>
+//---------------------------------------------------------------------------
+class TForm1 : public TForm
+{
+__published:	// IDE-managed Components
+        TTimer *Timer1;
+        TPanel *P17;
+        TPanel *Panel3;
+        TPanel *P18;
+        TPanel *Panel21;
+        TPanel *Panel22;
+        TPanel *Panel23;
+        TPanel *P21;
+        TPanel *Panel29;
+        TPanel *P23;
+        TPanel *Panel31;
+        TPanel *P15;
+        TPanel *Panel33;
+        TPanel *Panel34;
+        TPanel *Panel35;
+        TPanel *P22;
+        TPanel *Panel37;
+        TPanel *Panel38;
+        TPanel *Panel39;
+        TPanel *P19;
+        TPanel *Panel8;
+        TPanel *P20;
+        TPanel *Panel14;
+        TPanel *Panel15;
+        TPanel *Panel16;
+        TPanel *P24;
+        TPanel *Panel4;
+        TPanel *P25;
+        TPanel *Panel6;
+        TPanel *Panel9;
+        TPanel *Panel10;
+        TPanel *P28;
+        TPanel *Panel12;
+        TPanel *P30;
+        TPanel *Panel18;
+        TPanel *P29;
+        TPanel *Panel24;
+        TPanel *Panel25;
+        TPanel *Panel26;
+        TPanel *P26;
+        TPanel *Panel40;
+        TPanel *P27;
+        TPanel *Panel42;
+        TPanel *Panel43;
+        TPanel *Panel44;
+        TPanel *P16;
+        TPanel *Panel70;
+        TPanel *Panel71;
+        TPanel *Panel72;
+        TPanel *Panel731;
+        TPanel *Panel74;
+        TPanel *Panel75;
+        TPanel *Panel76;
+        TPanel *P1;
+        TPanel *Panel78;
+        TPanel *P2;
+        TPanel *Panel80;
+        TPanel *Panel81;
+        TPanel *Panel82;
+        TPanel *P5;
+        TPanel *Panel84;
+        TPanel *P7;
+        TPanel *Panel86;
+        TPanel *P6;
+        TPanel *Panel88;
+        TPanel *Panel89;
+        TPanel *Panel90;
+        TPanel *P3;
+        TPanel *Panel92;
+        TPanel *P4;
+        TPanel *Panel94;
+        TPanel *Panel95;
+        TPanel *Panel96;
+        TPanel *P8;
+        TPanel *Panel98;
+        TPanel *P9;
+        TPanel *Panel100;
+        TPanel *Panel101;
+        TPanel *Panel102;
+        TPanel *P12;
+        TPanel *Panel104;
+        TPanel *P14;
+        TPanel *Panel106;
+        TPanel *P13;
+        TPanel *Panel108;
+        TPanel *Panel109;
+        TPanel *Panel110;
+        TPanel *P10;
+        TPanel *Panel112;
+        TPanel *P11;
+        TPanel *Panel114;
+        TPanel *Panel115;
+        TPanel *Panel116;
+        void __fastcall Panel1Click(TObject *Sender);
+        void __fastcall Timer1Timer(TObject *Sender);
+        void __fastcall FormCreate(TObject *Sender);
+        void __fastcall Button1Click(TObject *Sender);
+private:	// User declarations
+public:		// User declarations
+        __fastcall TForm1(TComponent* Owner);
+        void showA(int n);
+        void showB(int n);
+        void showC(int n);
+        void showD(int n);
+        int minutes(int m1,int m2);
+        int hours(int h1,int h2);
+        void showMinutes(int m);
+        void showHours(int h);
+};
+
+//---------------------------------------------------------------------------
+extern PACKAGE TForm1 *Form1;
+//---------------------------------------------------------------------------
+#endif

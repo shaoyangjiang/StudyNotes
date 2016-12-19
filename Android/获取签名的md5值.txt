@@ -1,0 +1,10 @@
+打开cmd
+然后：keytool -list -v -keystore  D:\foest286.keystore
+输入密码
+然后就可以看到了
+
+
+
+keytool -printcert -file META-INF/CERT.RSA
+查看应用签名的apk  md值
+http://blog.csdn.net/wed110/article/details/38303637

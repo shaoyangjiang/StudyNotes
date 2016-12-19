@@ -1,0 +1,42 @@
+23.equals()方法，该方法定义在Object类当中，因此java中的每个类都具有该方法，对于Object类的equals()方法来说，它是判断调用equals()方法的引用与传进来的引用是否一致，即这两个引用是否指向的是同一个对象。对于Object类的equals()方法来说，它等价于==。
+24.对于String类的equals()方法来说，它判断当前字符串与传进来的字符串的内容是否一致。
+25.对于String对象的相等性判断来说，请使用equals()方法，而不要使用==
+
+演示一个例子
+public class Test {
+	public static void main(String[] args) {
+		Student s1 = new Student("shaoyangjiang");
+		Student s2 = new Student("shaoyangjiang");	
+		System.out.println(s1 == s2);
+		System.out.println(s1.equals(s2));
+	}
+}
+
+class Student {
+	String name;
+	
+	public Student(String name){
+		this.name = name;
+	}
+	/**
+	 * 重写了Object类的equals()方法，这里写的方法模仿了String类重写Object类的equals()方法
+	 */
+	public boolean equals(Object anObject) {
+		if(this == anObject) {//如果当前对象自己比较，直接返回true
+			return true;
+		}
+		
+		if(anObject instanceof Student) {//判断anObject对象是否是Student的实例，返回一个boolean类型
+			Student student = (Student)anObject;//向下类型转化
+			if(student.name.equals(this.name)){
+				return true;
+			}
+		}
+		
+		return false;
+	}
+}
+
+运行结果-------------------------
+false
+true

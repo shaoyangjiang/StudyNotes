@@ -1,0 +1,18 @@
+animationSet.setAnimationListener(new AnimationListener() {
+				
+@Override
+	public void onAnimationStart(Animation animation) {
+		System.out.println("Start");
+	}
+				
+@Override
+	public void onAnimationRepeat(Animation animation) {
+		System.out.println("Repeat");
+	}
+				
+@Override
+	public void onAnimationEnd(Animation animation) {
+		System.out.println("End");
+		viewGroup.removeView(imageView);
+	}
+});

@@ -1,0 +1,9 @@
+ÏîÄ¿µØÖ·£ºhttps://github.com/linger1216/labelview
+dependencies {
+    compile 'com.lid.labelview:lib:0.1.1'
+}
+===============================
+LabelView label = new LabelView(this);
+label.setText("POP");
+label.setBackgroundColor(0xff03a9f4);
+label.setTargetView(findViewById(R.id.text), 10, LabelView.Gravity.LEFT_TOP);

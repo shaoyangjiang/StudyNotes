@@ -1,0 +1,54 @@
+使用test数据库：
+use test;
+--------------------------------------------------------------------------
+创建名为mysqltest数据库，编码为utf8：
+create database `mysqldbtest` default charset utf8
+--------------------------------------------------------------------------
+删除mysqltest数据库：
+drop database `mysqldbtest`;
+删除表，如果存在该表
+DROP TABLE IF EXISTS `classes`;
+--------------------------------------------------------------------------
+创建表student：
+CREATE TABLE `student` (
+
+	stu_num INT AUTO_INCREMENT PRIMARY KEY,
+
+	stu_name VARCHAR(10),
+
+	stu_age INT,
+
+	stu_birth DATE
+
+);
+
+查看创建表student的sql语句：
+SHOW CREATE TABLE `student`;
+--------------------------------------------------------------------------
+
+模糊查询：
+SELECT * FROM `student` WHERE stu_name LIKE '%王%';
+--------------------------------------------------------------------------
+添加一条数据：
+insert into student(stu_name, stu_age, stu_birth) values('wangjie', 17, '1990-09-15 00:00:00');
+或：
+insert into student values(null, 'wangjie', 17, '1990-09-15 00:00:00');
+
+添加多条数据：
+INSERT INTO `student` VALUES
+
+(NULL, 'zhangsan', 23, 'F', '1990-01-20', ''),
+
+……
+(NULL, 'zhaoliu', 20, 'F', '1993-06-05', '');
+--------------------------------------------------------------------------
+删除person表：
+DROP TABLE `person`;
+--------------------------------------------------------------------------
+更新数据：
+UPDATE user SET username = #username#, password = #password#, age = #age# WHERE id = #id#;
+--------------------------------------------------------------------------
+分页查询：
+LIMIT后面的参数一：从第几条开始查询；参数二：查询多少条：
+SELECT * FROM user LIMIT 5, 5;
+

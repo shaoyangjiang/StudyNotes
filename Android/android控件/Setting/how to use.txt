@@ -1,0 +1,73 @@
+项目地址：https://github.com/kenumir/MaterialSettings
+------------------------
+首先：
+repositories {
+    maven {
+        url "https://jitpack.io"
+    }
+}
+------------------
+dependencies {
+    compile 'com.github.kenumir:MaterialSettings:v.1.2.2'
+}
+-------------------------------
+其次：在style.xml中加入
+<style name="MaterialSettings.Red" parent="MaterialSettingsTheme">
+<item name="msColorPrimary">@color/redPrimary</item>
+    <item name="msColorPrimaryDark">@color/redPrimaryDark</item>
+    <item name="msColorAccent">@color/redAccent</item>
+    <item name="msColorHeader">@color/redAccent</item>
+</style>
+--------------------------------------
+然后，在AndroidManifest.xml中添加样式
+<activity android:name=".SettingActivity"
+     android:theme="@style/MaterialSettingsTheme" ></activity>
+---------------------------------
+在SettingActivity中添加
+  //小标题
+        addItem(new HeaderItem(this).setTitle("Sample title 1"));
+        //选择框
+        addItem(new CheckboxItem(this, "key1").setTitle("Checkbox item 1").setSubtitle("Subtitle text 1").setOnCheckedChangeListener(new CheckboxItem.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChange(CheckboxItem cbi, boolean isChecked) {
+                //do something
+		Toast.makeText(Main2Activity.this, "CHECKED: " + isChecked, Toast.LENGTH_SHORT).show();
+            }
+        }));
+        //分割线
+        addItem(new DividerItem(this));
+        //没有子标题的switcher
+        addItem(new SwitcherItem(this, "key1a").setTitle("Switcher item 3 - no subtitle").setOnCheckedChangeListener(new SwitcherItem.OnCheckedChangeListener() {
+
+            @Override
+            public void onCheckedChange(CheckboxItem checkboxItem, boolean isChecked) {
+                //do something
+		Toast.makeText(Main2Activity.this, "CHECKED: " + isChecked, Toast.LENGTH_SHORT).show();
+            }
+        }));
+
+        addItem(new DividerItem(this));
+        //有子标题的switcher
+        addItem(new SwitcherItem(this, "key1b").setTitle("Switcher item 3").setSubtitle("With subtitle"));
+        addItem(new DividerItem(this));
+        addItem(new CheckboxItem(this, "key2").setTitle("Checkbox item 2").setSubtitle("Subtitle text 2 with long text and more txt and more and more ;-)").setDefaultValue(true));
+        addItem(new DividerItem(this));
+        addItem(new CheckboxItem(this, "key1c").setTitle("Checkbox item 3 - no subtitle"));
+        addItem(new DividerItem(this));
+        addItem(new TextItem(this, "key3").setTitle("Simple text item 1").setSubtitle("Subtitle of simple text item 1").setOnclick(new TextItem.OnClickListener() {
+            @Override
+            public void onClick(TextItem v) {
+                Toast.makeText(Main2Activity.this, "Clicked", Toast.LENGTH_SHORT).show();
+            }
+        }));
+		addItem(new HeaderItem(this).setTitle("Sample title 2"));
+		addItem(new TextItem(this, "key4").setTitle("Simple text item 2").setSubtitle("Subtitle of simple text item 2").setOnclick(new TextItem.OnClickListener() {
+			@Override
+			public void onClick(TextItem v) {
+				Toast.makeText(Main2Activity.this, "Clicked 2", Toast.LENGTH_SHORT).show();
+			}
+		}));
+		addItem(new DividerItem(this));
+		addItem(new TextItem(this, "key5").setTitle("Simple text item 3 - no subtitle"));
+		addItem(new DividerItem(this));
+-------------------------------------------------------

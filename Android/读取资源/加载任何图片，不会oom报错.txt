@@ -1,0 +1,3 @@
+http://square.github.io/picasso/#download
+
+picasso开源库，超级好用

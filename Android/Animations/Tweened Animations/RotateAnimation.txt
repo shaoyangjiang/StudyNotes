@@ -1,0 +1,9 @@
+*RotateAnimation(旋转)
+AnimationSet animationSet = new AnimationSet(true);
+	//参数1：从哪个角度开始旋转；参数2：旋转到哪个角度；
+	//参数3：设置x坐标类型；参数4：设置x坐标值；
+	//参数5：设置y坐标类型；参数6：设置y坐标值；
+	RotateAnimation rotateAnimation = new RotateAnimation(0,360, Animation.RELATIVE_TO_PARENT , 0.5f, Animation.RELATIVE_TO_PARENT , 1f);
+	rotateAnimation.setDuration(1000);
+	animationSet.addAnimation(rotateAnimation);
+	imageView.startAnimation(rotateAnimation);

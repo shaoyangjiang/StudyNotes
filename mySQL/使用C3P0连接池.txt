@@ -1,0 +1,13 @@
+1. 添加c3p0jar包（E:\Program Files\soft\yunio\yunio_syn\Yunio\笔记\杂\Java4android\Hibernate&ognl\35.Hibernate数据库线程池\c3p0-0.9.1.2.jar）
+2. C3p0DbHelper
+3. 使用：
+Connection con = C3p0DbHelper.getConnection();
+Statement statement = con.createStatement();
+ResultSet resultSet = statement.executeQuery("select * from person");
+……
+con.close();
+statement.close();
+resultSet.close();
+
+
+

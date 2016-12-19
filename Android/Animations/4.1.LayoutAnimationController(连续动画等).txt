@@ -1,0 +1,38 @@
+LayoutAnimationController用于为一个layout里面的控件，或一个ViewGroup里面的控件的动画效果
+每一个控件有相同的动画效果，但是每个显示的时间可以不同
+LayoutAnimationController可以在xml中设置，也可以在代码中设置
+
+步骤(以列表list连续显示为例，用xml的方法)：
+1.在res中新建anim文件夹，在anim文件夹中新建list_anim.xml文件(即设置每个的动画效果)
+list_anim.xml：
+<set xmlns:android="http://schemas.android.com/apk/res/android"
+	android:interpolator="@android:anim/accelerate_interpolator"
+	android:shareInterpolator="true">
+	<alpha
+	    android:fromAlpha="0.0"
+	    android:toAlpha="1.0"
+	    android:duration="2000"/>
+</set>
+
+2.在anima文件夹中新建list_anim_layout.xml文件(即设置每个显示的间隔、显示顺序[间隔时间，单位是秒！！！])
+list_anim_layout.xml：
+<?xml version="1.0" encoding="utf-8"?>
+<layoutAnimation xmlns:android="http://schemas.android.com/apk/res/android"
+    android:delay="0.5"
+    android:animationOrder="random"
+    android:animation="@anim/list_anim"/>
+[顺序：random、normal]
+
+3.在main.xml中的listView中加入这行代码来引用：
+android:layoutAnimation="@anim/list_anim_layout"
+
+4.在Avtivity中编写代码
+
+
+直接在代码中设置LayoutAnimationController：
+删除main.xml中的listView中的android:layoutAnimation="@anim/list_anim_layout"
+然后在代码中写入：
+	Animation animation = AnimationUtils.loadAnimation(LayoutAnimationControllerActivity.this, R.anim.list_anim);
+	LayoutAnimationController lac = new LayoutAnimationController(animation);
+	lac.setOrder(LayoutAnimationController.ORDER_NORMAL);
+	listView.setLayoutAnimation(lac);

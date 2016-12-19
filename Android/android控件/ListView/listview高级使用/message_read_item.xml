@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:descendantFocusability="blocksDescendants"
+    android:background="@drawable/message_read_item_bg">
+    <RelativeLayout 
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        >
+        <ImageButton 
+	        android:id="@+id/message_more"
+	        android:layout_alignParentRight="true"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_marginRight="10dp"
+	        android:src="@drawable/next"/>
+                
+        <TextView 
+            android:id="@+id/message_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="123456"/>
+        <TextView 
+            android:id="@+id/message_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@id/message_more"
+            android:textColor="#ff0000"
+            android:text="上午9:20"/>
+        <TextView 
+            android:id="@+id/message_body"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_below="@id/message_number"
+            android:text="诺诺镑客的精英们，大家早上好。"/>
+    </RelativeLayout>
+    
+</RelativeLayout>

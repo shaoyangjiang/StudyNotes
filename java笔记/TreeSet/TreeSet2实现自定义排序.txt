@@ -1,0 +1,50 @@
+/**
+ * 主要现实了treeSet里添加对象的自定义排序。
+ * 主要步骤：1.new出一个带排序功能的TreeSet，然后自定义比较（Comparator）方法，
+ * 然后用Iterate把treeset里面的元素打印出来
+ * @author Administrator
+ *
+ */
+
+public class TreeSet2 {
+
+	public static void main(String[] args) {
+		//new出一个带有排序的treeset
+		TreeSet treeSet = new TreeSet(new myComparator());
+		//往treeset添加对象
+		treeSet.add("A");
+		treeSet.add("E");
+		treeSet.add("C");
+		treeSet.add("D");
+		treeSet.add("B");
+		//打印出来，TreeSet里面存放的Object类型转化为字符串
+		for(Iterator iter = treeSet.iterator();iter.hasNext();){
+			String str = (String)iter.next();
+			System.out.println(str);
+		}
+	}
+		
+}
+
+/*
+ * 自定义一个Comparator接口的实例，实现它的compart(T o1，T o2)方法。
+ */
+ class myComparator implements Comparator{
+
+	@Override
+	public int compare(Object o1, Object o2) {
+		String s1 = (String)o1;
+		String s2 = (String)o2;
+		//返回两个字符串的比较。
+		return s2.compareTo(s1);
+	}
+	
+}
+
+//////////////////////////////////////////////////////////////////////////
+打印结果：
+E
+D
+C
+B
+A

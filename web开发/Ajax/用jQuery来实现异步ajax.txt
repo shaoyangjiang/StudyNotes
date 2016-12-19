@@ -1,0 +1,36 @@
+实验目的:使servelt里发送的内容显示在text中
+第一步：导入jquery.js文件
+<script type="text/javascript" src="javascripts/jquery-1.4.4.js"></script>
+--------------------------
+Servlet端代码：MyServelt.java
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		resp.setHeader("pragma","no-cache");//这两句代码设置浏览器不缓存。
+		resp.setHeader("cache-control","no-cache");
+		PrintWriter out = resp.getWriter();
+		out.println("Hello World");
+		out.flush();
+	}
+=================================
+jsp端代码：
+	<script type="text/javascript">
+		$(function(){
+			$("#click").click(function(){
+				$.ajax({
+					type:"POST",
+					url:"MyServlet",
+					dataType:"html",
+					success:function(returnedDate){
+						$("#text1").val(returnedDate);
+					}
+				})
+			})
+		})
+	</script>
+-------------------------
+  <body>
+    <input type="text" id="text1">
+    <input type="button" id="click" value="click me">
+  </body>
+============================================
+运行结果：当点击按钮时，页面text里出现hello world

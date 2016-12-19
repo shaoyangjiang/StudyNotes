@@ -1,0 +1,8 @@
+资源目录：
+res/anim/：存放逐帧动画或过门动画对象
+res/drawable/：存放图片资源，图片资源会在编译时修改优化
+res/layout/：布局.xml文件
+res/values/：描述资源.xml文件(Style.xml)
+res/xml/：其他的.xml文件
+res/raw/：其他资源(如果存放图片，则图片不会再编译时修改优化)
+res/menu/：菜单文件

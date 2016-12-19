@@ -1,0 +1,120 @@
+要求：用户名，密码不能为空，性别必须选择，兴趣爱好至少选择一个最多选择3个，说明不能为空
+======================================================================
+JSP端：userLogin.jsp代码：
+-----------------------------
+ <form onsubmit="return validate();">
+     用户名：<input type="text" name="username"><br>
+    密 码：<input type="password" name="password"><br>
+     性别：男<input type="radio" name="gender" value="男">&nbsp;&nbsp;女<input type="radio" name="gender" value="女"><br>
+    兴趣：足球<input type="checkbox" name="interest" value="足球">&nbsp;&nbsp;
+    	篮球<input type="checkbox" name="interest" value="篮球">&nbsp;&nbsp;
+    	排球<input type="checkbox" name="interest" value="排球">&nbsp;&nbsp;
+    	羽毛球<input type="checkbox" name="interest" value="羽毛球">&nbsp;&nbsp;<br>
+    地址：<select value="address">
+			<option value="上海">上海</option>
+			<option value="北京">北京</option>
+			<option value="天津">天津</option>    
+	    </select><br>
+说明：<textarea rows="15" cols="15" name="comment"></textarea><br>
+<input type="submit" value="提交">&nbsp;&nbsp;&nbsp;<input type="reset" value="清空">
+</form>
+=========================================================================
+Servlet端代码：processServlet.java
+----------------------------------
+public class ProcessServlet extends HttpServlet {
+
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		this.process(req,resp);
+	}
+	
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		this.process(req,resp);
+	}
+	
+	protected void process(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {	
+		String username = req.getParameter("username");//得到表单填入的参数
+		String password = req.getParameter("password");
+		String gender = req.getParameter("gender");
+		String[] interest = req.getParameterValues("interest");
+		String address = req.getParameter("address");
+		String comment = req.getParameter("comment");
+		
+		List<String> list = new ArrayList<String>();
+		if(null == username || "".equals(username)){
+			list.add("用户名不能为空！");
+		}else if(username.length() < 4){
+			list.add("用户名过短！");
+		}else if(username.length() > 10){
+			list.add("用户名过长！");
+		}
+		
+		if(null == password || "".equals(password)){
+			list.add("密码不能为空！");
+		}else if(password.length() <4){
+			list.add("密码过短！");
+		}else if(password.length() >10){
+			list.add("密码过长！");
+		}
+		
+		if(null == gender){
+			list.add("性别不能为空！");
+		}
+		
+		if(null == interest){
+			list.add("至少选择一个兴趣！");
+		}else if(interest.length >3){
+			list.add("最多只能选择四个兴趣！");
+		}
+		
+		if(null == comment || "".equals(comment)){
+			list.add("请填写说明！");
+		}
+			
+		if(list.isEmpty()){
+			req.setAttribute("username",username);//传入属性
+			req.setAttribute("password",password);
+			req.setAttribute("gender",gender);
+			req.setAttribute("interest",interest);
+			req.setAttribute("address",address);
+			req.setAttribute("comment",comment);	
+			RequestDispatcher rd = req.getRequestDispatcher("loginSucess.jsp");//跳转页面
+			rd.forward(req,resp);
+		}
+		
+		if(list.size()>0){
+			req.setAttribute("error",list);
+			RequestDispatcher rd = req.getRequestDispatcher("loginFail.jsp");//跳转页面
+			rd.forward(req,resp);
+		}
+	}
+}
+=================================================================
+loginSucess.jsp代码：用来输出用户填入的正确信息
+  <body>
+    用户名：<%= request.getAttribute("username")%><br>
+    密码：<%= request.getAttribute("password")%><br>
+    性别：<%= request.getAttribute("gender")%><br>
+    地址：<%= request.getAttribute("address")%><br>
+    兴趣：<% String[] interest = (String[])request.getAttribute("interest");
+    	for(String str : interest){
+    	%>
+    	<%= str%>&nbsp;&nbsp;&nbsp;
+    	<%
+    	}
+        %>
+  说明:<%= request.getAttribute("comment") %>  
+  </body>
+=================================================
+loginFail.jsp代码：用来输出用户填入的错误信息
+  <body>
+    <%List<String> list = (List<String>)request.getAttribute("error"); %>
+    <%for(String str : list) { 
+    %>
+    	<%= str %><br>
+    <% }%>
+  </body>

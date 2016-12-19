@@ -1,0 +1,80 @@
+6.JavaScript语法：
+with语句：(对象操作语句)
+功能：为一段程序建立默认对象。
+格式：with(<对象>){
+	<语句组>
+	}
+例子：
+    	with(document){
+    		write("hello");
+    		write("world");
+    	}
+-----------------------------------------------------------------
+for...in语句：重复执行指定对象的所有属性
+格式：for(变量 in 对象){
+	<语句组>
+	}
+例子：
+    <script type="text/javascript">
+
+	function member(name,gender){
+		this.name = name;
+		this.gender = gender;
+	}
+	
+	function showProperty(obj,objString){
+		var str = "";
+		for(var i in obj){
+			str += objString + "." + i + "=" + obj[i]+"<br>";
+		}
+		return str;
+	}
+	
+	var obj = new member("shaoyangjiang","male");
+	document.writeln(showProperty(obj,"Person"));
+    </script>
+运行结果：
+Person.name=shaoyangjiang
+Person.gender=male
+
+--------------------------------------------------------------
+数组对象：
+建立数组对象：
+格式1：数组对象名称= new Array([元素个数])
+格式2：数组对象名称= new Array([[元素1]，[元素2]])
+格式3：数组对象名称=[元素1，元素2]//推荐使用
+--------------------------------------------------------------
+数组对象的方法：
+格式：数组对象名称.方法([参数])
+join([分隔符])数组元素组合为字符串
+toString()以字符串表示数组
+reverse()数组反转
+valueOf()返回数组值
+------------------------------------------------------------
+字符串对象：
+建立字符串对象：
+格式：字符串对象名称 = new String(字符串常量)
+格式：字符串变量名称 = "字符串常量"
+-------------------------------------------------------------
+自定义对象方法：
+    <script type="text/javascript">
+		function member(name,gender){
+			this.name = name;
+			this.gender = gender;
+			this.display = display;
+		}
+		
+		function display(){
+			str = this.name + ":" + this.gender;
+			document.writeln(str+"<br>");
+		}
+		
+		var m1 = new member("shaoyangjiang","male");
+		var m2 = new member("huangjie","female");
+		
+		m1.display();
+		m2.display();
+    </script>
+运行结果：shaoyangjiang:male
+	 huangjie:female
+------------------------------------------------------------

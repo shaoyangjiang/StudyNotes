@@ -1,0 +1,59 @@
+#include <vcl.h>
+#pragma hdrstop
+
+#include "Unit1.h"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+#pragma resource "*.dfm"
+TForm1 *Form1;                              
+struct stuType
+{
+      char *name;
+      float score;
+};
+stuType student[3];
+
+//---------------------------------------------------------------------------
+__fastcall TForm1::TForm1(TComponent* Owner)
+        : TForm(Owner)
+{
+
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::FormCreate(TObject *Sender)
+{
+    student[0].name = "张无忌";
+    student[0].score = 98.8;
+    student[1].name = "张翠山";
+    student[1].score = 90.0;
+    student[2].name = "周芷若";
+    student[2].score = 79.8;
+}
+//---------------------------------------------------------------------------
+void __fastcall TForm1::Button1Click(TObject *Sender)
+{
+    float score;
+    int grade;
+    if(Edit1->Text==student[0].name) score = student[0].score;
+    else if(Edit1->Text==student[1].name) score = student[1].score;
+    else if(Edit1->Text==student[2].name) score = student[2].score;
+    else {Label3->Caption = "没有这个学生！"; return;}
+    grade = score/10;
+    switch(grade)
+    {
+        case 0:
+        case 1:
+        case 2:
+        case 3:
+        case 4:
+        case 5: Label3->Caption = "不及格！"; break;
+        case 6: Label3->Caption = "及格！";   break;
+        case 7: Label3->Caption = "中等！";   break;
+        case 8: Label3->Caption = "良好！";   break;
+        case 9: Label3->Caption = "优秀！";   break;
+        case 10: Label3->Caption = "优秀！";  break;
+        default: Label3->Caption = "成绩有误！";   
+    }
+}
+//---------------------------------------------------------------------------

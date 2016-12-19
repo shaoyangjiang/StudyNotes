@@ -1,0 +1,27 @@
+项目地址：https://github.com/gabrielemariotti/cardslib
+=====================
+简单使用教程：https://github.com/gabrielemariotti/cardslib/blob/master/doc/GUIDE.md
+=======================
+可以在cards布局中添加代码
+    <it.gmariotti.cardslib.library.view.CardViewNative
+        android:id="@+id/carddemo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginTop="12dp">
+	...
+        <TextView
+            android:id="@+id/redView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="serif"
+            android:gravity="center"
+            android:padding="20dp"
+            android:text="When the cheese comes out everybody's happy pecorino red leicester. The big cheese cheese on toast ricotta cheesy grin smelly cheese manchego chalk and cheese macaroni cheese."
+            android:textColor="@android:color/black"
+            android:textSize="18sp" />
+	...
+	...
+    </it.gmariotti.cardslib.library.view.CardViewNative>

@@ -1,0 +1,8 @@
+ÏîÄ¿µØÖ·£º
+https://github.com/yadav-rahul/TastyToast
+==============================
+dependencies {
+    compile 'com.sdsmdg.tastytoast:tastytoast:0.0.1'
+}
+=========================
+TastyToast.makeText(getApplicationContext(), "Hello World !", TastyToast.LENGTH_LONG, TastyToast.WARNING);

@@ -1,0 +1,51 @@
+//---------------------------------------------------------------------------
+
+#include <vcl.h>
+#pragma hdrstop
+
+#include "BookInsertUnit.h"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+#pragma resource "*.dfm"
+TBookInsert *BookInsert;
+//---------------------------------------------------------------------------
+__fastcall TBookInsert::TBookInsert(TComponent* Owner)
+        : TForm(Owner)
+{
+}
+//---------------------------------------------------------------------------
+void __fastcall TBookInsert::BitBtn1Click(TObject *Sender)
+{
+  String strSQL;
+  strSQL = "Insert into BookTable values(";    
+  strSQL = strSQL + "'" + ISBNEdit->Text;
+  strSQL = strSQL + "', '" + BookNameEdit->Text;
+  strSQL = strSQL + "', '" + EditorEdit->Text;
+  strSQL = strSQL + "', '" + PublisherEdit->Text;
+  strSQL = strSQL + "', '" + PubDateEdit->Text;
+  strSQL = strSQL + "', '" + BookIndexEdit->Text; 
+  strSQL = strSQL + "', " + PriceEdit->Text + ", 'ÔÚ¹Ý'" + ")";
+
+  Query1->SQL->Text = strSQL;
+  Query1->ExecSQL();
+  Query1->SQL->Text = "select * from BookTable";   
+  Query1->Active = true;
+  Query1->Last();
+}
+//---------------------------------------------------------------------------
+
+
+void __fastcall TBookInsert::DataSource1DataChange(TObject *Sender,
+      TField *Field)
+{ 
+  ISBNEdit->Text = Query1->FieldByName("ISBN")->AsString;
+  BookNameEdit->Text = Query1->FieldByName("BookName")->AsString;
+  EditorEdit->Text = Query1->FieldByName("Editor")->AsString;
+  PublisherEdit->Text = Query1->FieldByName("Publisher")->AsString;
+  PubDateEdit->Text = Query1->FieldByName("PubDate")->AsString;
+  PriceEdit->Text = Query1->FieldByName("Price")->AsString; 
+}
+//---------------------------------------------------------------------------
+
+
+

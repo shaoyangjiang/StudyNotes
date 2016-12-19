@@ -1,0 +1,2 @@
+设定缓存颜色为透明的方法来解决这个问题。
+android:cacheColorHint="#00000000"

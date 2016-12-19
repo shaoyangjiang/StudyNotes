@@ -1,0 +1,33 @@
+常见使用插件
+http://www.zhihu.com/question/28026027
+-------------------------------
+安装方法
+1.打开Android Studio，依次【File】-【Settings】
+-------------------------
+2.在打开的settings界面里找到plugins设置项，点击右侧的“Browser。。”按钮
+--------------------------
+3.在搜索栏里输入genymotion关键字，可以看到右侧已经搜索到插件，点击install安装。
+----------------------------
+4.在build中加入代码：
+
+
+compile 'com.jakewharton:butterknife:7.0.1'
+
+---------------------------------------
+插件推荐
+☆ADB Idea
+安装好后在android studio页面：Ctrl+Alt+Shift+A选择
+Uninstall App
+Kill App
+Start App
+Restart App
+Clear App Data
+Clear App Data and Restart
+----------------------------------
+☆Android ButterKnife Zelezny
+安装好后，在R.layout.xxx右键鼠标，依次Gererater..然后Generater ButterKnife injections
+选择你要注释的控件
+---------------------------------
+☆android-material-design-icon-generator-plugin
+安装好后，依次file-new，选择material icon generator
+然后选择你要的icon即可

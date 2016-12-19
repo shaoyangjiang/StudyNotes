@@ -1,0 +1,19 @@
+MediaPlayer和MediaRecorder这两个类既可以用来录制和播放视频，也可以同来处理视频：
+创建一个MediaPlayer实例：
+MediaPlayer mediaPlayer = new MediaPlayer();
+
+指定媒体源(不管哪种方法，都要加try-catch，因为音视频可以能不存在)
+mediaPlayer = MediaPlayer.create(this, R.raw.my_music);
+或者：
+mediaPlayer.setDataSource(path);
+mediaPlayer.prepare();
+
+开始播放音频：
+mediaPlayer.start();
+暂停播放音频：
+mediaPlayer.pause();
+播放停止后，需停止MediaPlayer并释放该实例，以释放资源：
+mediaPlayer.stop();
+mediaPlayer.release();
+
+

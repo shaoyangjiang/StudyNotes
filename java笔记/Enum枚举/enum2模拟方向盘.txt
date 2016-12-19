@@ -1,0 +1,35 @@
+/**
+ * 枚举模拟方向盘
+ * @author Administrator
+ *
+ */
+public class OptionTest {
+	//静态方法
+	public static void Op(Operation operation){
+		switch(operation){
+			case Turn_Right: 
+				System.out.println("向右转");
+				break;
+			case Turn_Left:
+				System.out.println("向左转");
+				break;
+			case Shoot:
+				System.out.println("射击");
+				break;
+				
+		}
+	}
+	
+	public static void main(String[] args) {
+		//调用静态方法的射击
+		Op(Operation.Shoot);
+	}
+}
+
+enum Operation {
+	Turn_Right,Turn_Left,Shoot
+}
+
+//////////////////////////////////////////////////////////////////
+运行结果：
+射击

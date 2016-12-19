@@ -1,0 +1,49 @@
+属性：
+最小显示行数：android:minLines--->任意整数
+最大显示行数：android:maxLines--->任意整数
+值为空时的提示文本：android:hint--->任意字符串
+输入类型：android:inputTye--->text/textPassword/textEmailAddress/number/phone/date/time……
+
+activity加载完成后，输入框会自动弹出输入法，可以通过以下代码屏蔽：getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+
+设置EditText始终不弹出软件键盘 :
+edit.setInputType(InputType.TYPE_NULL);
+
+android:capitalize ：设置英文字母大写类型。设置如下值：sentences仅第一个字母大写；words每一个单词首字母大小，用空格区分单词；characters每一个英文字母都大写。
+
+android:autoLink=”all” ：设置文本超链接样式当点击网址时，跳向该网址
+
+控制字与字之间的间距:
+android:textScaleX="1.5" 
+
+多行中指针在第一行第一位置：
+android:gray="top" ：
+调整光标到最后一行：
+et.setSelection(et.length());
+
+android:textColorHighlight="#cccccc"：被选中文字的底色，默认为蓝色
+
+android:textScaleX="1.5"：控制字与字之间的间距
+ 
+TextWatcher实现文本框实现搜索和清空效果：
+http://www.cnblogs.com/over140/archive/2011/04/25/2026812.html
+-------------------------------------------------------------------------------------
+/**
+* 设置EditText是否可编辑
+* @author com.tiantian
+* @param editText 要设置的EditText
+* @param value 可编辑:true 不可编辑:false
+*/
+private void setEditTextEditable(EditText editText, boolean value){
+	if(value){
+		editText.setFocusableInTouchMode(true);
+		editText.requestFocus();
+	}else{
+		editText.setFocusableInTouchMode(false);
+		editText.clearFocus();
+	}
+}
+
+<!-- 屏蔽EditText一开始弹出输入框-->
+activity加载完成后，输入框会自动弹出输入法，可以通过以下代码屏蔽：getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+

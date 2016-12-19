@@ -1,0 +1,2 @@
+ÔÚandroidmainfast.xmlÖĞ£¬Ìí¼Óhttp://zhidao.baidu.com/question/531777637.html
+<activity android:windowSoftInputMode="stateVisible|adjustPan" ...>

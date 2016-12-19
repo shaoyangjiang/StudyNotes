@@ -1,0 +1,12 @@
+xml½Ì³Ì±Ê¼Ç
+http://www.w3school.com.cn/xml/index.asp
+============================================================
+
+<?xml version="1.0"?>
+<students>
+	<student>
+		<id>100</id>
+		<name>lisi</name>
+		<address>beijing</address>
+	</student>
+</students>

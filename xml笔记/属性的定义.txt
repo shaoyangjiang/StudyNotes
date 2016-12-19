@@ -1,0 +1,21 @@
+语法：
+<!ATTLIST 元素名称 属性名称 类型 属性特点>
+========================================================
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE poem[
+<!ELEMENT poem (author+, title*, content)>
+<!ELEMENT author (#PCDATA)>
+<!ELEMENT title (#PCDATA)>
+<!ELEMENT content (#PCDATA)>
+<!ATTLIST title name CDATA #REQUIRED>
+]>
+<poem>
+	<author>杜甫</author>
+	<author>杜甫</author>
+	<author>杜甫</author>
+	<title name="dufu">月夜</title>
+	<content>今夜鄜州月，闺中只独看。
+			遥怜小儿女，未解忆长安。
+			香雾云鬟湿，清辉玉臂寒。
+			何时倚虚幌，双照泪痕干！</content>
+</poem>

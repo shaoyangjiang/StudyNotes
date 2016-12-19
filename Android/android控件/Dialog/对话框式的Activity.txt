@@ -1,0 +1,4 @@
+对话框式的Activity只需在AndroidManifest.xml中的该Activity标签下加入：
+android:theme="@android:style/Theme.Dialog"
+
+

@@ -1,0 +1,70 @@
+/**
+ * SAX解析XML文档(student.xml),这个程序主要是验证触发事件。
+ * @author Administrator
+ *
+ */
+public class SaxTest1 {
+
+	public static void main(String[] args) throws Exception{
+		//step1:获得SAX解析器工厂实例；
+		SAXParserFactory factory = SAXParserFactory.newInstance();
+		//step2:获得SAX解析器实例；
+		SAXParser parser = factory.newSAXParser();
+		//step3:开始进行解析；
+		parser.parse(new File("student.xml"),new MyHandler());
+	}
+}
+
+class MyHandler extends DefaultHandler{
+	@Override
+	public void startDocument() throws SAXException {
+		System.out.println("Document start");
+	}
+	
+	@Override
+	public void endDocument() throws SAXException {
+		System.out.println("Document end");
+	}
+	
+	@Override
+	public void startElement(String uri, String localName, String qName,
+			Attributes attributes) throws SAXException {
+		System.out.println("start element");
+	}
+	
+	@Override
+	public void endElement(String uri, String localName, String qName)
+			throws SAXException {
+		System.out.println("end element");
+	}
+}
+=================================================================
+运行结果：
+Document start
+start element
+start element
+start element
+end element
+start element
+end element
+start element
+end element
+end element
+start element
+start element
+end element
+start element
+end element
+start element
+end element
+end element
+start element
+start element
+end element
+start element
+end element
+start element
+end element
+end element
+end element
+Document end

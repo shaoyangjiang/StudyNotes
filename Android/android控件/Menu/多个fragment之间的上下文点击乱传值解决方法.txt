@@ -1,0 +1,11 @@
+·½·¨http://stackoverflow.com/questions/5297842/how-to-handle-oncontextitemselected-in-a-multi-fragment-activity
+----------------------------------
+@Override
+public boolean onContextItemSelected(MenuItem item) {
+    if (getUserVisibleHint()) {
+        // context menu logic
+        return true;
+    }
+    return false;
+}
+-------------------------------------

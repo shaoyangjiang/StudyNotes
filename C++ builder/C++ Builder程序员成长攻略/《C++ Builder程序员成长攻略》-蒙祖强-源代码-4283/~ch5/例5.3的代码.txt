@@ -1,0 +1,94 @@
+//---------------------------------------------------------------------------
+
+#include <vcl.h>
+#pragma hdrstop
+
+#include "Unit1.h"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+#pragma resource "*.dfm"
+TForm1 *Form1;
+String SourceDir,TargetDir,SourceName,TargetName;
+//---------------------------------------------------------------------------
+__fastcall TForm1::TForm1(TComponent* Owner)
+        : TForm(Owner)
+{
+}
+//---------------------------------------------------------------------------
+void TForm1::ListFiles(TListBox *ListBox, String Dir)
+{
+  TSearchRec sr;
+  SourceDir = Dir;
+  FindFirst(SourceDir+"\\*.*",0,sr);
+  ListBox->Clear();
+  while(FindNext(sr)==0) ListBox->Items->Add(sr.Name);
+}
+void __fastcall TForm1::Button1Click(TObject *Sender)  //【显示目录下文件】按钮
+{
+  ListFiles(ListBox1, Edit1->Text);
+}
+//---------------------------------------------------------------------------
+void __fastcall TForm1::Button3Click(TObject *Sender)//【复  制】按钮
+{
+  SourceDir = Edit1->Text+"\\";
+  for(int i=0;i<ListBox1->Items->Count;i++)
+  {
+    if(ListBox1->Selected[i])  SourceName = ListBox1->Items->Strings[i];// Edit3->Text =  ListBox1->Items[0].operator[](i);
+
+  }
+  TargetDir = Edit2->Text+"\\"; TargetName = SourceName;
+
+
+  Animate1->CommonAVI = aviCopyFile;
+  Animate1->Visible = true;
+  Animate1->Active = true;
+  if(CopyFile((SourceDir+SourceName).c_str(),(TargetDir+TargetName).c_str(), 0))
+  {
+    Animate1->Active = false;
+    ShowMessage("复制成功！");
+    Animate1->Visible = false;
+  }
+  else
+  {
+    Animate1->Active = false;
+    ShowMessage("复制失败！");
+    Animate1->Visible = false;
+  }
+  ListFiles(ListBox1, Edit1->Text);
+  ListFiles(ListBox2, Edit2->Text);
+}
+//---------------------------------------------------------------------------
+void __fastcall TForm1::FormCreate(TObject *Sender)
+{
+  Animate1->Visible = false;
+}
+//---------------------------------------------------------------------------
+void __fastcall TForm1::Button2Click(TObject *Sender)  //【显示目录下文件】按钮
+{
+  ListFiles(ListBox2, Edit2->Text);
+}
+//---------------------------------------------------------------------------
+void __fastcall TForm1::Button4Click(TObject *Sender) //【删  除】按钮
+{
+  Animate1->CommonAVI = aviDeleteFile;
+  Animate1->Visible = true;
+  Animate1->Active = true;
+  SourceDir = Edit1->Text+"\\";
+  if(ListBox1->Items->Count==0) {ShowMessage("请选择待删除文件！");return;}
+  for(int i=0;i<ListBox1->Items->Count;i++)
+  {
+    if(ListBox1->Selected[i])  SourceName = ListBox1->Items->Strings[i];// Edit3->Text =  ListBox1->Items[0].operator[](i);
+
+  }
+  if(DeleteFile(SourceDir+SourceName)) ShowMessage("成功删除文件！");
+  else  ShowMessage("删除文件操作失败！");
+  Animate1->Visible = false;
+  Animate1->Active = false;
+  ListFiles(ListBox1, Edit1->Text);
+  ListFiles(ListBox2, Edit2->Text);
+}
+
+//---------------------------------------------------------------------------
+
+
+

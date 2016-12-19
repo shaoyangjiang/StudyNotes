@@ -1,0 +1,36 @@
+http://www.eoeandroid.com/forum.php?mod=viewthread&tid=169297
+1.定义：主要是接受子线程发送的数据，并且此数据配合主线程更新UI。
+===============================================================
+实例：
+public class MainActivity extends Activity {
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_main);
+		new LooperThread().start();
+	}
+	
+	private Handler mHandler = new Handler(){
+		public void handleMessage(android.os.Message msg) {
+			switch(msg.arg1){
+			case 1:
+				//代码：更新UI 如tv.setText(msg.getData().getString());
+				//代码: 还可以执行启动其他线程
+				break;
+			}
+		};
+	};
+	
+	private class LooperThread extends Thread{
+		@Override
+		public void run() {
+			super.run();
+			//代码；读取网络内容等 
+			Message m = mHandler.obtainMessage();
+			m.arg1 = 1;
+			mHandler.sendMessage(m);
+		}
+	}
+}
+===============================================================

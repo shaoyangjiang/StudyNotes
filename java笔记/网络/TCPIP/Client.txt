@@ -1,0 +1,70 @@
+客户端程序编写：
+①调用Socket()创建一个流套接字，并连接到服务器端；
+②调用Socket类的getOutputStream()和getInputStream获取输出流和输入流，开始网络数据的发送和接收。
+③最后关闭通信套接字。
+==============================================================================================
+1.
+private Socket socket;
+socket = new Socket("192.168.1.9",6789);
+==============================================================================================
+2.
+OutputStream os = socket.getOutputStream();
+InputStream is = socket.getInputStream();
+==============================================================================================
+3.
+socket.close();
+==============================================================================================
+public class TcpClient {
+	
+	public static void main(String[] args) throws Exception {
+		Socket socket = new Socket("127.0.0.1", 5000);
+		
+		new ClientThread(socket).start();//启动一个客户端线程，把socket对象作为参数传入到线程里
+	}
+}
+
+class ClientThread extends Thread{
+	private Socket socket;
+	
+	public ClientThread(Socket socket){
+		this.socket = socket;
+	}
+	
+	@Override
+	public void run() {
+		OutputStream os = null;
+		InputStream is = null;
+		try {
+			 os = socket.getOutputStream();//得到输出流
+			 is = socket.getInputStream();//得到输入流
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		while(true){		
+			try {
+				BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+				String line = br.readLine();
+				os.write(line.getBytes());	
+				
+				byte[] buffer = new byte[1024];
+				int length = is.read(buffer);
+				String str = new String(buffer,0,length);
+			
+				System.out.println("TcpClient recive :"+ str);
+				
+			} catch (IOException e) {
+				e.printStackTrace();
+			} 
+//			finally{
+//				try {
+//					if(is != null) is.close();//关闭相应的流
+//					if(os != null) os.close();
+//					//if(socket != null) socket.close();
+//				} catch (IOException e) {
+//					e.printStackTrace();
+//				}
+//			}
+			
+		}
+	}
+}

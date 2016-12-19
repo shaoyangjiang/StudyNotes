@@ -1,0 +1,18 @@
+Resources resources = this.getResources();//在住程序初始化的时候得到资源文件 		
+InputStream inputStream = null;  //得到输入流  
+	try { 
+		inputStream = resources.openRawResource(R.raw.raw_file);//以二进制流的形式打开指定的原始格式文件    
+		byte[] reader = new byte[inputStream.available()]; //把得到的流数据存放在reader里面
+		while (inputStream.read(reader) != -1) { //一直读到最后
+		} 
+		displayView.setText(new String(reader,"utf-8")); //显示在EditText里面
+	} catch (IOException e) { 
+		Log.e("ResourceFileDemo", e.getMessage(), e); 
+	} finally {     
+		if (inputStream != null) { 
+			try { 
+		        	inputStream.close(); //关闭输入流
+		            } 
+		                catch (IOException e) { } 
+		}
+	}

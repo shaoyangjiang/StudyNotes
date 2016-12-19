@@ -1,0 +1,53 @@
+http://www.cnblogs.com/-OYK/archive/2011/10/25/2223624.html
+http://www.cnblogs.com/-cyb/archive/2011/10/30/2229162.html
+首先extends View implements Runable
+
+private Paint mPaint = new Paint();//new出画笔
+===============================================================
+在构造函数里面写入加载图片和启动线程
+//加载图片
+compass = BitmapFactory.decodeResource(getResources(), R.drawable.compass1);
+new Thread(this).start();//启动更新线程，用于更新画面
+=================================================================
+在onDraw()方法里画图
+		canvas.drawColor(Color.WHITE);//设置画布背景为白色
+		mPaint.setAntiAlias(true);//设置无锯齿		
+		mPaint.setColor(Color.RED);//设置画笔颜色
+		mPaint.setTextSize(30);//设置字体大小
+		//画TextView
+		canvas.drawText(" i am happy", 30, 30, mPaint);
+		canvas.save();//每画完一个图做备忘存储,以保证与其它图形互不影响
+		//画线
+		canvas.drawLine(10, 10, 100, 10, mPaint);
+		canvas.save();//每画完一个图做备忘存储,以保证与其它图形互不影响
+		//画图片
+		canvas.drawBitmap(compass, 100, 100, mPaint);
+		canvas.save();//每画完一个图做备忘存储,以保证与其它图形互不影响
+		//画矩形
+		canvas.drawRect(100, 100, 200, 200, mPaint);
+		canvas.save();//每画完一个图做备忘存储,以保证与其它图形互不影响
+		//画点
+		canvas.drawPoint(20, 20, mPaint);
+		canvas.save();//每画完一个图做备忘存储,以保证与其它图形互不影响
+		//画矩形
+		canvas.drawRect(new Rect(200, 200, 380, 380), mPaint);
+		canvas.save();//每画完一个图做备忘存储,以保证与其它图形互不影响
+		//绘画圆形
+		canvas.drawCircle(300, 300, 20, mPaint);
+		canvas.save();//每画完一个图做备忘存储,以保证与其它图形互不影响
+================================================================================
+//每一百毫毛更新下主线程
+	public void run() {
+		while(!Thread.currentThread().isInterrupted())
+		{
+			try
+			{
+				Thread.sleep(100);
+			}
+			catch(InterruptedException e)
+			{
+				Thread.currentThread().interrupt();
+			}
+			postInvalidate();
+		}
+	}

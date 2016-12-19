@@ -1,0 +1,2 @@
+当ListView为空时需要设置一些View来显示提示内容。
+http://blog.csdn.net/ygc87/article/details/8349962

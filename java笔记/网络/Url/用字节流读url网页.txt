@@ -1,0 +1,29 @@
+/**
+ * 得到网站的源代码，通过url的openConnection方法获得Urlconnection对象，再通过getinputstream方法获得输入流
+ * 方式二：直接通过url的openStream方法得到
+ * @author Administrator
+ *
+ */
+public class UrlConnection1 {
+
+	public static void main(String[] args) throws Exception {
+		URL url = new URL("http://www.baidu.com");
+		//方式一
+		URLConnection conn = url.openConnection();		
+		InputStream is = conn.getInputStream();//得到输入流
+		//方式二
+		//InputStream is = url.openStream();
+		OutputStream os = new FileOutputStream("C:"+File.separator+"baidu.txt");//把内容写到文件里
+		byte[] buffer = new byte[1024];
+		int length = 0;
+		while(-1 != (length = is.read(buffer,0,buffer.length))){
+			os.write(buffer);
+		}
+		
+		is.close();
+		os.close();
+	}
+}
+========================================================
+运行结果：
+在c盘会创建一个baidu.txt文件，里面的内容是百度的源代码

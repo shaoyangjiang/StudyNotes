@@ -1,0 +1,15 @@
+1.Web服务器跟踪客户状态通常有四种方法：
+a.建立含有跟踪数据的隐藏字段
+b.重写包含格外参数的URL
+c.使用持续的Cookie
+d.使用Servlet API中的session(会话)机制
+=================================================
+2.Session的概念
+Session用于跟踪客户的状态。Session指的是在一段时间内，单个客户与Web服务器的一连串相关的交互过程。在一个Session中，客户可能会多次请求访问各种不同的服务器资源。
+=================================================
+3.Session的运行机制
+a.当一个Session开始时，Servlet容器将创建一个HttpSession对象，在HttpSession对象中可以存放客户状态的信息(例如购物车)。
+b.Servlet容器为HttpSession分配一个唯一的标识符，称为Session ID。Servlet容器把Session ID作为Cookie保存在客户的浏览器中。
+c.每次客户发出HTTP请求时，Servlet容器可以从HttpServletRequest对象中读取Session ID，然后根据Session ID找到相应的HttpSession对象，从而获取客户的状态信息。
+===================================================
+4.

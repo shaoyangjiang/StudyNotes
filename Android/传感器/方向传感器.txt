@@ -1,0 +1,36 @@
+http://snmoney.blog.163.com/blog/static/440058201191741427884/
+水平尺：http://blog.csdn.net/tinya0913/article/details/6095307
+指南针：http://www.ijowett.com/android-sensor-compass.html
+values[0]: 方位角 
+values[1]: 倾斜角 
+values[2]: 旋转角
+编写步骤：
+1.SensorMannager传感器管理对象
+mSensorManager = (SensorManager)this.getSystemService(SENSOR_SERVICE);		
+=============================================================================
+2.实现SensorEventListener接口
+	SensorEventListener lsn = new SensorEventListener() {	
+		@Override
+		public void onSensorChanged(SensorEvent event) {
+			if(event.sensor.getType()==Sensor.TYPE_ORIENTATION){
+				x = event.values[SensorManager.DATA_X];
+				y = event.values[SensorManager.DATA_Y];
+				z = event.values[SensorManager.DATA_Z];
+				String str = "x=" + x + "; y=" + y + "; z=" + z;
+				Accelerometer.setText(str);
+			}else if(event.sensor.getType()==Sensor.TYPE_ACCELEROMETER){
+				x = event.values[SensorManager.DATA_X];
+				y = event.values[SensorManager.DATA_Y];
+				z = event.values[SensorManager.DATA_Z];
+				String str = "x=" + x + "; y=" + y + "; z=" + z;
+				Orientation.setText(str);
+			}
+		}
+=============================================================================
+3.注册SensorEventListener  一般都在onResume()里注册
+Sensor accelerometerSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION);
+mSensorManager.registerListener(lsn, accelerometerSensor, SensorManager.SENSOR_DELAY_GAME);
+=============================================================================
+4.注销传感器 一般都在onStop()里注册
+mSensorManager.unregisterListener(lsn);
+=============================================================================

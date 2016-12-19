@@ -1,0 +1,16 @@
+ListView要用到的属性
+属性名称		说明
+Item			ListView中的项
+View			指定显示哪种视图
+LargeImageList		大图标图像的ImageList控件
+SmallImageList 		小图标图像的ImageList控件
+============================================================
+初始化列：
+        private void initColumn()
+        {
+            listView1.Columns.Add("盘符");
+            listView1.Columns.Add("磁盘类型");
+            listView1.Columns.Add("大小");
+            listView1.Columns.Add("可用空间");
+        }
+=======================================================

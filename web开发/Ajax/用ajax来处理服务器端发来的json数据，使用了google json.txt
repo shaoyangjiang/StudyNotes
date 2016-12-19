@@ -1,0 +1,110 @@
+运行结果：把服务器发送给客户端的json用表单动态的显示出来。
+1.Person类：
+public class Person {
+	private int id;
+	private String name;
+	private int age;
+	private String address;
+	private List<Person> friends;
+	
+	public List<Person> getFriends() {
+		return friends;
+	}
+
+	public void setFriends(List<Person> friends) {
+		this.friends = friends;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public int getAge() {
+		return age;
+	}
+
+	public void setAge(int age) {
+		this.age = age;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+}
+=======================================================
+服务器端代码：Json.java
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		List<Person> friends = new ArrayList<Person>();
+		Person person = new Person();
+		person.setId(1);
+		person.setName("zhangsan");
+		person.setAddress("beijing");
+		person.setAge(30);
+		
+		Person person2 = new Person();
+		person2.setId(2);
+		person2.setName("lisi");
+		person2.setAddress("shanghai");
+		person2.setAge(20);
+
+		friends.add(person);
+		friends.add(person2);
+		
+		resp.setContentType("application/json; charset=utf-8");
+		resp.setHeader("pragma", "no-cache");//清楚浏览器缓存
+		resp.setHeader("cache-control", "no-cache");
+		
+		Gson gson = new Gson();
+		String result = gson.toJson(friends);//把friends对象转化为json
+		
+		PrintWriter out = resp.getWriter();
+		out.println(result);	
+		out.flush();
+	}
+===========================================================
+客户端：
+  <body id="theBody">
+    <input type="button" id="button1" value="get content from server">
+  </body>
+--------------------------------------------
+	<script type="text/javascript">
+		$(function(){
+			$("#button1").click(function(){
+				$.post("JsonServlet",{}, function(returnedData, status){
+					var html = "<table width='60%' border='1' align='center'><tr><th>id</th><th>name</th><th>address</th><th>age</th>"
+					//alert(returnedData.length);打印出来的长度为2，说明接受到2个对象		
+					for(var i=0;i<returnedData.length;i++){
+						var person = returnedData[i];
+						var id = person.id;//得到每一个person属性
+						var name = person.name;
+						var address = person.address;
+						var age = person.age;
+						html += "<tr align='center'><td>" + id + "</td><td>" + name + "</td><td>" + address + "</td><td>" + age + "</td></tr>";
+					}
+					html += "</table>";	
+					$("#theBody table:eq(0)").remove();
+					$("#theBody").append(html);
+					
+				});			
+			});
+		});
+	</script>
+==========================================================================
+运行结果：客户端会把服务器发送过来的数据显示在表单中

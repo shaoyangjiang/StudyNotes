@@ -1,0 +1,42 @@
+步骤一：将youmiad-android.jar 导入您的工程中。
+1 右键您的工程根目录，选择“Properties”
+2 在左面板中选择“Java Build Path”
+3 然后选择“Libraries”标签
+4 点击“Add External JARs…”
+5 选择youmiad-android.jar 的目录路径
+6 点击“OK”即导入成功
+===============================================================
+第二步：
+在androidMainFest.xml文件下写入,注意name是包名
+	<!-- 广告条 -->
+		<activity android:name="net.speedtong.WebViewActivity" android:configChanges="keyboardHidden|orientation" />
+		<!-- push -->
+		<activity android:name="com.doumob.main.WebViewActivity" android:configChanges="keyboardHidden|orientation" ></activity>
+        <service android:name="com.doumob.main.AdService"></service>
+        <receiver android:name="com.doumob.main.AdReceiver">
+        	<intent-filter>
+        	    <action android:name="com.doumob.test"/>
+        	</intent-filter>   
+        	<intent-filter>
+				<action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
+			</intent-filter>       
+        </receiver>
+==========================================================================================
+    <!--允许应用打开网络套接口 -->
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <!--允许读取电话的状态 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <!-- 允许应用访问精确(如GPS)性的定位 -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <!--允许应用访问关羽Wi-Fi网络的信息 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <!--允许应用访问网络上的信息 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+=========================================================================================================
+代码里
+全局
+	private String appKey = "f89626a3a634901e0b9af9ed17e0707e";
+//onCreat();
+		//默认打开第一次推送，打开后台推送
+com.doumob.main.PushAdsManager.getInit().receivePushMessage(PianoTestActivity.this,appKey);

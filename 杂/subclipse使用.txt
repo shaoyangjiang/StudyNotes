@@ -1,0 +1,9 @@
+目的是让别的用户提交版本
+在cmd中输入 
+cd d:
+然后：D: D:\Program Files\Subversion\bin
+接着：D:\Program Files\Subversion\bin
+这样就可以了。
+
+给用户添加密码：在E:\rep\conf目录下打开passwd。添加shaoyangjiang = shaoyangjiang
+

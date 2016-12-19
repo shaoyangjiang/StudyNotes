@@ -1,0 +1,7 @@
+LinearLayout布局：
+    android:text ————为指定的控件中显示文字
+    android:gravity ————指定控件当中基本的位置，比如居中等
+    android:textSize ————指定控件当中字体大小(单位pt)
+    android:background ————指定控件所使用的背景色
+    android:padding ————指定控件的内边距(单位dip)
+    android:singleLine ————如果设置为真，控件中的内容会在一行中显示

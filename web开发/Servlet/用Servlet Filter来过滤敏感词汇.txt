@@ -1,0 +1,48 @@
+当用户名出现zhang就替换成里，留言板里出现shao就替换****
+====================================================
+JSP代码：comment.jsp
+    <form action="CommentServlet" method="post">
+    	username:<input type="text" name="username"><br>
+    	message:<textarea rows="7" cols="20" name="message"></textarea><br>
+    	<input type="submit" value="submit">
+    </form>
+---------------------------------------------
+过滤器：CommentFilter.java
+	public void doFilter(ServletRequest request, ServletResponse response,
+			FilterChain chain) throws IOException, ServletException {
+		HttpServletRequest req = (HttpServletRequest)request;
+		HttpServletResponse resq =(HttpServletResponse)response;
+		
+		String username = req.getParameter("username");
+		String comment = req.getParameter("message");
+		username = username.replace("zhang","li");
+		comment = comment.replace("shao","****");
+		
+		req.setAttribute("username",username);
+		req.setAttribute("comment",comment);
+		chain.doFilter(request,response);
+	}
+------------------------------------------------
+Servlet代码：CommentServlet.java,主要用途是用来跳转结果页面
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		req.getRequestDispatcher("commentResult.jsp").forward(req,resp);
+	}
+-------------------------------------------
+web端配置
+	<filter>
+		<filter-name>CommentFilter</filter-name>
+		<filter-class>com.filter.CommentFilter</filter-class>
+	</filter>
+	
+	<filter-mapping>
+		<filter-name>CommentFilter</filter-name>
+		<url-pattern>/CommentServlet</url-pattern>
+	</filter-mapping>
+---------------------------------------------
+显示界面commentResult.jsp
+  <body>
+    <%= request.getAttribute("username") %><br>
+    <%= request.getAttribute("comment") %>
+  </body>

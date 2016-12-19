@@ -1,0 +1,81 @@
+http://www.cnblogs.com/devinzhang/archive/2012/02/13/2350070.html
+1.AsyncTask是android提供的一个为了不阻塞主线程的一个类，AsyncTask定义了三种泛型类型Params、Progress和Result。
+ Parames启动任务执行输入的参数，比如http请求和url和参数
+ Progress后台执行任务的百分比
+ Result后台执行最终返回的结果
+ ======================================================================
+ 优点：简单快捷，过程可控。
+ 缺点: 在使用多个异步操作和并需要UI变更时，就变得复杂起来。
+ ======================================================================
+ 2.AsyncTask执行分为四个回调函数，开发者要实现一个或者几个方法，方法都是自动调用的
+ a.onPreExecute(),在执行后台耗时操作前被调用，可以执行此方法中做一些UI操作，比如显示一个进度条。
+ b.doInBackground(Params...),这个方法在执行onPreExecute()后执行，这个方法完成耗时工作，比如下载等。调用publishProgress()方法，执行onProgressUpdate(Progress...)回调方法。
+ c.onProgressUpdate(Progress...),UI线程通过此方法获取任务的完成的情况，比如完成的任务百分比。
+ d.onPostExecute(Result),这个方法在耗时工作完成后被调用，UI线程调用此方法获得结果。
+ ================================================================
+ 注意：
+ 1.Task的实例必须在UI线程中创建
+ 2.execute方法必须在UI线程中调用
+ 3.不要手动调用以上四个方法
+ 4.这个任务只执行一次（如果执行第二次将会抛出异常）
+ =================================================================
+ 
+1.创建 AsyncTask 的子类作为 MainActivity 类中的 私有内部类。 实现 doInBackground() 方法来获取地震数据并 返回结果。 实现 onPostExecute() 方法以根据我们的结果 更新 UI。
+2.在 MainActivity onCreate() 方法中创建我们的内部类的实例， 并执行。
+=============================================================
+
+ 实例：
+ 主activity中：
+ new Task().execute("url请求");
+ -------------------------------------
+ // AsyncTask<>的参数类型由用户设定，这里设为三个String
+	// 第一个String代表输入到任务的参数类型，也即是doInBackground()的参数类型
+	// 第二个String代表处理过程中的参数类型，也就是doInBackground()执行过程中的产出参数类型，通过publishProgress()发消息
+	// 传递给onProgressUpdate()一般用来更新界面
+	// 第三个String代表任务结束的产出类型，也就是doInBackground()的返回值类型，和onPostExecute()的参数类型
+ private class Task extends AsyncTask<String, String, String>{
+
+		// 最先执行，在UI线程中被系统调用
+		// 一般用来在UI中产生一个进度条
+		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+			System.out.println("onPreExecute");
+			time++;
+		}
+		
+		// 后台执行的耗时任务，接收参数并返回结果
+		// 当onPostExecute()执行完，在后台线程中被系统调用
+		@Override
+		protected String doInBackground(String... params) {
+			System.out.println("doInBackground");
+			String pre = params[0];
+			System.out.println("pre is ----->" + pre);
+			for (int i = 0; i < 5; i++) {
+				System.out.println("note i am begin sleep ");
+				publishProgress("String");//调用下面的方法，注意带参数（类型是String）
+				// 这里是否需要停顿下
+				System.out.println("hua li de bu zhuo " + pre + i);
+				SystemClock.sleep(1000);
+			}
+			
+			return "Task test";
+		}
+		// 更新界面操作，在收到更新消息后，在UI线程中被系统调用
+		@Override
+		protected void onProgressUpdate(String... values) {
+			System.out.println("onProgressUpdate");
+			super.onProgressUpdate(values);
+			//填写要更新的内容，如tv.setText()
+		}
+		
+		// 任务执行结束后，在UI线程中被系统调用
+		// 一般用来显示任务已经执行结束
+		@Override
+		protected void onPostExecute(String result) {
+			System.out.println("onPostExecute");
+			super.onPostExecute(result);
+		}
+		
+	}
+	========================================================================

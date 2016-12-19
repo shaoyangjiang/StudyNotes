@@ -1,0 +1,23 @@
+/**
+ * 打开输入流，一直读信息知道结束，关闭输入流
+ * @author Administrator
+ *
+ */
+public class IOTest {
+
+	public static void main(String[] args) throws Exception {
+		//new出一个文件输入流，多态
+		InputStream is = new FileInputStream("C://hello.txt");
+		byte[] buffer = new byte[1024];	//缓存
+		int length = 0;//长度
+		while(-1!=(length = is.read(buffer, 0, 1024))){
+			String str = new String(buffer, 0, length);//存放读取的内容
+			System.out.println(str);
+		}
+		
+		is.close();//关闭输入流
+	}
+}
+
+=======================================================
+运行结果就是hello.txt文件里的内容

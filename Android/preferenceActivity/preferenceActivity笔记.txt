@@ -1,0 +1,28 @@
+http://www.cnblogs.com/keyindex/articles/1814506.html
+=====================================================
+1.PreferenceActivity是android提供的对系统信息和配置进行自动保存的activity，它通过
+sharedPreference的方式将信息保存在xml文档当中。使用PreferenceActivity时我们需要对
+sharedPreference进行操作，系统会自动对Activity的各种View上的改变进行保存。
+========================================================
+简单小demo
+首先是布局：新建一个xml文件，类型是Preference哦
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+	<CheckBoxPreference android:key="sounds"
+      android:title="sounds" android:summary="hello hello world"
+      android:defaultValue="true" />
+</PreferenceScreen> 
+=========================================================
+2.新建一个类继承PreferenceActivity，在oncreat()方法中应用布局，在里面写几个静态方法即可。
+oncreat()方法addPreferencesFromResource(R.layout.setting);
+=========================================
+静态方法
+	public static boolean getSounds(Context context){
+		return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(SOUNDS, true);
+	}
+	
+	public static void setSounds(Context context,Boolean value){
+		PreferenceManager.getDefaultSharedPreferences(context).edit().putBoolean(SOUNDS, value).commit();
+	}
+==============================================
+这样我们就可以在其他类里通过类.方法名来调用这些方法了，可以用来做配置信息等，重要的是它是自动保存的。

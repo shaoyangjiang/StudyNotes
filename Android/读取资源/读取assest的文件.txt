@@ -1,0 +1,2 @@
+1.得到assest的文件
+getResources().getAssets().open("love_question.xml")

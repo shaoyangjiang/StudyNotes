@@ -1,0 +1,47 @@
+/**
+ * 传入多个泛型
+ * @author Administrator
+ *
+ * @param <T1>
+ * @param <T2>
+ */
+public class Generic<T1,T2>{
+
+	private T1 foo1;
+	private T2 foo2;
+	
+	public T1 getFoo1() {
+		return foo1;
+	}
+	
+	public void setFoo1(T1 foo1) {
+		this.foo1 = foo1;
+	}
+	
+	public T2 getFoo2() {
+		return foo2;
+	}
+	
+	public void setFoo2(T2 foo2) {
+		this.foo2 = foo2;
+	}
+	
+	public static void main(String[] args) {
+		
+		Generic<Integer,Boolean> generic = new Generic<Integer,Boolean>();
+		generic.setFoo1(new Integer(20));//存
+		generic.setFoo2(new Boolean(false));
+		
+		Integer in = generic.getFoo1();//取
+		Boolean b = generic.getFoo2();
+		
+		System.out.println(in);
+		System.out.println(b);
+	
+	}
+}
+
+///////////////////////////////////////////////////////////////////////
+运行结果：
+20
+false

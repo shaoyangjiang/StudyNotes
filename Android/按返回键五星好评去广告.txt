@@ -1,0 +1,56 @@
+  @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK
+                && event.getAction() == KeyEvent.ACTION_DOWN) {
+
+            Random random = new Random();
+            int num = random.nextInt(40)+1;
+            if(num >=30) {
+                new AlertDialog.Builder(this)
+                        .setTitle("给个好评")
+                        .setMessage("福利，给个五星好评就有机会去广告。")
+                        .setPositiveButton("确定",
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        // TODO Auto-generated method stub
+                                        pingjia();
+                                    }
+                                })
+                        .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                // TODO Auto-generated method stub
+
+                                finish();
+                            }
+                        })
+                        .show();
+            }else {
+                finish();
+            }
+
+
+            return true;
+        }
+
+        return super.onKeyDown(keyCode, event);
+    }
+
+    private void pingjia(){
+        Toast.makeText(this,"五星好评，评论字数超过15个字，去广告概率更高",Toast.LENGTH_LONG).show();
+        //每次换包名要修改
+        Intent intent = new Intent();
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.setAction(Intent.ACTION_VIEW);
+        Uri uri = Uri.parse(Constants.ChinaMarket);
+        intent.setData(uri);
+        try {
+            startActivity(intent);
+        } catch (Exception e) {
+            e.printStackTrace();
+            uri = Uri.parse(Constants.GoogleMarket);
+            intent.setData(uri);
+            startActivity(intent);
+        }
+    }

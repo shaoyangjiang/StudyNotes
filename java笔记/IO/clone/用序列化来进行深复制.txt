@@ -1,0 +1,97 @@
+/**
+ * 用序列化的方式来实现深复制
+ * @author Administrator
+ *
+ */
+public class CloneTest2 {
+	public static void main(String[] args) throws Exception {
+		Teacher2 teacher2 = new Teacher2();//给teacher添加属性
+		teacher2.setAge(40);
+		teacher2.setName("Teacher wang");
+		
+		Student2 student2 = new Student2();//给学生添加属性
+		student2.setAge(10);
+		student2.setName("zhangsan");
+		student2.setTeacher2(teacher2);
+		
+		Student2 student3 = (Student2)student2.DeepCopy();//复制
+		System.out.println(student3.getAge());//得到复制后的内容
+		System.out.println(student3.getName());
+		System.out.println(student3.getTeacher2().getAge());
+		System.out.println(student3.getTeacher2().getName());
+	}
+}
+
+/**
+ * teacher类实现了Seralizable接口，说明这个类里是可以被序列化的
+ * @author Administrator
+ *
+ */
+class Teacher2 implements Serializable{
+	private int age;
+	private String name;
+	
+	public int getAge() {
+		return age;
+	}
+	public void setAge(int age) {
+		this.age = age;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+}
+
+/**
+ * student类实现了Seralizable接口，说明这个类里是可以被序列化的
+ * @author Administrator
+ *
+ */
+class Student2 implements Serializable{
+	private int age;
+	private String name;
+	private Teacher2 teacher2;
+	
+	public int getAge() {
+		return age;
+	}
+	public void setAge(int age) {
+		this.age = age;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public Teacher2 getTeacher2() {
+		return teacher2;
+	}
+	public void setTeacher2(Teacher2 teacher2) {
+		this.teacher2 = teacher2;
+	}
+	/**
+	 * 复制方法：把要复制的对象用字节数组的流的形式保存
+	 * @return
+	 * @throws Exception
+	 */
+	public Object DeepCopy() throws Exception{
+		ByteArrayOutputStream bos = new ByteArrayOutputStream();
+		ObjectOutputStream oos = new ObjectOutputStream(bos);
+		oos.writeObject(this);
+		
+		ByteArrayInputStream bis = new ByteArrayInputStream(bos.toByteArray());
+		ObjectInputStream ois = new ObjectInputStream(bis);
+		return ois.readObject();
+	}
+}
+====================================================================
+运行结果：
+10
+zhangsan
+40
+Teacher wang

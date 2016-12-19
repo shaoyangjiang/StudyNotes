@@ -1,0 +1,160 @@
+--（1）“读者”数据输入
+Delete from ReaderTable;
+Insert into ReaderTable values('R120291',
+'贾政',
+'myname1',
+'123456',
+'男',
+'中南大学信息学院',
+'学生',
+10,
+'在读研究生');
+Insert into ReaderTable values('R120292',
+'王熙凤',
+'myname2',
+'123456',
+'女',
+'中南大学信息学院',
+'学生',
+7,
+'教师');
+Insert into ReaderTable values('R120293',
+'贾宝玉',
+'myname3',
+'123456',
+男',
+'中南大学物理学院',
+'学生',
+8,
+'在读研究生');
+Insert into ReaderTable values('R120294',
+'林黛玉',
+'myname4',
+'123456',
+'女',
+'中南大学信息学院',
+'学生',
+9,
+'在读研究生');
+Insert into ReaderTable values('R120295',
+'贾探春',
+'myname5',
+'123456',
+'女',
+'广西大学电器工程学院',
+'学生',
+15,
+'教师');
+Insert into ReaderTable values('R120296',
+'贾迎春',
+'myname6',
+'123456',
+'女',
+'广西大学计信学院',
+'学生',
+0,
+'本科生');
+Select * from ReaderTable;
+
+-- （2）“新书”数据输入 
+Delete from BookTable;
+Insert into BookTable values ('11230',
+'C++ Builder 6数据库系统开发教程',
+'诸葛亮',
+'太阳出版社',
+'2005-5-3',
+'TP312C-484',
+48.0,
+'借出');
+Insert into BookTable values ('11231',
+'Delphi 2005 数据库系统开发教程',
+'刘备',
+'月亮出版社',
+'2006-3-3',
+'TP312C++-20',
+88.0,
+'借出') ;
+Insert into BookTable values ('11232',
+'数据库系统概论',
+'孙权',
+'星星出版社',
+'2004-12-3',
+'TP506-90',
+88.0,
+'在馆');
+Insert into BookTable values ('11233',
+'三国演义',
+'罗贯中',
+'月亮出版社',
+'1980-1-3',
+'TP45-3',
+45.0,
+'在馆');
+Insert into BookTable values ('11234',
+'数据挖掘教程',
+'曹操',
+'月亮出版社',
+'2006-1-3',
+'TP46-4',
+32.0,
+'借出') ;
+Insert into BookTable values ('11235',
+'算法设计与分析',
+'周瑜',
+'太阳出版社',
+'2005-8-12',
+'TP34-80',
+18.0,
+'借出');
+Insert into BookTable values ('11236',
+'三国持久战',
+'关羽',
+'星星出版社',
+'2000-12-1',
+'TP88-99',
+78.0,
+'借出');
+Insert into BookTable values ('11237',
+'Oracle 10g开发教程',
+'张飞',
+'月亮出版社',
+'2006-4-1',
+'TP312C-008',
+83.0,
+'在馆') ;
+Select * from BookTable;
+
+-- （3）“馆员”数据输入
+Delete from LibrarianTable;
+Insert into LibrarianTable values ('L1260',  '宋江', '654321') ;
+Insert into LibrarianTable values ('L1261',  '武松', '123456') ;
+Insert into LibrarianTable values ('L1262',  '林冲', '123456') ;
+Insert into LibrarianTable values ('L1263',  '李逵', '123456') ;
+Insert into LibrarianTable values ('L1264',  '杨志', '123456') ;
+Select * from LibrarianTable;
+
+-- （4）“借阅”数据测试输入
+Delete from BorrowingTable;
+Insert into BorrowingTable(ReaderId,
+ReaderName,
+ISBN,
+BookName,
+Editor,
+BorrowDate,
+ReturnDate,
+LibrarianId) values('R120291',
+'贾政',
+'11230',
+'C++ Builder 6数据库系统开发教程',
+'诸葛亮',
+'2006-3-1',
+'2006-4-1',
+'L1261');
+Insert into BorrowingTable(ReaderId,ReaderName,ISBN,BookName,Editor,BorrowDate,ReturnDate,
+LibrarianId) values('R120293', '贾宝玉', '11231',
+'Delphi 2005 数据库系统开发教程',  '刘备', '2006-4-8',
+'2006-5-8', 'L1261');
+Insert into BorrowingTable(ReaderId,ReaderName,ISBN,BookName,Editor,BorrowDate,ReturnDate,
+LibrarianId) values('R120292', '王熙凤', '11232',  '数据库系统概论',
+'孙权', '2005-12-23', '2006-1-23', 'L1260');
+Select * from BorrowingTable; 

@@ -1,0 +1,77 @@
+1.连接mysql：mysql_connect(servername,username,password);
+例子：
+<?php
+$con = mysql_connect("localhost","root","");
+if (!$con)
+  {
+  die('Could not connect: ' . mysql_error());
+  }
+
+// some code
+
+mysql_close($con);
+?>
+===========================================
+2.创建数据库    语法CREATE DATABASE database_name
+<?php
+$con = mysql_connect("localhost","peter","abc123");
+if (!$con)
+  {
+  die('Could not connect: ' . mysql_error());
+  }
+
+if (mysql_query("CREATE DATABASE my_db",$con))
+  {
+  echo "Database created";
+  }
+else
+  {
+  echo "Error creating database: " . mysql_error();
+  }
+
+mysql_close($con);
+?>
+================================================
+3.创建数据库表    语法CREATE TABLE table_name(column_name1 data_type,column_name2 data_type,column_name3 data_type,...)
+<?php
+$con = mysql_connect("localhost","peter","abc123");
+if (!$con)
+  {
+  die('Could not connect: ' . mysql_error());
+  }
+
+// Create database
+if (mysql_query("CREATE DATABASE my_db",$con))
+  {
+  echo "Database created";
+  }
+else
+  {
+  echo "Error creating database: " . mysql_error();
+  }
+
+// Create table in my_db database
+mysql_select_db("my_db", $con);
+$sql = "CREATE TABLE Persons 
+(
+FirstName varchar(15),
+LastName varchar(15),
+Age int
+)";
+mysql_query($sql,$con);
+
+mysql_close($con);
+?>
+======================================================
+4.主键和自动递增字段
+$sql = "CREATE TABLE Persons 
+(
+personID int NOT NULL AUTO_INCREMENT, 
+PRIMARY KEY(personID),
+FirstName varchar(15),
+LastName varchar(15),
+Age int
+)";
+
+mysql_query($sql,$con);
+=========================================================

@@ -1,0 +1,37 @@
+http://blog.csdn.net/guolin_blog/article/details/17482095
+
+可以抓取网络信息.
+
+服务器端json.html文件：
+[
+{'id':1,'picName':'xunlei',  "picUrl":'http://share009.duapp.com/tupian/xunlei.png','openUrl':'http://share009.duapp.com/zhfxbb/xulei.html'},
+{'id':2,'picName':'youku','picUrl': 'http://share009.duapp.com/tupian/youku.png','openUrl': 'http://share009.duapp.com/tupian/youku.html'}
+]
+===================================
+客户端：
+
+RequestQueue queue = Volley.newRequestQueue(this);
+queue.getCache().clear();
+        JsonArrayRequest request = new JsonArrayRequest("http://share009.duapp.com/file/tupian.html", new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+
+                JSONObject jObject = null;
+                for(int i = 0; i < response.length(); i++) {
+                    try {
+                        jObject = response.getJSONObject(i);
+                        Log.d("VolleyTest", jObject.getString("picName"));
+                        Log.d("VolleyTest1", response.toString());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("VolleyTest2", error.getMessage());
+            }
+        });
+        queue.add(request);
+==================================================================================

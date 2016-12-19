@@ -1,0 +1,24 @@
+*TranslateAnimation(移动)：
+	AnimationSet animationSet = new AnimationSet(true);
+	//x轴从哪移动到哪，y轴从哪移动到哪
+	TranslateAnimation translateAnimation = new 			TranslateAnimation(Animation.RELATIVE_TO_SELF, 0, 			Animation.RELATIVE_TO_PARENT, 0.7f, 					Animation.RELATIVE_TO_SELF, 0, 					Animation.RELATIVE_TO_PARENT, 0.7f);
+
+	translateAnimation.setDuration(1000);
+	animationSet.addAnimation(translateAnimation);
+	imageView.startAnimation(animationSet);
+
+*第二种：
+ TranslateAnimation(float fromXDelta, float toXDelta, float fromYDelta, float toYDelta)   
+fromXDelta：位置变化的起始点X坐标。
+toXDelta：位置变化的结束点X坐标。
+fromYDelta：位置变化的起始点Y坐标。
+toYDelta：位置变化的结束点Y坐标。
+
+* float fromXDelta,这个参数表示动画开始的点离当前View X坐标上的差值  
+* float toXDelta, 这个参数表示动画结束的点离当前View X坐标上的差值；  
+* float fromYDelta, 这个参数表示动画开始的点离当前View Y坐标上的差值* float toYDelta, 这个参数表示动画结束的点离当前View Y坐标上的差值；
+
+
+
+
+

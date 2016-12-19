@@ -1,0 +1,90 @@
+/**
+ * 用递归方式来解析任意的xml文档
+ * @author Administrator
+ *
+ */
+public class Domtest {
+
+	public static void main(String[] args) throws Exception {
+		//获得dom解析器工厂(作用是创建具体的解析器)
+		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+		//获得具体的dom解析器
+		DocumentBuilder db = dbf.newDocumentBuilder();
+		//解析一个xml文档，获得Document对象(根结点);
+		Document doc = db.parse(new File("student.xml"));
+		Element element = doc.getDocumentElement();//得到根元素结点
+		parseElement(element);
+	}
+	
+	private static void parseElement(Element element){
+		String tagName = element.getTagName();//得到标签名字
+		NodeList children = element.getChildNodes();//得到子结点列表
+		System.out.print("<"+tagName);
+		//element元素的所有属性所构成的NamedNodeMap对象，需要对其进行判断
+		NamedNodeMap map = element.getAttributes();
+		//如果该元素存在属性
+		if(null != map){
+			for(int i=0; i<map.getLength(); i++){
+				Attr attr = (Attr)map.item(i);
+				String attrName = attr.getName();
+				String attrValue = attr.getValue();
+				System.out.print(" "+attrName+"=\""+attrValue+"\"");
+			}
+		}
+		System.out.print(">");
+		
+		for(int i = 0;i < children.getLength();i++){
+			Node node = children.item(i);
+			//获得结点的类型
+			short nodeType = node.getNodeType();
+			if(nodeType == Node.ELEMENT_NODE){
+				//是元素，继续递归
+				parseElement((Element)node);
+			}else if(nodeType == Node.TEXT_NODE){
+				//递归出口
+				System.out.print(node.getNodeValue());
+			}else if(nodeType == Node.COMMENT_NODE){
+				Comment comment =(Comment)node;
+				System.out.print("<!--");
+				//得到注释内容
+				String data = comment.getData();
+				System.out.println(data +"-->");
+			}
+		}
+	
+		System.out.println("<"+tagName+"/>");
+	}
+}
+===================================================================
+运行结果;
+<学生名册>
+    <!-- this is command -->
+
+	<学生 学号="1">
+		<姓名>张三<姓名/>
+
+		<性别>男<性别/>
+
+		<年龄>20<年龄/>
+
+	<学生/>
+
+	<学生 学号="2">
+		<姓名>李四<姓名/>
+
+		<性别>女<性别/>
+
+		<年龄>19<年龄/>
+
+	<学生/>
+
+	<学生 学号="3">
+		<姓名>王五<姓名/>
+
+		<性别>男<性别/>
+
+		<年龄>21<年龄/>
+
+	<学生/>
+
+<学生名册/>

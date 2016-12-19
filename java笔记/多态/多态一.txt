@@ -1,0 +1,29 @@
+所谓的多态就是父类引用指向子类对象
+public class Test {
+	public static void main(String[] args) {
+		Parent parent = new Parent();
+		parent.sing();
+
+		Child child = new Child();
+		child.sing();
+		// 父类引用指向子类对象
+		Parent p = new Child();
+		p.sing();
+	}
+}
+
+class Parent {
+	public void sing() {
+		System.out.println("parent is singing");
+	}
+}
+
+class Child extends Parent {
+	public void sing() {
+		System.out.println("child is singing");
+	}
+}
+打印结果是------------------------
+parent is singing
+child is singing
+child is singing

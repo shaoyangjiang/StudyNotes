@@ -1,0 +1,53 @@
+参考：http://www.iteye.com/topic/568409
+另一种方法：用到了主题样式的dialog，很漂亮也很简单http://hi.baidu.com/joyhub2140/blog/item/2411207ac1e97def0bd187e6.html
+首先创建一个自己的CustomDialog类继承Dialog类
+public class CustomDialog extends Dialog {
+	
+	public CustomDialog(Context context) {
+		super(context);
+		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.dialog);//设置对话框布局
+		setTitle("my custom dialog");//设置标题
+		Button buttonYes = (Button)findViewById(R.id.button1);
+		buttonYes.setOnClickListener(new Button.OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				dismiss();				
+			}		
+		});
+		
+		Button buttonNo = (Button)findViewById(R.id.button2);
+		buttonNo.setOnClickListener(new Button.OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				dismiss();
+			}		
+		});
+	}
+}
+
+第二步：使用自定义的Dialog类
+public class Text1Activity extends Activity {
+    /** Called when the activity is first created. */
+	CustomDialog cd;
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.main);
+        cd = new CustomDialog(this);
+        Button button = (Button)findViewById(R.id.bt1);
+        button.setOnClickListener(new OnClickListener() {		
+			@Override
+			public void onClick(View v) {		
+				cd.show();
+			}
+		});
+    }
+}

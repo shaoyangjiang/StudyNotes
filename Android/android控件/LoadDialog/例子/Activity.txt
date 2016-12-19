@@ -1,0 +1,9 @@
+			private LoadingDialog loadingDialog; // 加载进度条
+			onCreat()方法中：
+					loadingDialog = new LoadingDialog(this); // 初始化加载进度条
+					loadingDialog.show(); // 显示加载进度条
+			----------------------------------------------
+			取消显示，可以写在handler中，读取网络数据完成后
+							if(loadingDialog.isShowing()){ // 取消进度条
+								loadingDialog.cancel();
+							}

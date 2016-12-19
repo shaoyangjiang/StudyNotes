@@ -1,0 +1,39 @@
+http://www.jcodecraeer.com/a/anzhuokaifa/androidkaifa/2015/0106/2272.html
+---------------------------
+res/menu下面新建 popup_menu.xml
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android" 
+      xmlns:tools="http://schemas.android.com/tools">  
+<item
+     android:id="@+id/special_topic"  
+     android:title="专题"/>  
+ 
+    <item  
+        android:id="@+id/elite"  
+        android:title="精选"/>  
+  
+</menu>
+-------------------------------------------
+在activity或者fragment中使用PopupMenu
+
+       final  ImageButton moreMenu = (ImageButton)v.findViewById(R.id.more_menu);
+        moreMenu.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v){
+                   PopupMenu popup = new PopupMenu(getActivity(), moreMenu);
+                    //Inflating the Popup using xml file
+                    popup.getMenuInflater()
+                        .inflate(R.menu.poupup_menu_home, popup.getMenu());
+ 
+                    //registering popup with OnMenuItemClickListener
+                    popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                        public boolean onMenuItemClick(MenuItem item) {
+                   
+                            return true;
+                        }
+                    });
+ 
+                    popup.show(); //showing popup menu 
+            }
+        });
+其中MoreMenu是一个按钮，由他触发PopupMenu的显示。

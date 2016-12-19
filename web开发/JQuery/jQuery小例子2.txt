@@ -1,0 +1,127 @@
+1.新建一个表格，要求奇数行背景颜色为红色，偶数行背景颜色为蓝色。
+a.用JavaScript来实现的方式：
+布局代码
+  <body>
+	<table id="table" border="1" align="center" width="80">
+			<tr><td>hello</td><td>hello</td><td>hello</td><td>hello</td></tr>
+			<tr><td>world</td><td>world</td><td>world</td><td>world</td></tr>
+			<tr><td>aaaaa</td><td>aaaaa</td><td>aaaaa</td><td>aaaaa</td></tr>
+			<tr><td>bbbbb</td><td>bbbbb</td><td>bbbbb</td><td>bbbbb</td></tr>
+			<tr><td>ccccc</td><td>ccccc</td><td>ccccc</td><td>ccccc</td></tr>
+			<tr><td>ddddd</td><td>ddddd</td><td>ddddd</td><td>ddddd</td></tr>
+	</table>
+  </body>
+---------------------------------------
+JavaScript代码：
+ 		window.onload = function(){
+ 			var myTable = document.getElementById("table");
+ 			var myTrs = myTable.getElementsByTagName("tr");
+ 			for(var i=0;i<myTrs.length;i++){
+ 				if(i % 2 == 0){
+ 					myTrs[i].style.backgroundColor = "red";
+ 				} else{
+ 					myTrs[i].style.backgroundColor = "blue";
+ 				}		
+ 			}
+ 		}
+==================================================================
+b.用jQuery来实现，和上一种方式运行的结果是一样的。
+ 		$("document").ready(function(){
+ 			$("#table tr:even").css("background","red");
+ 			$("#table tr:odd").css("background","blue");
+ 		})
+===========================================================================
+2.多个复选框，当点击按钮的时候弹出有几个checkbox被选择
+a.用JavaScript来实现
+布局代码：
+  <body>
+    <input type="checkbox" name="myCheck">
+    <input type="checkbox" name="myCheck">
+    <input type="checkbox" name="myCheck">
+    <input type="checkbox" name="myCheck">
+    <input type="checkbox" name="myCheck"><br>
+    <input type="button" id="myButton" value="click me">
+  </body>
+----------------------------------------------
+JavaScript代码
+		window.onload = function(){
+			var bt = document.getElementById("myButton");
+			bt.onclick = function(){
+				var myCheck = document.getElementsByName("myCheck");
+				var count = 0;
+				for(var i =0; i<myCheck.length;i++){
+					if(myCheck[i].checked){
+						count++;
+					}
+				}
+				alert("number:"+count);
+			}
+==========================================================
+b.用jquery来实现，和上一种方式运行的结果是一样
+		$("document").ready(function(){
+			$(":button").click(function(){
+				alert("number:"+$("input[name='myCheck']:checked").length);
+			})
+		})
+============================================================================
+3.$(.test :hidden)与$(.test:hidden)的区别，前一个是选择class为test的元素当中的子元素，后一个是选择隐藏的class为test的元素
+-------------------------------
+ 	<div class="test">
+ 		<div style="display:none">aaa</div>
+ 		<div class="test" style="display:none">ddd</div>
+ 	</div>
+ 	<div class="test" style="display:none">eee</div>
+ 	<div class="test" style="display:none">fff</div>
+ 	<div class="test" style="display:none">eee</div>
+ 	<div class="test" style="display:none">fff</div>
+-----------------------------
+		$("document").ready(function(){
+			alert($('.test :hidden').length); //选择class为test的元素当中的子元素2
+			alert($('.test:hidden').length);//选择隐藏的class为test的元素5
+		})
+运行结果，先弹出2，再弹出5
+========================================================
+4.简单的用jQuery来解析dom信息
+  <body>
+	<p title="hello world">你喜欢我吗？</p>
+	<ul>
+		<li title="1">喜欢</li>
+		<li title="2">很喜欢</li>
+		<li title="3">非常喜欢</li>
+		<li title="4">超级喜欢</li>
+	</ul>
+  </body>
+-------------------------------------------------
+	<script type="text/javascript">
+		$(function(){
+			var p = $("p");//选择p元素
+			var li = $("ul li:eq(1)");//选择ul标签里的li元素的第一个
+			var title = p.attr("title");//得到p元素的属性
+			var text = li.text();//得到li的内容
+			alert(title);
+			alert(text);
+		})
+	</script>
+运行结果，先弹出hello world再弹出2.
+=====================================================
+5.用jQuery来动态的添加浏览框，当点击按钮时添加浏览框和button，点击添加后的button就删除浏览框
+  <body>
+	<input type="file" id="itemNum"/><input type="button" value="more" name="btn"/>
+	<div id="div1"></div>
+  </body>
+--------------------------------------
+		$(function(){
+			$("input[type=button]").click(function(){
+				var br=$("<br>");
+				var input=$("<input type='file'/>");
+				var button=$("<input type='button' value='clear'/>");
+				$("#div1").append(br).append(input).append(button);//把file框和button添加到div后面
+				button.click(function(){//对button进行监听，分别移除
+					br.remove();
+					input.remove();
+					button.remove();
+				})
+			})
+		})
+===================================================================================
+

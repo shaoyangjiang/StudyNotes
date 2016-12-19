@@ -1,0 +1,9 @@
+…Ë÷√—’…´£∫
+<resources>
+    <color name="color_name">#8B1A1A</color>
+</resources>
+
+…Ë÷√≥ﬂ¥Á£∫
+<resources>
+    <dimen name="actionbar_height">45dip</dimen>
+</resources>

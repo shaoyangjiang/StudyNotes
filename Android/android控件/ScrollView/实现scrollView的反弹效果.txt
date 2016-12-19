@@ -1,0 +1,126 @@
+http://blog.csdn.net/jj120522/article/details/8204434
+/**
+ * ScrollView·´µ¯Ğ§¹ûµÄÊµÏÖ
+ */
+public class MyScrollView extends ScrollView {
+	private View inner;// º¢×ÓView
+	private float y;// µã»÷Ê±y×ø±ê
+	private Rect normal = new Rect();// ¾ØĞÎ(ÕâÀïÖ»ÊÇ¸öĞÎÊ½£¬Ö»ÊÇÓÃÓÚÅĞ¶ÏÊÇ·ñĞèÒª¶¯»­.)
+	private boolean isCount = false;// ÊÇ·ñ¿ªÊ¼¼ÆËã
+
+	public MyScrollView(Context context, AttributeSet attrs) {
+		super(context, attrs);
+	}
+
+	/***
+	 * ¸ù¾İ XML Éú³ÉÊÓÍ¼¹¤×÷Íê³É.¸Ãº¯ÊıÔÚÉú³ÉÊÓÍ¼µÄ×îºóµ÷ÓÃ£¬ÔÚËùÓĞ×ÓÊÓÍ¼Ìí¼ÓÍêÖ®ºó. ¼´Ê¹×ÓÀà¸²¸ÇÁË onFinishInflate
+	 * ·½·¨£¬Ò²Ó¦¸Ãµ÷ÓÃ¸¸ÀàµÄ·½·¨£¬Ê¹¸Ã·½·¨µÃÒÔÖ´ĞĞ.
+	 */
+	@Override
+	protected void onFinishInflate() {
+		if (getChildCount() > 0) {
+			inner = getChildAt(0);
+		}
+	}
+
+	/***
+	 * ¼àÌıtouch
+	 */
+	@Override
+	public boolean onTouchEvent(MotionEvent ev) {
+		if (inner != null) {
+			commOnTouchEvent(ev);
+		}
+
+		return super.onTouchEvent(ev);
+	}
+
+	/***
+	 * ´¥ÃşÊÂ¼ş
+	 * 
+	 * @param ev
+	 */
+	public void commOnTouchEvent(MotionEvent ev) {
+		int action = ev.getAction();
+		switch (action) {
+		case MotionEvent.ACTION_DOWN:
+			break;
+		case MotionEvent.ACTION_UP:
+			// ÊÖÖ¸ËÉ¿ª.
+			if (isNeedAnimation()) {
+				animation();
+				isCount = false;
+			}
+			break;
+		/***
+		 * ÅÅ³ı³öµÚÒ»´ÎÒÆ¶¯¼ÆËã£¬ÒòÎªµÚÒ»´ÎÎŞ·¨µÃÖªy×ø±ê£¬ ÔÚMotionEvent.ACTION_DOWNÖĞ»ñÈ¡²»µ½£¬
+		 * ÒòÎª´ËÊ±ÊÇMyScrollViewµÄtouchÊÂ¼ş´«µİµ½µ½ÁËLIstViewµÄº¢×ÓitemÉÏÃæ.ËùÒÔ´ÓµÚ¶ş´Î¼ÆËã¿ªÊ¼.
+		 * È»¶øÎÒÃÇÒ²Òª½øĞĞ³õÊ¼»¯£¬¾ÍÊÇµÚÒ»´ÎÒÆ¶¯µÄÊ±ºòÈÃ»¬¶¯¾àÀë¹é0. Ö®ºó¼ÇÂ¼×¼È·ÁË¾ÍÕı³£Ö´ĞĞ.
+		 */
+		case MotionEvent.ACTION_MOVE:
+			final float preY = y;// °´ÏÂÊ±µÄy×ø±ê
+			float nowY = ev.getY();// Ê±Ê±y×ø±ê
+			int deltaY = (int) (preY - nowY);// »¬¶¯¾àÀë
+			if (!isCount) {
+				deltaY = 0; // ÔÚÕâÀïÒª¹é0.
+			}
+
+			y = nowY;
+			// µ±¹ö¶¯µ½×îÉÏ»òÕß×îÏÂÊ±¾Í²»»áÔÙ¹ö¶¯£¬ÕâÊ±ÒÆ¶¯²¼¾Ö
+			if (isNeedMove()) {
+				// ³õÊ¼»¯Í·²¿¾ØĞÎ
+				if (normal.isEmpty()) {
+					// ±£´æÕı³£µÄ²¼¾ÖÎ»ÖÃ
+					normal.set(inner.getLeft(), inner.getTop(),
+							inner.getRight(), inner.getBottom());
+				}
+				// ÒÆ¶¯²¼¾Ö
+				inner.layout(inner.getLeft(), inner.getTop() - deltaY / 2,
+						inner.getRight(), inner.getBottom() - deltaY / 2);
+			}
+			isCount = true;
+			break;
+
+		default:
+			break;
+		}
+	}
+
+	/***
+	 * »ØËõ¶¯»­
+	 */
+	public void animation() {
+		// ¿ªÆôÒÆ¶¯¶¯»­
+		TranslateAnimation ta = new TranslateAnimation(0, 0, inner.getTop(),
+				normal.top);
+		ta.setDuration(200);
+		inner.startAnimation(ta);
+		// ÉèÖÃ»Øµ½Õı³£µÄ²¼¾ÖÎ»ÖÃ
+		inner.layout(normal.left, normal.top, normal.right, normal.bottom);
+		normal.setEmpty();
+
+	}
+
+	// ÊÇ·ñĞèÒª¿ªÆô¶¯»­
+	public boolean isNeedAnimation() {
+		return !normal.isEmpty();
+	}
+
+	/***
+	 * ÊÇ·ñĞèÒªÒÆ¶¯²¼¾Ö inner.getMeasuredHeight():»ñÈ¡µÄÊÇ¿Ø¼şµÄ×Ü¸ß¶È
+	 * 
+	 * getHeight()£º»ñÈ¡µÄÊÇÆÁÄ»µÄ¸ß¶È
+	 * 
+	 * @return
+	 */
+	public boolean isNeedMove() {
+		int offset = inner.getMeasuredHeight() - getHeight();
+		int scrollY = getScrollY();ß
+		// 0ÊÇ¶¥²¿£¬ºóÃæÄÇ¸öÊÇµ×²¿
+		if (scrollY == 0 || scrollY == offset) {
+			return true;
+		}
+		return false;
+	}
+
+}

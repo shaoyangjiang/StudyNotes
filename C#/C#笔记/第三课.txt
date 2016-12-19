@@ -1,0 +1,4 @@
+switch 比较
+java只能是switch(int/char 表达式)，可以没有break；
+C#可以是switch(int/char/string 表达式),必须有break；(case里没有其他语句的时候步需要break)
+=====================================================================

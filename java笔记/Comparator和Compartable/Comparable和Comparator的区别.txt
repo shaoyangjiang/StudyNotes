@@ -1,0 +1,6 @@
+http://www.tutorialspoint.com/java/java_using_comparator.htm
+1.一个类实现了Comparable接口表明这个类里的对象是可以相互比较的，这个类的对象组成的集合就可以用Collection.sort()或者Arrays.sort()方法排序。
+==================================================================
+2.Comparator可以看成是一种算法的实现，将算法和数据分离。使用场景：
+a.一开始没考虑到比较问题(没有实现Comparable)，可以通过Comparator来实现排序而不用改变原来对象。
+b.可以使用多种排序标准，比如升序，降序。

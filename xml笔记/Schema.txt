@@ -1,0 +1,55 @@
+1.schema(模式):其作用是dtd一样，也是用于验证xml文档的有效性，只不过它提供了比dtd更强大的功能和更细粒度的数据类型，另外schema还可以自定义数据类型。此外，schema也是一个xml文件，而dtd不是。
+2.所有的schema文档的根元素必须是schema。
+3.SimpleType与ComplexType的区别：
+1)SimpleType类型的元素没有子元素，也没有属性。
+2)当需要定义的元素包含了子元素或者属性时，必须要使用ComplexType
+4.SimpleContent,用于ComplexType元素上，用于限定该ComplexType的内容类型，表示该ComplexType没有子元素，同时该ComplexType需要有属性，否则成了SimpleType了。
+
+=================================================================
+简单的小例子，用schema验证xml
+schema文件：
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="书本" type="书本类型"/>
+	<xs:complexType name="书本类型">
+		<xs:sequence>
+			<xs:element name="名称" type="xs:string"/>
+			<xs:element name="作者" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>
+==============================================================
+xml文件：
+<?xml version="1.0" encoding="UTF-8"?>
+<书本 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="C:\Documents and Settings\Administrator\My Documents\Altova Projects\myschema.xsd">
+	<名称>那些年，我们追过的女孩</名称>
+	<作者>邵洋江</作者>
+</书本>
+===============================================================
+运行结果：验证成功
+
+简单小例子2
+schema文件：
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="cat" type="xs:string"/>
+	<xs:element name="dog" type="xs:string"/>
+	
+	<xs:complexType name="myType">
+		<xs:sequence>
+			<xs:element ref="cat"/>
+			<xs:element ref="dog"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:element name="pets" type="myType"/>
+</xs:schema>
+================================================================
+xml文件：
+<?xml version="1.0" encoding="UTF-8"?>
+<pets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="C:\Documents and Settings\Administrator\My Documents\Altova Projects\myschema.xsd">
+	<cat>小猫</cat>
+	<dog>小狗</dog>
+</pets>
+=================================================================
+运行结果：验证成功

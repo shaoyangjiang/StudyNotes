@@ -1,0 +1,25 @@
+步骤：
+先在res文件夹下面新建一个xml文件夹
+xml文件夹里面新建一个example_appwidget_info.xml
+新建一个桌面空间的布局文件example_appwidget.xml
+在AndroidManifest.xml文件中声明
+继承AppWidgetProvider类(onDeleted、onDisabled、onEnabled、onUpdate…)
+
+
+example_appwidget_info.xml代码：
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+	android:minWidth="294dp"
+	android:minHeight="72dp"
+	android:updatePeriodMillis="86400000"
+	android:initialLayout="@layout/example_appwidget"
+	>
+</appwidget-provider>
+
+在AndroidManifest.xml文件中声明：
+<receiver android:name="ExampleAppWidgetProvider">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+            </intent-filter>
+            <meta-data android:name="android.appwidget.provider"
+                android:resource="@xml/example_appwidget_info"/>
+        </receiver>

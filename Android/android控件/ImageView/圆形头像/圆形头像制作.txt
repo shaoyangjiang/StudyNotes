@@ -1,0 +1,39 @@
+项目地址：
+https://github.com/Carbs0126/AvatarImageView
+==========================
+compile 'cn.carbs.android:AvatarImageView:1.0.2'
+========================
+添加布局文件
+<cn.carbs.android.avatarimageview.library.AvatarImageView
+            android:id="@+id/item_avatar"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:padding="5dp"
+            app:aiv_BoarderWidth="2dp"
+            app:aiv_ShowBoarder="false"
+            app:aiv_TextSizeRatio="0.4"/>
+=================================================
+(1)设置图片或者文字的方法：
+
+AvatarImageView aiv = (AvatarImageView) this.findViewById(R.id.aiv);
+//设置图像：
+aiv.setImageResource(R.drawable.id_014);
+//或者：
+aiv.setDrawable(drawable);
+//或者：
+aiv.setBitmap(bitmap);
+//或者：
+aiv.setImageDrawable(drawable);
+//设置文字：
+aiv.setTextAndColor("安", AvatarImageView.COLORS[0]);//直接设置颜色，如果设置的文字为多个字符，则会具有clip效果，单个字符没有clip效果
+//或者：
+aiv.setTextAndColorSeed("安","安卓");//“安卓”字样作为产生backgroundcolor的seed
+=====================
+(2)与Glide的结合：
+
+Glide
+    .with(activity)
+    .load(picurl)
+    .centerCrop()
+    .crossFade()
+    .into(aiv);

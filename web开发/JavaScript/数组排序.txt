@@ -1,0 +1,32 @@
+实现数组中的元素从大到小排序
+	function compare(num1,num2){
+		var temp1 = parseInt(num1);
+		var temp2 = parseInt(num2);
+		if(temp1 < temp2){
+			return -1;
+		}else if(temp1 == temp2){
+			return 0;
+		}else {
+			return 1;
+		}
+	}
+	
+	var array = [9,7,5];
+	alert(array.sort(compare));
+运行结果：弹出窗口5，7，9
+=====================================================================
+匿名内部类实现方式
+	var array = [9,7,5];
+	array.sort(function(num1,num2){
+		var temp1 = parseInt(num1);
+		var temp2 = parseInt(num2);
+		if(temp1 < temp2){
+			return -1;
+		}else if(temp1 == temp2){
+			return 0;
+		}else {
+			return 1;
+		}
+	});
+	alert(array);
+================================================================

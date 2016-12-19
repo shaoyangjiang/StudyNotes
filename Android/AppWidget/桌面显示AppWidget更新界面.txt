@@ -1,0 +1,25 @@
+onUpdate:(其他参考“桌面显示AppWidget切换Activity”)
+onUpdate:
+Time time = new Time();
+time.setToNow();
+for(int i = 0;i<appWidgetIds.length;i++){
+Intent intent = new Intent();
+intent.setAction(UPDATE_ACTION);
+PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
+RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.appwidget);
+AlarmManager alarmManager = (AlarmManager) context.getSystemService(context.ALARM_SERVICE);
+alarmManager.setRepeating(AlarmManager.RTC, time.toMillis(true), 1000, pendingIntent);
+}
+
+onReceive：
+String action = intent.getAction();
+	if(UPDATE_ACTION.equals(action)){
+	RemoteViews remoteViews = new RemoteViews(context.getPackageName(),R.Layout.example_appwidget);
+	remoteViews.set……（更改控件的信息）
+	AppWidgetManager appWidgetManager = AppWidgetManager.getIntance(context);
+	//ComponentName代表整个AppWidget对象
+	ComponentName componentName = new ComponentName(context,ExampleAppWidgetProvider.class);
+	appWidgetManager.updateAppWidget(componentName,remoteViews);
+		}else{
+		super.onReceive(context,intent);
+		}

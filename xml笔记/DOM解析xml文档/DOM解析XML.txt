@@ -1,0 +1,13 @@
+1.DOM:Document Object Model(文档对象模型)
+=================================================
+2.对于XML应用开发来说，DOM就是一个对象化的XML数据接口，一个与语言无关、与平台无关的标准接口规范。
+==============================================================
+3.要严格区分XML文档树中的根结点与根元素结点：根结点(Document)代表的是XMl文档本身，是我们解析XML文档的入口，而根元素节点则是表示XMl文档的根元素，它对应于XML文档的Root。
+=================================================================
+解析xml步骤：
+a.获得dom解析器工厂(作用是创建具体的解析器);
+DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+b.获得具体的dom解析器;
+DocumentBuilder db = dbf.newDocumentBuilder();
+c.解析一个xml文档，获得Document对象(根结点);
+Document document = db.parse(new File("candidate.xml"));

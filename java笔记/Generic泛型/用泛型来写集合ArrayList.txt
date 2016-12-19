@@ -1,0 +1,35 @@
+/**
+ * 用泛型来写集合，以后写集合都要用泛型。一个类型一个集合
+ * @author Administrator
+ *
+ */
+public class Generic3 {
+
+	public static void main(String[] args) {
+		
+		List<String> list = new ArrayList<String>(); 
+		list.add("a");
+		list.add("b");
+		list.add("c");
+		list.add("d");
+		//输出
+		for(int i = 0;i <list.size();i++){
+			System.out.println(list.get(i));
+		}
+		//输出
+		for(Iterator<String> iter = list.iterator();iter.hasNext();){
+			System.out.println(iter.next());
+		}
+	}
+}
+///////////////////////////////////////////////////////////
+运行结果：
+a
+b
+c
+d
+----------------------
+a
+b
+c
+d

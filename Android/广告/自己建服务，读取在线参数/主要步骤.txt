@@ -1,0 +1,8 @@
+运行结果：只要修改配置文件，android应用就可以读取参数。
+
+MyEclipse端程序
+新建一个SwitchOnlineServlet.java，这是一个Servlet
+在WebRoot下新建一个apps_state.properities文件
+
+Eclispe端：
+某个应用程序只要点击下按钮就可以获取在线参数了。

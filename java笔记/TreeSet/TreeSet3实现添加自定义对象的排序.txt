@@ -1,0 +1,65 @@
+/**
+ * 实现了加入自定义对象的排序(这里实现了TreeSet里加入person对象的socre属性的比较)
+ * @author Administrator
+ *
+ */
+public class TreeSet3 {
+	
+	public static void main(String[] args) {
+		//new出带有排序功能的TreeSet
+		TreeSet treeSet = new TreeSet(new PersonComparator());
+		//new出四个person对象
+		Person p1 = new Person(10);
+		Person p2 = new Person(20);
+		Person p3 = new Person(30);
+		Person p4 = new Person(40);
+		//把四个对象分别加入到treeSet中
+		treeSet.add(p1);
+		treeSet.add(p2);
+		treeSet.add(p3);
+		treeSet.add(p4);
+		//通过迭代的方法(iterator)把加入在treeSet里的对象打印出来
+		for(Iterator iter = treeSet.iterator();iter.hasNext();){
+			Person str = (Person)iter.next();
+			System.out.println(str.socre);
+		}
+	}
+}
+
+/*
+ * 自定义一个Person类，重写了toString方法
+ */
+class Person{
+	int socre;
+	
+	public Person(int sorce){
+		this.socre = sorce;
+	}
+	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return String.valueOf(this.socre);
+	}
+}
+
+/*
+ * 自定义一个实现Comparator接口的一个实例，重写了compare方法
+ */
+class PersonComparator implements Comparator{
+
+	@Override
+	public int compare(Object o1, Object o2) {
+		Person p1 = (Person)o1;
+		Person p2 = (Person)o2;
+		return p1.socre - p2.socre;
+	}
+
+}
+
+////////////////////////////////////////////////////////////////////////
+打印结果：
+10
+20
+30
+40

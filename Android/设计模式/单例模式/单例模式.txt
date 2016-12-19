@@ -1,0 +1,61 @@
+http://www.cnblogs.com/whgw/archive/2011/10/05/2199535.html
+http://blog.csdn.net/shiyanming1223/article/details/6933420
+========================================================================
+单例模式(Singleton)：表示一个类只会生成唯一的一个对象。由定义可以总结出单例模式的要点有三个：一是单例类只能有一个实例；二是它必须自行创建这个实例；三是它必须自行向整个系统提供这个实例。 
+
+一、懒汉式单例：在类被加载的时候，唯一实例已经被创建。这个设计模式在Java中容易实现，在别的语言中难以实现。
+public class Test {
+	public static void main(String[] args) {
+		Singleton singleton = Singleton.getInstance();
+		Singleton singleton2 = Singleton.getInstance();
+		System.out.println(singleton == singleton2);
+	}
+}
+
+class Singleton {
+	private static Singleton singleton;//私有静态对象,加载时候不做初始化
+	private Singleton() {//私有构造方法,避免外部创建实例
+	}
+	/**
+	 * 静态工厂方法,返回此类的唯一实例. 
+         * 当发现实例没有初始化的时候,才初始化.
+	 * @return
+	 */
+	public static Singleton getInstance() {
+		if (singleton == null) {
+			singleton = new Singleton();
+		}
+		return singleton;
+	}
+}
+运行结果----------------------
+true
+
+---------------------------------------------------------------------------------------
+二、饿汉式单例：在类加载的时候不创建单例实例。只有在第一次请求实例的时候的时候创建，并且只在第一次创建后，以后不再创建该类的实例。
+
+public class Test {
+	public static void main(String[] args) {
+		Singleton singleton = Singleton.getInstance();
+		Singleton singleton2 = Singleton.getInstance();
+		System.out.println(singleton == singleton2);
+	}
+}
+
+class Singleton {
+	private static Singleton singleton = new Singleton();//私有的(private)唯一(static final)实例成员,在类加载的时候就创建好了单例对象
+
+	private Singleton() {//私有构造方法,避免外部创建实例
+	}
+	/**
+	 * 静态工厂方法,返回此类的唯一实例.
+	 * @return
+	 */
+	public static Singleton getInstance() {
+		return singleton;
+	}
+}
+执行结果------------
+true
+
+

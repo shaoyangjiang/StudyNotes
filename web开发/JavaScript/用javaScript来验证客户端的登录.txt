@@ -1,0 +1,28 @@
+script代码：写在<head/>标签里
+	<script type="text/javascript">
+		function validate(){
+			var username = document.getElementById("username1");
+			var password = document.getElementById("password1");
+			var repassword = document.getElementById("re-password1");
+			if(username.value == ""){
+				alert("username is blank");
+				return false;
+			}
+			
+			if(password.value != repassword.value){
+				alert("password and repassword is not equals");
+				return false;
+			}
+			return true;
+		}
+	</script>
+------------------------------------------------------------------------------
+jsp代码:写在<body/>标签里
+    <form onsubmit="return validate()">
+    	username:<input type="text" name="username1" id="username1"><br>
+    	password:<input type="password" name="password1" id="password1"><br>
+    	re-password:<input type="password" name="re-password1" id="re-password1"><br>
+    	<input type="submit" value="submit">
+    </form>
+====================================================================================
+运行结果，当用户名不为空，密码和重复密码都相同的时候才会验证成功

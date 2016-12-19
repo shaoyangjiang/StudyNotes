@@ -1,0 +1,18 @@
+DataSet数据集
+	简单理解为一个临时数据库
+	将数据库的数据保存在内存中
+	独立于任何数据库
+=================================================================
+DataSet由DataTable组成，而DataTable由DataColumn和DataRow组成
+=================================================================
+创建SqlDataAdapter对象
+//方式一
+SqlDataAdapter 对象名 = new SqlDataAdapter(查询用sql语言,数据库连接);
+//方式二
+SqlDataAdapter adapter = new SqlDataAdapter();
+SqlCommand command = new SqlCommand(查询用sql语句,数据库连接);
+adapter.SelectCommand = command;
+填充DataSet
+DataAdapter对象.Fill(数据集对象，"数据表名称");
+=================================================================
+

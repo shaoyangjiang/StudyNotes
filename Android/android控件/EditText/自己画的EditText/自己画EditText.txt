@@ -1,0 +1,41 @@
+第一步：新建一个MyEditText类继承EditText
+public class MyEditText extends EditText{
+	public MyEditText(Context context) {
+		super(context);
+	}
+	
+	public MyEditText(Context context, AttributeSet attrs, int defStyle) {
+		super(context, attrs, defStyle);
+	}
+	public MyEditText(Context context, AttributeSet attrs) {
+		super(context, attrs);
+	}	
+	@Override
+	protected void onDraw(Canvas canvas) {
+		super.onDraw(canvas);
+		int w = getWidth();
+	    int h = getHeight();
+	    Paint paint = new Paint();
+		paint.setStyle(Paint.Style.STROKE);
+		paint.setColor(Color.parseColor("#004B97"));
+		paint.setStrokeWidth(4f);
+	    //下边框
+	    canvas.drawLine(0, h, w, h, paint);
+	    //左边框
+	    canvas.drawLine(0, h*4/5, 0, h, paint);
+	    //右边框
+	    canvas.drawLine(w, h*4/5, w, h, paint);	
+	}
+}
+
+布局：
+  <com.shaoyangjiang.com.MyEditText 
+    android:id="@+id/edit"
+	android:layout_width="280dp"
+	android:layout_height="40dp"
+	android:layout_marginLeft="10dp"
+	android:layout_marginRight="10dp"
+	android:paddingLeft="10dp"
+	android:background="@null"
+	android:singleLine="true"
+	android:hint="键入信息"/>

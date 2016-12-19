@@ -1,0 +1,31 @@
+1.表单的确定
+a.客户端确定：减少服务器负载，缩短用户等待时间。
+b.服务器端确认：统一确认，兼容性强，服务器负载重。
+============================================================
+经典代码:实现用户验证
+    <form onsubmit="return validate()">
+    	username:<input type="text" name="username1" id="username1"><br>
+    	password:<input type="password" name="password1" id="password1"><br>
+    	re-password:<input type="password" name="re-password1" id="re-password1"><br>
+    	<input type="submit" value="submit">
+    </form>
+-----------------------------------
+  <head>
+	<script type="text/javascript">
+		function validate(){
+			var username = document.getElementById("username1");
+			var password = document.getElementById("password1");
+			var repassword = document.getElementById("re-password1");
+			if(username.value == ""){
+				alert("username is blank");
+				return false;
+			}
+			
+			if(password.value != repassword.value){
+				alert("password and repassword is not equals");
+				return false;
+			}
+			return true;
+		}
+	</script>
+  </head>

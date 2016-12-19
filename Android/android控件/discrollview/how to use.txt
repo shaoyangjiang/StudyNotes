@@ -1,0 +1,6 @@
+项目地址：https://github.com/flavienlaurent/discrollview
+
+使用方法：
+compile 'com.github.flavienlaurent.discrollview:library:0.0.2@aar'
+
+把布局文件和sample下的代码分别放入项目中

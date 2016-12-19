@@ -1,0 +1,36 @@
+/**
+ * 得到HashMap键值的另一种方法
+ * @author Administrator
+ *
+ */
+public class HashMap4 {
+
+	public static void main(String[] args) {
+		//new出一个map对象
+		HashMap map = new HashMap();
+		//往map里添加四对键值对
+		map.put("a", "aa");
+		map.put("b", "bb");
+		map.put("c", "cc");
+		map.put("d", "dd");
+		//得到键值对的集合
+		Set set = map.entrySet();
+		//遍历这个集合
+		for(Iterator iter = set.iterator();iter.hasNext();){
+			//得到键值视图
+			Map.Entry entry = (Map.Entry)iter.next();
+			//得到键
+			String str1 = (String)entry.getKey();
+			//得到值
+			String str2 = (String)entry.getValue();
+			System.out.println(str1 + ":" + str2);
+		}
+	}
+}
+
+////////////////////////////////////////////////////////////////////////
+打印结果：
+d:dd
+b:bb
+c:cc
+a:aa

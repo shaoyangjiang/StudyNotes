@@ -1,0 +1,10 @@
+例子
+在app同一目录下创建文件夹libraries，在创建的文件夹内加入headsupcompat库文件
+=====================================================================
+在settings.gradle文件中添加
+include ':app',':libraries:headsupcompat'
+=======================================
+在build.gradle中写入
+dependencies {
+    compile project(":libraries:headsupcompat")
+}

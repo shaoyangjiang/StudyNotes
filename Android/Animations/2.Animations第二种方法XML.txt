@@ -1,0 +1,45 @@
+步骤：
+1.在res文件夹下新建一个名为anim的文件夹；
+2.创建xml文件(alpha.xml、rotate.xml、scale.xml、translate.xml)，并首先加入set标签，改标签如下：
+<set xmlns:android="http://schemas.android.com/apk/res/android"
+	android:interpolator="@android:anim/accelerate_interpolator"
+	android:shareInterpolator="true">
+</set>
+3.在该标签中加入rotate、alpha、scale或translate标签；
+4.在代码中使用AnimationUtils当中装载文件，并生成Animation对象；
+注：android:interpolator="@android:anim/accelerate_interpolator"为加速
+android:interpolator="@android:anim/decelerate_interpolator"为减速
+------------------------------------------------------------------------------------
+如：
+<alpha
+        android:fromAlpha="1.0"
+        android:toAlpha="0.0"
+        android:startOffset="500"
+        android:duration="1000"/>
+
+	Animation animation = AnimationUtils.loadAnimation(AnimationsActivity.this, R.anim.alpha);
+	imageView.setAnimation(animation);
+或者
+	AnimationSet animationSet = new AnimationSet(true);
+	//使用AnimationUtils装载动画设置文件
+	Animation animation = AnimationUtils.loadAnimation(AnimationsActivity.this, R.anim.alpha);
+	animationSet.addAnimation(animation);
+	imageView.setAnimation(animationSet);
+
+------------------------------------------------------------------------------------
+<rotate
+        android:fromDegrees="0"
+        android:toDegrees="+360"
+        android:pivotX="50%"
+        android:pivotY="50%"
+        android:duration="3000"/>
+
+(注：toDegrees的“+”表示顺时针转动，“-”表示逆时针转动
+         android:pivotX="50"表示绝对位置定位
+         android:pivotX="50%"表示相对于控件自身定位
+         android:pivotX="50%p"表示相对于父控件定位
+)
+
+
+
+

@@ -1,0 +1,30 @@
+Android 自定义View：
+通过构造函数中引入的AttributeSet 去查找XML布局的属性名称，然后找到它对应引用的资源ID去找值
+------------------------------------------------------------------------------
+values/attrs.xml：
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <declare-styleable name="EditTextExt">
+        <attr name="Text" format="reference|string"></attr>
+        <attr name="Oriental">
+            <enum name="Horizontal" value="1"></enum>
+            <enum name="Vertical" value="0"></enum>
+        </attr>
+    </declare-styleable>
+</resources>
+----------------------------------------------------------------------------
+TypedArray typeArray = context.obtainStyledAttributes(attrs,
+                R.styleable.EditTextExt);
+指定为一个declare-styleable，而在declare-styleable 下的attr （即各属性）Android 的ADT 将会自动生成为declare-styleable的name 名字加上“_”加上对应attr（即属性名称）的名称，
+如上（EditTextExt_Text）我们要得到Text 就需要R.styleable.EditTextExt_Text，这一点的话可以看看R.java生成文件
+
+在XML布局中如何使用：
+提供一个引用包名：
+xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:terry="http://schemas.android.com/apk/res/com.terry.attrs"
+上面提供的是android 基础组件的包名，和我们自己组件的包名。
+然后在布局xml文件中使用：
+<com.terry.attrs.EditTextExt android:id="@+id/ss"
+        android:layout_width="fill_parent" android:layout_height="wrap_content"
+        terry:Text="fdsafda" terry:Oriental="Vertical"></com.terry.attrs.EditTextExt>
+

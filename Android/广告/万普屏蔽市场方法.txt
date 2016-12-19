@@ -1,0 +1,138 @@
+步骤一：将youmiad-android.jar 导入您的工程中。
+1 右键您的工程根目录，选择“Properties”
+2 在左面板中选择“Java Build Path”
+3 然后选择“Libraries”标签
+4 点击“Add External JARs…”
+5 选择youmiad-android.jar 的目录路径
+6 点击“OK”即导入成功
+================================================================================================
+第二步：在application上写入，其中name是包名
+<activity android:name="com.shao.waps.MyAdView" android:configChanges="keyboardHidden|orientation" />
+===========================================================================
+第三步：权限
+    	<uses-permission android:name="android.permission.READ_PHONE_STATE" />
+	 <uses-permission android:name="android.permission.INTERNET" />
+	 <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+	 <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+	 <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+	 <uses-permission android:name="android.permission.GET_TASKS" />
+	 <uses-sdk android:minSdkVersion="6"></uses-sdk>
+====================================================================
+第四步：
+在onCreat()函数里写入，需要导入AdView类，在layout添加两个布局文件，特别注意offerswebview里面使用是包名
+        AppConnect.getInstance("cac64d952a801ff3a8761686d383ce30", "WAPS", this);
+		// 使用自定义的OffersWebView
+		AppConnect.getInstance(this).setAdViewClassName("com.shao.waps.MyAdView");
+        AppConnect.getInstance(this).getPushAd();   //推送
+AppConnect.getInstance(WapsTestActivity.this).showOffers(WapsTestActivity.this);//打开积分墙
+================================================================================================
+第五步：
+代码混淆：在default.project文件下添加代码
+proguardproguard.config=proguard.cfg
+======================================================================================================
+在onRrame()方法中：
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		AppConnect.getInstance(this).getPoints(this);
+	}
+
+在线配置：
+实现接口：implements View.OnClickListener,UpdatePointsNotifier
+
+全局变量：
+	private Handler mHandler;
+	private TextView myTV;
+	private Button myButton;
+	String showAd;
+	int num = 5;
+====================================================================================================
+oncreat()函数里面
+		// 初始化统计器，并通过代码设置WAPS_ID, WAPS_PID
+		AppConnect.getInstance("45ba8ee77e3ac75400275703edc146ec", "WAPS", this);
+		// 使用自定义的OffersWebView
+		AppConnect.getInstance(this).setAdViewClassName("com.tiantian.test.wanpu.MyAdView");
+		// 异步获取在线参数
+		new GetConfigTask().execute();
+			
+		myTV = (TextView)findViewById(R.id.myTV);
+		myButton = (Button)findViewById(R.id.myButton);
+		myButton.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				if(showAd.equals("true")){
+					AppConnect.getInstance(EX10_08.this).showOffers(EX10_08.this);				
+				}
+			}
+		});
+=======================================================================================================
+布局代码：
+  	<TextView 
+		 android:id="@+id/myTV"
+		 android:visibility="gone"
+ 		 android:layout_width="fill_parent" 
+  		 android:layout_height="wrap_content" 
+  		 android:textColor="#000000"
+  		 android:text="本驱蚊大师是免费软件，必须免费下载一个应用并安装后才能使用，里面应用都是免费，而且都是挺好的软件，下载一个应用后这个软件完全免费，不出广告，谢谢理解与配合。"
+  		 />
+  	<Button 
+  		android:id="@+id/myButton"
+  		android:visibility="gone"
+  		android:layout_width="fill_parent"
+  		android:layout_height="wrap_content"
+  		android:textColor="#000000"
+  		android:text="免费下载应用"/> 
+==============================================================================
+判断：
+					if(num > 50){
+						Toast.makeText(MainActivity.this, "设置成功", Toast.LENGTH_LONG).show();
+					new SetWallpaperThread(wallpapers[position]).start();
+					} else {
+						Toast.makeText(MainActivity.this, "温馨提示", Toast.LENGTH_LONG).show();
+					}
+====================================================================================================
+弹出积分墙：
+			@Override
+			public void onClick(View v) {
+				pwLayout.findViewById(R.id.myTV).setVisibility(View.VISIBLE);
+				if(showAd.equals("true")){
+					System.out.println("my showAd is :"+showAd);
+					AppConnect.getInstance(MainActivity.this).showOffers(MainActivity.this);
+				}
+			}
+		});
+===========================================================================================================
+添加方法：
+	/**
+	 * 异步获取在线参数
+	 */
+	private class GetConfigTask extends AsyncTask<Void, Void, Boolean> {
+		//String showAd = "";
+		@Override
+		protected Boolean doInBackground(Void... params) {
+			//在异步线程中通过同步方法获取数据
+			//showAd = AppConnect.getInstance(DemoApp.this).getConfig("showAd");	
+			showAd = AppConnect.getInstance(MainActivity.this).getConfig("isopen");
+			System.out.println("showad is " + showAd);
+			return true;
+		}		
+		@Override
+		protected void onPostExecute(Boolean result) {
+    		// 获取到在线参数后，更新界面文本
+    		//myTextView.setText("我的在线参数是"+showAd);   		
+    		//TODO 在这里添加通过在线参数控制的功能代码块	    		
+		}
+		
+	}
+===============================================================================================
+实现接口：
+	@Override
+	public void getUpdatePoints(String arg0, int amount) {
+		// TODO Auto-generated method stub
+		num = amount;
+	}
+============================================================
+注意：添加两个布局和一个activity

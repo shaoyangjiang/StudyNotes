@@ -1,0 +1,18 @@
+http://www.baidu.com/s?wd=java+io&rsv_bp=0&ch=14&tn=myie2dg&bar=&rsv_spt=3&rsv_sug3=3&rsv_sug4=141&rsv_sug1=1&inputT=2921
+
+/**
+ * 用file来创建文件
+ * @author Administrator
+ *
+ */
+public class FileTest1 {
+
+	public static void main(String[] args) throws IOException {
+		File file = new File("F:/test.txt");	
+		file.createNewFile();//创建文件
+	
+		//在指定文件夹下创建
+//		File file2 = new File(new File("c://kankan"),"shao.txt");
+//		file2.createNewFile();
+	}
+}

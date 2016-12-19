@@ -1,0 +1,4 @@
+1.String的使用方法
+    <string name="menu_share">Share</string>
+布局中的引用方法android:text="@string/Share"
+代码中的引用方法R.string.app_name

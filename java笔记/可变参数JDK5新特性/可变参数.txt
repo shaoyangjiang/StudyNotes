@@ -1,0 +1,27 @@
+/**
+ * 可变参数。语法是...
+可变参数的本质就是数组
+ * @author Administrator
+ *
+ */
+public class VarargsTest {
+	//静态方法块，实现可变参数一定要...
+	private static int sum(int... nums){
+		int sum = 0;
+		//迭代每一个num
+		for(int num : nums){
+			sum = sum + num;//总和
+		}
+		
+		return sum;
+	}
+	
+	public static void main(String[] args) {
+		int result = sum(1,2,3,4);//调用可变参数的方法
+		System.out.println(result);
+	}
+}
+
+///////////////////////////////////////////////////////////////////////
+运行结果:
+10

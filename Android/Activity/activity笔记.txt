@@ -1,0 +1,8 @@
+http://kb.cnblogs.com/page/70125/
+=====================================
+1.activity的生命周期：onCreate,onStart,onResume,onPause,onRestart,onStop;
+==================================================
+2.一开始的运行状态：onCreate,onStart,onResume
+按back键后的状态：onPause,onStop,onDestroy
+按home键后的状态：onPause,onStop
+再次打开软件：onRestart,onStart,onResume

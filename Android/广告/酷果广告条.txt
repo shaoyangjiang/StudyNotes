@@ -1,0 +1,85 @@
+步骤一：将youmiad-android.jar 导入您的工程中。
+1 右键您的工程根目录，选择“Properties”
+2 在左面板中选择“Java Build Path”
+3 然后选择“Libraries”标签
+4 点击“Add External JARs…”
+5 选择youmiad-android.jar 的目录路径
+6 点击“OK”即导入成功
+===============================================================
+第二步：
+在androidMainFest.xml文件下写入,Activity上
+
+<meta-data android:name="cooId" android:value="9b952719f3c2456494bd1b63b876203a"/>
+<meta-data android:name="channelId" android:value="k-goapk" />
+
+===============================================================
+第三步：
+在与Activity并排,并加入3个类
+ 		<activity
+			android:name=".ChildActivity"
+			android:configChanges="orientation|keyboardHidden"
+			android:launchMode="singleTask">
+		</activity>
+		<activity
+			android:name=".ChildActivity2"
+			android:configChanges="orientation|keyboardHidden"
+			android:launchMode="singleTask" />
+		<receiver
+			android:name=".ChildReceiver">
+			<intent-filter>
+				<action
+					android:name="android.intent.action.PACKAGE_ADDED" />
+				<data
+					android:scheme="package" />
+			</intent-filter>
+			<intent-filter>
+				<action
+					android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+			</intent-filter>
+		</receiver>
+
+===============================================================
+第四步
+权限：
+    	<uses-permission
+		android:name="android.permission.INTERNET" />
+	<uses-permission
+		android:name="android.permission.READ_PHONE_STATE" />
+	<uses-permission
+		android:name="android.permission.ACCESS_NETWORK_STATE" />
+	<uses-permission
+		android:name="android.permission.ACCESS_COARSE_LOCATION">
+	</uses-permission>
+	<uses-permission
+		android:name="android.permission.ACCESS_FINE_LOCATION">
+	</uses-permission>
+	<uses-permission
+		android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+	<uses-permission
+		android:name="android.permission.GET_TASKS" />
+	<uses-permission
+		android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+	<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+
+===============================================================
+第五步：
+在布局里添加：注意是相对布局
+	<RelativeLayout
+		android:layout_height="fill_parent"
+		android:layout_width="fill_parent">
+		<com.ba.a.view.BNormalView
+			android:id="@+id/banner"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_alignParentBottom="true">
+		</com.ba.a.view.BNormalView>
+	</RelativeLayout>
+
+===============================================================
+第六步：
+成员变量
+private BNormalView banner;
+得到控件
+banner = (BNormalView) findViewById(R.id.banner);   
+banner.setBannerVisibility(View.VISIBLE);//广告条出现
+banner.setBannerVisibility(View.GONE);//广告条消失

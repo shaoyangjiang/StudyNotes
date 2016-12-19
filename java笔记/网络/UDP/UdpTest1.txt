@@ -1,0 +1,18 @@
+public class UdpTest1
+{
+	public static void main(String[] args) throws Exception
+	{
+		DatagramSocket socket = new DatagramSocket();//socket对象用来接受和发送数据包
+		String str = "hello world";
+		//把数据放到包里
+		DatagramPacket packet = new DatagramPacket(str.getBytes(),
+				str.length(), Inet4Address.getByName("localhost"), 7000);
+		socket.send(packet);//发送数据包
+		
+		byte[] buffer = new byte[1000];
+		DatagramPacket packet2 = new DatagramPacket(buffer,100);
+		socket.receive(packet2);//接受数据包
+		System.out.println(new String(buffer, 0, packet2.getLength()));//打印数据包里的内容
+		socket.close();//关闭
+	}
+}

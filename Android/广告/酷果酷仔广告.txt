@@ -1,0 +1,42 @@
+
+酷仔：
+在androidmainfast布局里加入
+ 		<activity android:name="com.kuguo.kuzaidemo2.ChildOfKA"
+			android:screenOrientation="portrait"/>
+		<activity android:name="com.kuguo.kuzaidemo2.ChildOfBA" 
+			android:screenOrientation="portrait"/>
+		<receiver android:name="com.kuguo.kuzaidemo2.ChildOfKR">
+			<intent-filter>
+				<action android:name="android.intent.action.PACKAGE_ADDED" />
+				<data android:scheme="package" />
+			</intent-filter>
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+		</receiver>
+        
+        <!-- 酷仔 注册继承酷仔的类  end -->
+===================================================================
+在主函数里加入
+KAM.getInstance().showKuguoSprite(this, KAM.STYLE_KUZAI);
+=================================================================
+
+推送
+在androidMainfast布局里面
+		<activity android:name="com.kuguo.push.MainActivity"
+			android:excludeFromRecents="true" android:launchMode="singleInstance" />
+		<service android:name="com.kuguo.push.MainService" />
+		<receiver android:name="com.kuguo.push.MainReceiver">
+			<intent-filter>
+				<action android:name="android.intent.action.PACKAGE_ADDED" />
+				<data android:scheme="package" />
+			</intent-filter>
+			<intent-filter>
+				<action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+			</intent-filter>
+		</receiver>
+
+		<!-- End -->
+======================================================================
+在主函数里面：
+KuguoAdsManager.getInstance().receivePushMessage(SimpleDemo.this, true);

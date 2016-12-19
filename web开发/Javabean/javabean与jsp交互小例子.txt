@@ -1,0 +1,42 @@
+javabean代码：Person.java
+public class Person {
+	private String name = "zhangsan";
+	private int age=10;
+	private String address = "ningbo";
+	
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public int getAge() {
+		return age;
+	}
+	public void setAge(int age) {
+		this.age = age;
+	}
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
+	}
+}
+========================================================
+jsp代码
+  <body>
+   	<jsp:useBean id="person" class="com.javabean.Person"></jsp:useBean>
+   	姓名：<jsp:getProperty property="name" name="person"/></br>
+   	年龄：<jsp:getProperty property="age" name="person"/></br>
+   	地址：<jsp:getProperty property="address" name="person"/></br>
+   	
+   	<jsp:setProperty property="name" name="person" value="lisi"/>
+   	重新设置的姓名：<jsp:getProperty property="name" name="person"/></br>
+  </body>
+=====================================================================
+运行结果：
+姓名：zhangsan
+年龄：10
+地址：ningbo
+重新设置的姓名：lisi

@@ -1,0 +1,78 @@
+要求：用户名，密码不能为空，性别必须选择，兴趣爱好至少选择一个最多选择3个，说明不能为空
+=================================================================================
+script代码：写在<head/>标签里
+	<script type="text/javascript">
+		function validate(){
+			var username = document.getElementsByName("username")[0];
+			var password = document.getElementsByName("password")[0];
+			var gender = document.getElementsByName("gender");
+			var interest = document.getElementsByName("interest");
+			var comment = document.getElementsByName("comment")[0];
+			if(username.value.length < 1){
+				alert("用户名不能为空");
+				return false;
+			}
+			
+			if(password.value.length < 1){
+				alert("密码不能为空");
+				return false;
+			}
+			
+			if(username.value.length < 4 || username.value.length > 10){
+				alert("用户名不能少于4个字符或者大于10个字符");
+				return false;
+			}
+			
+			if(password.value.length < 4 || password.value.length > 10){
+				alert("密码不能少于4个字符或者大于10个字符");
+				return false;
+			}
+			
+			if(!gender[0].checked && !gender[1].checked){
+				alert("请选择性别");
+				return false;
+			}
+			
+			var n = 0;
+			for(var i=0; i<interest.length;i++){
+				if(interest[i].checked){
+					n++;
+				}
+			}
+			
+			if(n <1){
+				alert("至少选择一个兴趣爱好");
+				return false;
+			}
+			
+			if(n > 3){
+				alert("最多只能选择三个兴趣爱好");
+				return false;
+			}
+			
+			if(comment.value.length < 1){
+				alert("请填写说明");
+				return false;
+			}
+			return true;
+		}
+	</script>
+------------------------------------------------------------------------------
+jsp代码:写在<body/>标签里
+ <form onsubmit="return validate();">
+     用户名：<input type="text" name="username"><br>
+    密 码：<input type="password" name="password"><br>
+     性别：男<input type="radio" name="gender" value="男">&nbsp;&nbsp;女<input type="radio" name="gender" value="女"><br>
+    兴趣：足球<input type="checkbox" name="interest" value="足球">&nbsp;&nbsp;
+    	篮球<input type="checkbox" name="interest" value="篮球">&nbsp;&nbsp;
+    	排球<input type="checkbox" name="interest" value="排球">&nbsp;&nbsp;
+    	羽毛球<input type="checkbox" name="interest" value="羽毛球">&nbsp;&nbsp;<br>
+    地址：<select value="address">
+			<option value="上海">上海</option>
+			<option value="北京">北京</option>
+			<option value="天津">天津</option>    
+	    </select><br>
+说明：<textarea rows="15" cols="15" name="comment"></textarea><br>
+<input type="submit" value="提交">&nbsp;&nbsp;&nbsp;<input type="reset" value="清空">
+</form>
+====================================================================================

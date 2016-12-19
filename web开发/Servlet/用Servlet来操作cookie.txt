@@ -1,0 +1,13 @@
+http://elf8848.iteye.com/blog/253198
+=========================================
+构造函数：
+Cookie cookie = new Cookie(cookieName,cookieValue);
+--------------------------
+把cookie发送给客户端：
+resp.add(cookie);
+----------------------------
+取得客户浏览器的cookie，返回的是数组
+Cookie[] cookies = req.getCookie();
+---------------------------------
+cookie.setMaxAge(10);//设置Cookie的过期时间，若生存时间为负值，代表浏览器关闭Cookie即消失。生存时间为0，代表删除Cookie，生存时间为正数，代表Cookie存在多少秒。
+==============================

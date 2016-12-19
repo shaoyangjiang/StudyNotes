@@ -1,0 +1,81 @@
+// APPSERVER1IMPL.H : Declaration of the AppServer1
+
+#ifndef AppServer1ImplH
+#define AppServer1ImplH
+
+#define ATL_FREE_THREADED
+#include <Classes.hpp>
+#include <Controls.hpp>
+#include <StdCtrls.hpp>
+#include <Forms.hpp>
+#include <MidConst.hpp>
+
+#include "AppServer_TLB.H"
+#include <atl/atlvcl.h>
+
+
+
+// Forward ref. of IAppServer implementor
+
+
+/////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
+class TAppServer1 : public TCRemoteDataModule
+{
+__published:  // IDE-managed Components
+private:      // User declarations
+public:       // User declarations
+  __fastcall TAppServer1(TComponent* Owner);
+
+__published:
+};
+
+
+/////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
+extern PACKAGE TAppServer1 *AppServer1;
+
+
+/////////////////////////////////////////////////////////////////////////////
+// TAppServer1Impl     Implements IAppServer1, default interface of AppServer1
+// ThreadingModel : Apartment
+// Dual Interface : TRUE
+// Event Support  : FALSE
+// Default ProgID : AppServer.AppServer1
+// Description    : 应用程序服务器
+/////////////////////////////////////////////////////////////////////////////
+class ATL_NO_VTABLE TAppServer1Impl: REMOTEDATAMODULE_IMPL(TAppServer1Impl, AppServer1, TAppServer1, IAppServer1)
+{
+public:
+
+BEGIN_COM_MAP(TAppServer1Impl)
+  RDMOBJECT_COM_INTERFACE_ENTRIES(IAppServer1)
+END_COM_MAP()
+
+  // Data used when registering Object 
+  //
+  DECLARE_THREADING_MODEL(otApartment);
+  DECLARE_PROGID(_T("AppServer.AppServer1"));
+  DECLARE_DESCRIPTION(_T("应用程序服务器"));
+
+  // Function invoked to (un)register object
+  //
+  static HRESULT WINAPI UpdateRegistry(BOOL bRegister)
+  {
+    TRemoteDataModuleRegistrar regObj(GetObjectCLSID(), GetProgID(), GetDescription());
+    // Disable these flags in order to disable use by socket or web connections.
+    // Also set other flags to configure the behavior of your application server.
+    // For more information, see atlmod.h and atlvcl.cpp.
+    regObj.Singleton = false;
+    regObj.EnableWeb = true;
+    regObj.EnableSocket = true;
+    return regObj.UpdateRegistry(bRegister);
+  }
+
+
+// IAppServer1
+protected:
+};
+
+#endif  // AppServer1ImplH
+

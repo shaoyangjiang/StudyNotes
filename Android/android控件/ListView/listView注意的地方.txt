@@ -1,0 +1,26 @@
+有時我們需要在程序中通過點擊按鈕來控制ListView行的選中,這就用到了在程序中如何使用代碼來選擇ListView項. 
+         mListView.requestFocusFromTouch(); 
+         mListView.setSelection(int index); 
+
+     第一條語句並不是必須的,但是若你ListView項中含有Button,RadioButton,CheckBox等比ListView取得 焦點優先級高的控件時,那麼第一條語句是你必須加的. 
+-------------------------------------------------------------------------------------
+若ListView項中含有Button,RadioButton,CheckBox等比ListView取得 焦點優先級高的控件時,ListView的setOnItemClickListener是不被執行的,這時你需要在你的xml文件中對這些控件添加  android:focusable="false" 注意這條語句要放在xml文件中修改,在代碼中使用是無效的. 
+
+保持ListView的滾動條一直顯示,不隱藏:  xml文件中做如下修改    android:fadeScrollbars="false"
+-------------------------------------------------------------------------------------
+去掉ListView Selector选种时黄色底纹一闪的效果： 
+Xml代码   
+<?xml version="1.0" encoding="utf-8"?>  
+<shape xmlns:android="http://schemas.android.com/apk/res/android">  
+    <solid android:color="@android:color/transparent"/>  
+    <corners android:radius="0dip" />      
+</shape>  
+//listview.setSelector(R.drawable.thisShape);  
+
+或者还有一种办法： 
+在Adapter中重写public boolean isEnabled(int position)方法，将其返回false就可以了，推荐采用此种办法,具体见http://gundumw100.iteye.com/admin/blogs/850654 
+Java代码   
+public boolean isEnabled(int position) {  
+    // TODO Auto-generated method stub  
+    return false;  
+}   

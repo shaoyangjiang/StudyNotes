@@ -1,0 +1,28 @@
+ÏîÄ¿µØÖ·£ºhttps://github.com/chrisbanes/PhotoView
+-----------------------------
+dependencies {
+  compile 'com.commit451:PhotoView:1.2.4'
+}
+----------------------------------
+ImageView mImageView;
+PhotoViewAttacher mAttacher;
+
+@Override
+public void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_main);
+
+    // Any implementation of ImageView can be used!
+    mImageView = (ImageView) findViewById(R.id.iv_photo);
+
+    // Set the Drawable displayed
+    Drawable bitmap = getResources().getDrawable(R.drawable.wallpaper);
+    mImageView.setImageDrawable(bitmap);
+
+    // Attach a PhotoViewAttacher, which takes care of all of the zooming functionality.
+    mAttacher = new PhotoViewAttacher(mImageView);
+}
+
+
+// If you later call mImageView.setImageDrawable/setImageBitmap/setImageResource/etc then you just need to call
+mAttacher.update();

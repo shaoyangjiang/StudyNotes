@@ -1,0 +1,16 @@
+1.EL(Expression Language表达式语言)
+========================================
+2.EL语法很简单，它最大的特点就是使用上很方便。
+==================================================
+3.
+${pageScope.username}		取出Page范围的username变量
+${requestScope.username}	取出Request范围的username变量
+${sessionScope.username}	取出Session范围的username变量
+${applicationScope.username}	取出Application范围的username变量
+=================================================================
+4.用传统方法和EL表达式得到参数例子
+    <%= request.getParameter("username") %><br>
+    ${param.username }<br>//和上一句代码是一样的效果
+    
+    <%= session.getAttribute("hello") %><br>
+    ${sessionScope.hello}//和上一句代码是一样的效果

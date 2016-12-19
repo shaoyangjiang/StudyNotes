@@ -1,0 +1,129 @@
+1.Ajax(Asynchronous JavaScript and xml)，异步的javaScript与xml。
+====================================================================
+2.Ajax中的一个重要对象是XMLHttpRequest。
+==================================================================
+3.使用Ajax准备向服务器端发送请求：
+xmlHttpRequest.open("GET", "AjaxServlet", true);
+================================================================
+
+
+简单小例子：Get方式用异步方式来读取服务器的文本信息(点击按钮，在div中显示信息),还要实现两个文本框的数字相加
+jsp端代码：
+  <body>
+    <input type="button" value="show info" onclick="AjaxSubmit()"><br>
+    <input type="text" name="v1" id="v1"><br>
+    <input type="text" name="v2" id="v2"><br>
+    <div id="div1"></div>
+  </body>
+-------------------------------
+   <script type="text/javascript">
+    	var xmlHttpRequest = null;//声明一个空对象以接受XMLHttpRequest对象
+    	function AjaxSubmit(){
+    		if(window.ActiveXObject){//IE浏览器
+    			xmlHttpRequest = new ActiveXObject("Microsoft.XMLHTTP");
+    		} else if(window.XMLHttpRequest){//其他浏览器
+    			xmlHttpRequest = new XMLHttpRequest();
+    		}
+    		
+    		if(null != xmlHttpRequest){
+    			var v1 = document.getElementById("v1").value;
+    			var v2 = document.getElementById("v2").value;
+    			/*
+                open(String method,String url, boolean )函数有3个参数 
+                method参数指定向servlet发送请求所使用的方法，有GET,POST等 
+                boolean值指定是否异步，true为使用，false为不使用。 
+                */
+    			xmlHttpRequest.open("GET", "AjaxServlet?v1="+v1+"&v2="+v2, true);
+    			//关联好ajax回调函数
+    			xmlHttpRequest.onreadystatechange = ajaxCallback;
+    			//真正向服务器发送数据
+    			xmlHttpRequest.send();
+    		}
+    	}
+    	
+    	function ajaxCallback(){
+    		//服务器响应正常，没有报任何错误时
+    		if(xmlHttpRequest.readyState == 4 && xmlHttpRequest.status == 200){
+    			var responseText = xmlHttpRequest.responseText;//服务器返回的文本
+    			document.getElementById("div1").innerHTML = responseText;
+    		}
+    	}
+    </script>
+============================================================================
+服务器端代码：AjaxServlet.java
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		resp.setHeader("pragma","no-cache");//这两句代码设置浏览器不缓存。
+		resp.setHeader("cache-control","no-cache");
+		String v1 = req.getParameter("v1");
+		String v2 = req.getParameter("v2");
+		String v3 = String.valueOf(Integer.valueOf(v1)+Integer.valueOf(v2));
+		PrintWriter out = resp.getWriter();
+		System.out.println("AjaxServlet is invoked");
+		out.println("Hello World"+v3);
+		out.flush();
+	}
+=========================================================================
+运行结果：每次点击按钮都会向服务器发送请求，在div中显示文本(Hello World和两个文本框的数字和)
+
+
+
+=======================================================================================
+简单小例子：POST方式用异步方式来读取服务器的文本信息(点击按钮，在div中显示信息),还要实现两个文本框的数字相加
+jsp端代码：
+  <body>
+    <input type="button" value="show info" onclick="AjaxSubmit()"><br>
+    <input type="text" name="v1" id="v1"><br>
+    <input type="text" name="v2" id="v2"><br>
+    <div id="div1"></div>
+  </body>
+-------------------------------
+    <script type="text/javascript">
+    	var xmlHttpRequest = null;//声明一个空对象以接受XMLHttpRequest对象
+    	function AjaxSubmit(){
+    		if(window.ActiveXObject){//IE浏览器
+    			xmlHttpRequest = new ActiveXObject("Microsoft.XMLHTTP");
+    		} else if(window.XMLHttpRequest){//其他浏览器
+    			xmlHttpRequest = new XMLHttpRequest();
+    		}
+    		
+    		if(null != xmlHttpRequest){
+    			var v1 = document.getElementById("v1").value;
+    			var v2 = document.getElementById("v2").value;
+    			/*
+                open(String method,String url, boolean )函数有3个参数 
+                method参数指定向servlet发送请求所使用的方法，有GET,POST等 
+                boolean值指定是否异步，true为使用，false为不使用。 
+                */
+    			xmlHttpRequest.open("POST", "AjaxServlet", true);
+    			//关联好ajax回调函数
+    			xmlHttpRequest.onreadystatechange = ajaxCallback;
+    			//真正向服务器发送数据
+    			xmlHttpRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    			xmlHttpRequest.send("v1="+v1+"&v2="+v2);
+    		}
+    	}
+    	
+    	function ajaxCallback(){
+    		//服务器响应正常，没有报任何错误时
+    		if(xmlHttpRequest.readyState == 4 && xmlHttpRequest.status == 200){
+    			var responseText = xmlHttpRequest.responseText;//服务器返回的文本
+    			document.getElementById("div1").innerHTML = responseText;
+    		}
+    	}
+    </script>
+============================================================================
+服务器端代码：AjaxServlet.java
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		String v1 = req.getParameter("v1");
+		String v2 = req.getParameter("v2");
+		String v3 = String.valueOf(Integer.valueOf(v1)+Integer.valueOf(v2));
+		PrintWriter out = resp.getWriter();
+		System.out.println("AjaxServlet is invoked");
+		out.println("Hello World"+v3);
+		out.flush();
+	}
+=========================================================================
+运行结果：每次点击按钮都会向服务器发送请求，在div中显示文本(Hello World和两个文本框的数字和)

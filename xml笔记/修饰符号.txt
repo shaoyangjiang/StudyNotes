@@ -1,0 +1,30 @@
+1 () 给元素分组
+
+2  |  列出的的对象 二选一
+
+3  + 对象至少出现一次
+
+4  *  对象出现次数大于等于0
+
+5  ？ 对象出现0 或 1次
+
+6  ， 对象按顺序列出
+
+======================================================
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE poem[
+<!ELEMENT poem (author+, title*, content)>
+<!ELEMENT author (#PCDATA)>
+<!ELEMENT title (#PCDATA)>
+<!ELEMENT content (#PCDATA)>
+]>
+<poem>
+	<author>杜甫</author>
+	<author>杜甫</author>
+	<author>杜甫</author>
+	<title>月夜</title>
+	<content>今夜鄜州月，闺中只独看。
+			遥怜小儿女，未解忆长安。
+			香雾云鬟湿，清辉玉臂寒。
+			何时倚虚幌，双照泪痕干！</content>
+</poem>

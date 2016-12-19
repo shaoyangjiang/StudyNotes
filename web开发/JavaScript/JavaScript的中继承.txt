@@ -1,0 +1,122 @@
+1)继承的第一种方式：对象冒充
+	function Parent(username){
+		this.username = username;
+		this.sayHello = function(){
+			alert(username);
+		}
+	}
+	
+	function Child(username,password){
+		//下面3行代码是关键代码
+		this.method = Parent;
+		this.method(username);
+		delete this.method;
+		
+		this.password = password;
+		this.sayWorld = function(){
+			alert(password);
+		}
+	}
+	
+	var parent = new Parent("zhangsan");
+	var child = new Child("lisi","123");
+	parent.sayHello();
+	child.sayHello();
+	child.sayWorld();//分别弹出3个对话框
+==========================================================
+2)继承的第二种实现方式，call方法方式，Function对象中的方法
+call方法是Function对象中的方法，因此我们定于的每个函数都拥有该方法。可以通过函数名来调用call方法，call方法的第一个参数会被传递给函数中的this，从第2个参数开始，逐一赋值给函数中的参数。
+	function test(str){
+		alert(this.name + "," + str);
+	}
+	
+	var object = new Object();
+	object.name = "zhangsan";
+	//test.call相当于调用了test函数
+	test.call(object,"aaaaaaa");//将object赋值给了this，窗口弹出zhangsan，aaa
+-------------------------------------------
+	function Parent(username){
+		this.username = username;
+		this.sayHello = function(){
+			alert(username);
+		}
+	}
+	
+	function Child(username,password){
+		Parent.call(this, username);
+		this.password = password;
+		this.sayWorld = function(){
+			alert(password);
+		}
+	}
+	
+	var parent = new Parent("zhangsan");
+	var child = new Child("lisi","123");
+	parent.sayHello();
+	child.sayHello();
+	child.sayWorld();//分别弹出3个对话框
+====================================================================
+3)apply方法方式
+apply方法与call类似，只不过call是离散的传递参数，而apply是用数组传递
+	function Parent(username){
+		this.username = username;
+		this.sayHello = function(){
+			alert(username);
+		}
+	}
+	
+	function Child(username,password){
+		Parent.apply(this, new Array(username));
+		this.password = password;
+		this.sayWorld = function(){
+			alert(password);
+		}
+	}
+	
+	var parent = new Parent("zhangsan");
+	var child = new Child("lisi","123");
+	parent.sayHello();
+	child.sayHello();
+	child.sayWorld();//分别弹出3个对话框
+===================================================================
+4).通过原型链方式(无法为构造函数传递参数)
+	function Parent(){
+		
+	}
+	Parent.prototype.username = "zhangsan";
+	Parent.prototype.sayHello = function(){
+		alert(this.username);
+	}
+	
+	function Child(){
+		
+	}
+	Child.prototype = new Parent();
+	Child.prototype.password = "123";
+	Child.prototype.sayWorld = function(){
+		alert(this.password);
+	}
+	var child = new Child();
+	child.sayHello();
+	child.sayWorld();//分别弹出zhangsan，123
+=================================================
+5)使用混合方式(推荐)
+	function Parent(username){
+		this.username = username;
+	}
+	Parent.prototype.sayHello = function(){
+		alert(this.username);
+	}
+	
+	function Child(username,password){
+		Parent.call(this,username);
+		this.password = password;
+	}
+	Child.prototype = new Parent();
+	Child.prototype.sayWorld = function(){
+		alert(this.password);
+	}
+	var child = new Child("zhangsan","123");
+	child.sayHello();
+	child.sayWorld();//分别弹出两个窗口，zhangsan，123
+==============================================================

@@ -1,0 +1,23 @@
+一：定义一个类(该类是Application的子类，并定义向全局存在的变量，如Bitmap)：
+public class MyApp extends Application{
+private Bitmap mBitmap;
+public void setBitmap(Bitmap bitmap){
+	this.mBitmap = bitmap;
+	}
+public Bitmap getBitmap(){
+	return mBitmap;
+	}
+}
+二：在<application>标签中使用android:name=".MyApp"来指定这个类
+<application
+android:name=".MyApp"
+android:icon=……
+android:label=……
+></application>
+三：向MyApp对象中存入或取出Bitmap对象：
+存入：
+MyApp myApp = (MyApp)getApplication();
+myApp.setBitmap(bitmap);
+取出：
+MyApp myApp = (MyApp)getApplication();
+Bitmap bitmap = myApp.getBitmap();

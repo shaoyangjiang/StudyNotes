@@ -1,0 +1,14 @@
+github地址：https://github.com/navasmdc/MaterialDesignLibrary
+=============================================
+把下面这些加入到build.gradle中
+repositories {
+    jcenter()
+}
+
+dependencies {
+    compile 'com.github.navasmdc:MaterialDesign:1.5@aar'
+    compile 'com.nineoldandroids:library:2.4.0'
+}
+==========================================================
+第二个ui：
+github地址：https://github.com/rey5137/material

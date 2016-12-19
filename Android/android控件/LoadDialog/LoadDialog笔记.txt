@@ -1,0 +1,77 @@
+使用说明：可以用在网络读取数据，当读取完成后，消失加载条。
+步骤：1.首先要自定义一个类LoadingDialog继承Dialog类
+2.在Style中添加样式
+3.然后写个loading_dialog布局
+4.实现的activity中写入
+			private LoadingDialog loadingDialog; // 加载进度条
+			onCreat()方法中：
+					loadingDialog = new LoadingDialog(this); // 初始化加载进度条
+					loadingDialog.show(); // 显示加载进度条
+			----------------------------------------------
+			取消显示，可以写在handler中，读取网络数据完成后
+							if(loadingDialog.isShowing()){ // 取消进度条
+								loadingDialog.cancel();
+							}
+==============================================================
+首先要自定义一个类LoadingDialog继承Dialog类
+public class LoadingDialog extends Dialog {
+
+    public LoadingDialog(Context context) {
+        super(context, R.style.LoadingDialogStyle);
+        //setOwnerActivity((Activity) context);// 设置dialog全屏显示
+        this.setCanceledOnTouchOutside(false);
+    }
+
+    private LoadingDialog(Context context, int theme) {
+        super(context, theme);
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.loading_dialog);
+    }
+
+}
+=======================================================
+在Style中添加样式
+    <style name="LoadingDialogStyle" parent="android:Theme.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowFrame">@null</item><!--无边框 -->
+        <item name="android:windowNoTitle">true</item><!--没有标题-->
+        <item name="android:windowIsFloating">true</item><!--是否浮在activity之上-->
+        <item name="android:windowIsTranslucent">true</item><!--背景是否半透明-->
+        <item name="android:windowContentOverlay">@null</item><!--对话框是否有遮盖 -->
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item><!--动画样式-->
+        <item name="android:backgroundDimEnabled">true</item><!--背景是否模糊-->
+    </style>
+==========================================================
+然后写个loading_dialog布局
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"  
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@android:color/transparent"
+    android:gravity="center"
+    android:orientation="vertical" >
+
+    <ProgressBar
+        android:id="@+id/progressBar1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@android:color/transparent" />
+
+</LinearLayout>
+============================================================
+最后要在实现的activity中写入
+private LoadingDialog loadingDialog; // 加载进度条
+onCreat()方法中：
+		loadingDialog = new LoadingDialog(getParent()); // 初始化加载进度条
+		loadingDialog.show(); // 显示加载进度条
+----------------------------------------------
+取消显示，可以写在handler中，读取网络数据完成后
+				if(loadingDialog.isShowing()){ // 取消进度条
+					loadingDialog.cancel();
+				}
+================================================================

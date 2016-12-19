@@ -1,0 +1,49 @@
+/**
+ * 对象序列化
+ * @author Administrator
+ * 什么时候用到序列化
+ *a）当你想把的内存中的对象保存到一个文件中或者数据库中时候；
+b）当你想用套接字在网络上传送对象的时候；
+c）当你想通过RMI传输对象的时候；
+ */
+public class SerializableTest {
+	
+	public static void main(String[] args) throws Exception {
+		Person p1 = new Person(1,"zhangsan",1.1);
+		Person p2 = new Person(2,"lisi",2.2);
+		Person p3 = new Person(3,"shaoyangjiang",3.3);
+		//存
+		FileOutputStream fos = new FileOutputStream("c://person.txt");
+		ObjectOutputStream oos = new ObjectOutputStream(fos);
+		oos.writeObject(p1);
+		oos.writeObject(p2);
+		oos.writeObject(p3);
+		oos.close();
+		
+		System.out.println("-----------------------------");
+		//取
+		FileInputStream fis = new FileInputStream("c://person.txt");
+		ObjectInputStream ois = new ObjectInputStream(fis);
+		Person p = null;
+		for(int i = 0;i < 3; i++){
+			p = (Person)ois.readObject();
+			System.out.println(p.age+","+p.name+","+p.height);
+		}
+		ois.close();
+	}
+}
+
+class Person implements Serializable{
+	int age;
+	String name;
+	double height;
+	
+	public Person(int age,String name,double height){
+		this.age = age;
+		this.name = name;
+		this.height = height;
+	}
+}
+==================================================================
+运行结果：
+在c盘会创建一个person.txt文件，然后在控制台会显示person文件里的内容

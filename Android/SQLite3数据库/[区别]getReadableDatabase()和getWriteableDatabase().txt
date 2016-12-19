@@ -1,0 +1,3 @@
+getReadableDatabase()和getWriteableDatabase()的区别：
+getWriteableDatabase()得到一个读写的数据库，如果磁盘空间满的话会打开出错
+getReadableDatabase()会先得到一个读写的数据库，如果磁盘空间满的话会打开失败，但是打开失败之后还会以只读的方式打开数据库

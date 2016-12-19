@@ -1,0 +1,34 @@
+多态之强制类型转化
+public class Test {
+	public static void main(String[] args) {
+		// 向上类型转换
+		Cat cat = new Cat();
+		Animal animal = cat;
+		animal.sing();
+		// 向下类型转换，
+		Animal a = new Cat();//父类引用指向子类对象
+		Cat c = (Cat) a;//把父类强制转化为子类
+		c.sing();
+	}
+}
+
+class Animal {
+	public void sing() {
+		System.out.println("animal is singing");
+	}
+}
+
+class Dog extends Animal {
+	public void sing() {
+		System.out.println("dog is singing");
+	}
+}
+
+class Cat extends Animal {
+	public void sing() {
+		System.out.println("cat is singing");
+	}
+}
+输出结果是-------------------------
+cat is singing
+cat is singing

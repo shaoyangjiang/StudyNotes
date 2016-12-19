@@ -1,0 +1,35 @@
+教程：http://www.survivingwithandroid.com/2013/03/android-fragment-tutorial-webview-example.html
+
+步骤：
+首先写一个数据改变接口ChangeLinkListener ：
+public interface ChangeLinkListener {
+
+    public void onLinkChange(String link);
+
+}
+===================================================================
+然后发送数据的fragment实现功能，比如点击按钮发送数据
+
+                //得到arraylist里面对应的url地址
+                ( (ChangeLinkListener)  getActivity()).onLinkChange(String);
+========================================================================
+
+然后MainActivity实现这个接口implements ChangeLinkListener
+
+    @Override
+    public void onLinkChange(String link) {
+	//这里写do something
+	...
+	//例如
+        Intent i = new Intent(this, WebViewActivity.class);
+        i.putExtra("link", link);
+        startActivity(i);
+
+    }
+==============================================================
+另一个activity或者fragment中接受数据
+
+       //接收由RecyclerView点击发送过来的url
+        Intent i = this.getIntent();
+        String link = i.getExtras().getString("link");
+===========================================================

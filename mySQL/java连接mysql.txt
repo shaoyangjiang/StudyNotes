@@ -1,0 +1,36 @@
+项目中导入：mysql-connector-java-5.1.7-bin.jar
+代码中：
+//驱动程序名
+String diver = "com.mysql.jdbc.Driver";
+
+//url指向你要访问的数据库名menagerie
+String url = "jdbc:mysql://localhost:3306/menagerie";
+
+//Mysql配置时的用户名
+String user = "root";
+
+//Mysql配置时的密码
+String password = "1412";
+
+//加载驱动程序
+Class.forName(diver);
+
+//连接数据库
+conn = DriverManager.getConnection(url, user, password);
+if(!conn.isClosed()){
+System.out.println("连接数据库成功");
+}
+
+//Statement对象用来执行sql语句
+Statement statement = conn.createStatement();
+
+//执行查询
+String sql = "select * from pet";
+//执行查询并得到查询结果
+resultSet = statement.executeQuery(sql);
+while(resultSet.next()){
+	System.out.println("name: " + resultSet.getString("name"));
+}
+
+//关闭数据库：
+conn.close();

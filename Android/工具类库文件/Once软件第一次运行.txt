@@ -1,0 +1,17 @@
+吧Once.java放入工具类。
+在主程序中调用
+        new Once(this).show("once", new Once.OnceCallback() {
+            @Override
+            public void onOnce() {
+		//...do something
+		//... for example
+                final Snackbar snackbar = Snackbar.make(pager,"第一次运行开启",Snackbar.LENGTH_INDEFINITE);
+                snackbar.show();
+                snackbar.setAction("知道了", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        snackbar.dismiss();
+                    }
+                });
+            }
+        });

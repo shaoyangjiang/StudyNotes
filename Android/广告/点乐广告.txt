@@ -1,0 +1,128 @@
+步骤一：将youmiad-android.jar 导入您的工程中。
+1 右键您的工程根目录，选择“Properties”
+2 在左面板中选择“Java Build Path”
+3 然后选择“Libraries”标签
+4 点击“Add External JARs…”
+5 选择youmiad-android.jar 的目录路径
+6 点击“OK”即导入成功
+================================================================================================
+步骤二：在manifest.xml文件中配置
+<activity android:name="com.dianjoy.DianjoyOfferActivity" 
+	android:configChanges="keyboardHidden|orientation"/>
+ <service android:name="com.dianjoy.DianjoyOfferHelpService" />
+================================================================================================
+<uses-permission android:name="android.permission.INTERNET" />
+<uses-permission android:name="android.permission.GET_TASKS" />
+<uses-permission android:name="android.permission.READ_PHONE_STATE" />
+<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+<uses-permission android:name="android.permission.READ_LOGS" /> 
+<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+<uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
+第三步：初始化
+Dianjoy.initDianjoyContext(this, "0661a2defdb977e87684898a68987de7");
+第四步：添加积分墙
+Dianjoy.showOffers();
+重要的是：在layout.xml文件中加入一个dianle布局
+
+实现金币获取
+第一步：实习这些接口
+implements GetTotalMoneyListener, GiveMoneyListener, SpendMoneyListener,
+GetADAcountListener, SetTotalMoneyListener, GetOnlineParamsListener, GetUpdateMessageListener
+=====================================================================================================
+第二步：声明全局变量
+  private long num ;
+  private String name = "";
+  private String message="你目前的积分";
+  private Button myButton;
+  private EditText mEditTextParms;
+  private TextView myTextView;
+===========================================================================================
+第三步：在onCreat()函数里写入
+	Dianjoy.initDianjoyContext(this, "fdd36b69cab0c39c3eb09d46b7fd009e");
+	Dianjoy.getTotalMoney(new GetTotalMoneyListener() {
+
+		@Override
+		public void getTotalMoneySuccessed(String name0, long amount) {
+			name = name0;
+			myTextView.setText(message + amount);
+			num = amount;
+		}
+
+		@Override
+		public void getTotalMoneyFailed(String error) {
+		}
+	});
+	
+	
+	myButton = (Button)findViewById(R.id.myButton);
+	myButton.setOnClickListener(new OnClickListener() {
+		
+		@Override
+		public void onClick(View v) {
+	 		String value = Dianjoy.getOnlineParams(readEditTextViewString(mEditTextParms), "true");
+			if(value.equals("true")){
+				Dianjoy.showOffers();
+			}
+
+		}
+	});
+=============================================================================================
+第四步：在需要点击的按钮下进行判断
+		if(num < 60){
+    			Toast.makeText(BCD.this, "请按获取积分按钮随便获得积分后才能查看测试哦", Toast.LENGTH_LONG).show();
+    		} else {
+
+第五步：实现接口
+==============================================================================================
+	@Override
+	public void setTotalMoneySuccessed(String name0, long amount) {
+		// TODO Auto-generated method stub
+		message = "总金额" + amount;
+		myTextView.setText(message);
+	}
+
+第六步：在线配置
+布局文件加入：
+    <TextView 
+    android:id="@+id/myTextView" 
+  android:layout_width="fill_parent" 
+  android:layout_height="wrap_content" 
+  android:text="你目前的积分是：0"
+  ></TextView>
+    <Button 
+  android:id="@+id/myButton" 
+  android:layout_width="fill_parent" 
+  android:layout_height="wrap_content" 
+  android:text="点击获取积分"></Button>
+  
+          <EditText
+        android:visibility="gone"
+		    	android:id="@+id/et4"
+		    	android:layout_width="150dip" 
+		    	android:layout_height="42dip"
+		    	android:layout_marginLeft="4dip"
+		    	android:text="isopen" 
+		    	/>
+=============================================================================================
+在onCrreat()函数里
+myTextView = (TextView)findViewById(R.id.myTextView);
+ mEditTextParms = (EditText) findViewById(R.id.et4);
+====================================================================================================
+在按钮里加监听
+ 				String value = Dianjoy.getOnlineParams(readEditTextViewString(mEditTextParms), "true");
+				if(value.equals("true")){
+					Dianjoy.showOffers();
+				}
+
+//方法
+	public String readEditTextViewString(EditText editText) {
+		String string = editText.getText().toString();
+		if (string == null || string.trim().equals("")) {
+			return null;
+		} else {
+			return string;
+		}
+	}
+注意注意：加入点乐的布局

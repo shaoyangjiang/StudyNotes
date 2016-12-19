@@ -1,0 +1,16 @@
+/**
+ * 用file来根据抽象路径名来创建目录
+ * @author Administrator
+ *
+ */
+public class FileTest1 {
+
+	public static void main(String[] args) throws IOException {
+		File file = new File("c:/test/shao");
+		file.mkdirs();//返回true表示创建成功		
+		System.out.println(file.isDirectory());//判断文件是否是目录
+	}
+}
+
+========================================================================
+true

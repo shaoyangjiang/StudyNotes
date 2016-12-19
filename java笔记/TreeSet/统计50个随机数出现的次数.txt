@@ -1,0 +1,88 @@
+/**
+ * 随机生成50个数字（整数），每个数字的范围是[10,50]，统计每个数字出现的次数以及出现次数
+ * 最多的数字与它的个数，最后将每个数字及其出现次数打印出来，如果某个数字出现次数为0，
+ * 则不要打印它。打印时按照数字的升序排列
+ * 
+ * @author shaoyangjiang
+ * 
+ */
+public class RandomTest {
+	
+	public static void main(String[] args) {
+		//new出一个TreeMap，主要是这个是带有默认排序的。存储数字及其出现的次数（key为数字，value为数字出现的次数）
+		Map map = new TreeMap();
+		//new 出一个随机数对象
+		Random random = new Random();
+		//随机产生50个数，没有没有重复就加到map里面		
+		for(int i = 0;i < 50 ;i++){
+			int num = random.nextInt(41) + 10;
+			Integer in = (Integer)num;
+			if(map.get(in) == null){//如果map里面不存在就加入
+				map.put(in, new Integer(1));
+			} else{//如果已经存在就key不变，value加一
+				Integer value = ((Integer)map.get(in)).intValue();
+				map.put(in, new Integer(value)+1);
+			}
+		}
+		//得到map里的值的集合
+		Collection collection = map.values();
+		//使用集合辅助类(Collections)统计出现次数最多的数
+		Integer maxAccount = (Integer)Collections.max(collection);
+		//得到所有的键值，
+		Set set = map.entrySet();
+		//这个list主要是用于存储出现最多次数的数
+		List list = new ArrayList();
+		//遍历得到键值
+		for(Iterator iter = set.iterator();iter.hasNext();){
+			Map.Entry enter = (Map.Entry)iter.next();//得到每个键值
+			Integer key = (Integer)enter.getKey();//得到键
+			Integer value = (Integer)enter.getValue();//得到值
+			System.out.println(key + ":" +value);
+			if(value.intValue() == maxAccount.intValue()){//如果得到的值刚好等于出现最多的那个数字的值，就把那个key加到list里面
+				list.add(key);
+			}
+		}
+		
+		System.out.println("出现最多的次数是"+ maxAccount +"次");
+		//打印出现最多次数的那个值
+		for(Iterator iter = list.iterator();iter.hasNext();){
+			Integer key = (Integer)iter.next();
+			System.out.println("出现最多次数的数是"+key);
+		}
+	}
+}
+
+///////////////////////////////////////////////////////////////////
+运行结果：
+10:3
+12:1
+13:1
+14:1
+15:2
+16:2
+17:1
+18:2
+19:1
+21:1
+23:1
+25:1
+26:1
+29:1
+31:1
+32:2
+34:2
+35:2
+36:3
+37:1
+39:3
+41:1
+43:1
+44:1
+45:1
+46:2
+47:3
+48:4
+49:3
+50:1
+出现最多的次数是4次
+出现最多次数的数是48

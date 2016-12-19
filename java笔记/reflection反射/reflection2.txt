@@ -1,0 +1,46 @@
+/**
+ * 反射。调用方法
+ * @author Administrator
+ *
+ */
+public class InvokeTest {
+	//方法一：返回两个参数的和
+	public int addMethod(int param1 , int param2){
+		return param1 + param2;
+	}
+	//方法二：返回输入的参数
+	public String echo(String name){
+		return "hello" + name;
+	}
+	
+	public static void main(String[] args) throws Exception{
+		//常规方法
+		InvokeTest invokeTest = new InvokeTest();
+	    int result1 = invokeTest.addMethod(1, 2);
+		String name = invokeTest.echo("Tom");
+		System.out.println(result1);
+		System.out.println(name);
+		
+		System.out.println("-------------------------");
+		//通过反射的方法
+		Class<?> classType = InvokeTest.class;//得到类名
+		Object involeTest1 = classType.newInstance();//得到实例
+		//得到类里的方法对象
+		Method addMethod = classType.getMethod("addMethod", new Class[]{int.class,int.class});
+		//调用方法对象里的方法，传入参数
+		Object result2 = addMethod.invoke(involeTest1, new Object[]{1,2});
+		System.out.println((Integer)result2);
+		
+		Method echoMethod = classType.getMethod("echo", new Class[]{String.class});
+		Object result3 = echoMethod.invoke(involeTest1, new Object[]{"Tom"});
+		System.out.println((String)result3);
+		
+	}
+}
+///////////////////////////////////////////////////////////////////////
+运行结果：
+3
+helloTom
+-------------------------
+3
+helloTom

@@ -1,0 +1,67 @@
+//---------------------------------------------------------------------------
+
+#include <vcl.h>
+#pragma hdrstop
+
+#include "fmCheckermanageU.h"
+#include "SysFuncs.h"
+#include "dmDataU.h"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+#pragma resource "*.dfm"
+TfmCheckermanage *fmCheckermanage;
+//---------------------------------------------------------------------------
+__fastcall TfmCheckermanage::TfmCheckermanage(TComponent* Owner)
+        : TForm(Owner)
+{
+}
+//---------------------------------------------------------------------------
+
+
+void __fastcall TfmCheckermanage::actAddExecute(TObject *Sender)
+{
+        tabIndex->Append();
+        edtMarker->Text = "";
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TfmCheckermanage::actPostExecute(TObject *Sender)
+{
+
+        tabIndex->FieldByName("Checker")->AsString = edtMarker->Text;
+        tabIndex->Post();
+}
+//---------------------------------------------------------------------------
+void __fastcall TfmCheckermanage::actCancleExecute(TObject *Sender)
+{
+        tabIndex->Cancel();
+        this->Close();
+}
+//---------------------------------------------------------------------------
+void __fastcall TfmCheckermanage::tabIndexAfterScroll(TDataSet *DataSet)
+{
+        edtMarker->Text = tabIndex->FieldByName("Checker")->AsString  ;
+}
+//---------------------------------------------------------------------------
+void __fastcall TfmCheckermanage::FormActivate(TObject *Sender)
+{
+    tabIndex->Open();
+}
+//---------------------------------------------------------------------------
+
+
+void __fastcall TfmCheckermanage::actDeleteExecute(TObject *Sender)
+{
+    if(MessageDlg("删除记录不可恢复，你确定要删除吗？ ", mtError,
+        TMsgDlgButtons() << mbOK<<mbCancel, 0) == mrOk  )
+    {
+        tabIndex->Delete();
+    }
+
+}
+//---------------------------------------------------------------------------
+
+
+
+
+

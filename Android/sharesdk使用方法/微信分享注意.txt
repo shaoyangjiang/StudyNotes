@@ -1,0 +1,5 @@
+如何获取应用签名：
+把签名的应用安装到手机上
+然后https://open.weixin.qq.com/cgi-bin/readtemplate?t=resource/app_download_android_tmpl&lang=zh_CN
+打开签名生成工具。
+输入包名就可以得到签名了。

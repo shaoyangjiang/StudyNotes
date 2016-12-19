@@ -1,0 +1,54 @@
+当使用HashSet 时，hashCode()方法就会得到调用，判断已经存储在集合中的对象的
+hash code 值是否与增加的对象的 hash code 值一致；如果不一致，直接加进去；如
+果一致，再进行 equals 方法的比较，equals 方法如果返回 true，表示对象已经加进去了，就不会再增加新的对象，否则加进去。 
+
+public class SetTest1
+{
+	public static void main(String[] args)
+	{
+		HashSet set = new HashSet();
+		
+//		set.add(new People("zhangsan"));
+//		set.add(new People("lisi"));
+//		set.add(new People("zhangsan"));
+//System.out.println(set);
+		
+//		People p1 = new People("zhangsan");
+//		
+//		set.add(p1);
+//		set.add(p1);
+//System.out.println(set);
+		
+		String s1 = new String("a");
+		String s2 = new String("a");
+		
+		System.out.println("hash code: " + (s1.hashCode() == s2.hashCode()));
+		
+		set.add(s1);
+		set.add(s2);
+		
+		System.out.println(set);
+	}
+}
+
+class People
+{
+	String name;
+
+	public People(String name)
+	{
+		this.name = name;		
+	}
+
+}
+
+=============================================================
+第一次打印是：
+[LinkList.People@1fb8ee3, LinkList.People@c17164, LinkList.People@61de33]
+================================================================
+第二个打印结果是：
+[LinkList.People@c17164]
+=============================================================
+第三次打印结果：
+hash code: true
+[a]

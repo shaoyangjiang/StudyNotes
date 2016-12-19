@@ -1,0 +1,21 @@
+http://blog.csdn.net/lmj623565791/article/details/37970961
+
+得到上下文this.getActivity()或者MainFragment.this.getActivity()
+
+ private ImageView aiqiyi2;
+ @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
+        View view = inflater.inflate(dayhuiyuan, container, false);
+        aiqiyi2 = (ImageView)view.findViewById(R.id.aiqiyi);
+        aiqiyi2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getActivity(),
+                        "i am an ImageButton in TitleFragment ! ",
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
+   
+        return view;
+    }

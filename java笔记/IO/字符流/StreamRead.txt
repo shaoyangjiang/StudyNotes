@@ -1,0 +1,36 @@
+/**
+ * 字符流
+ * @author Administrator
+ *
+ */
+public class StreamTest {
+	
+	public static void main(String[] args) throws Exception {
+		//装饰模式
+		FileOutputStream fos = new FileOutputStream("c://file.txt");
+		OutputStreamWriter osw = new OutputStreamWriter(fos);
+		BufferedWriter bw = new BufferedWriter(osw);
+		//写
+		bw.write("www.google.com");
+		bw.write("\n");
+		bw.write("www.baidu.com");
+		bw.close();
+		
+		FileInputStream fis = new FileInputStream("c://file.txt");
+		InputStreamReader isr = new InputStreamReader(fis);
+		BufferedReader br = new BufferedReader(isr);
+		//读
+//		System.out.println(br.readLine());
+//		System.out.println(br.readLine());
+		String str = br.readLine();
+		while(null != str){
+			System.out.println(str);
+			str = br.readLine();
+		}
+		br.close();
+		
+	}
+}
+===============================================================
+运行结果：在c盘会创建一个file.txt文件，里面就2句话
+在控制台会得到file文件里的内容

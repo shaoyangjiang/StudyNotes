@@ -1,0 +1,27 @@
+父布局layoutP：
+<?xml version="1.0" encoding="utf-8"?> 
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+    android:orientation="vertical" 
+    android:layout_width="fill_parent" 
+    android:layout_height="fill_parent"> 
+    <include android:id="@+id/cell1" layout="@layout/includeA" /> 
+    <include android:id="@+id/cell2" 
+             android:layout_width="fill_parent" 
+             layout="@layout/includeB" /> 
+</LinearLayout>
+
+子布局layoutA：
+<?xml version="1.0" encoding="utf-8"?> 
+<TextView xmlns:android="http://schemas.android.com/apk/res/android" 
+    android:text="textA" 
+    android:layout_width="wrap_content" 
+    android:layout_height="wrap_content"> 
+</TextView>
+
+子布局二layoutB：
+<?xml version="1.0" encoding="utf-8"?> 
+<TextView xmlns:android="http://schemas.android.com/apk/res/android" 
+    android:text="textB" 
+    android:layout_width="wrap_content" 
+    android:layout_height="wrap_content"> 
+</TextView>

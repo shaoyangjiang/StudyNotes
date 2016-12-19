@@ -1,0 +1,95 @@
+1.用匿名函数来实现链接点击事件，运行结果是每次点击链接都会弹出窗口
+  <body>
+    <a href="#">test1</a><br>
+    <a href="#">test1</a><br>
+    <a href="#">test1</a><br>
+    <a href="#">test1</a><br>
+    <a href="#">test1</a><br>
+    <a href="#">test1</a><br>
+  </body>
+-----------------------------------
+ 		window.onload = function(){
+ 			var list = document.getElementsByTagName("a");
+ 			for(var i = 0;i < list.length;i++){
+				//给每一个超链接对象附加onclick属性
+ 				list[i].onclick = function(){
+ 					alert("hello World");
+ 				}
+ 			}
+ 		}
+----------------------------------------------------------
+11.使用jQuery方法来实现链接点击事件，运行结果是每次点击链接都会弹出窗口
+  <body>
+    <a href="#">test1</a><br>
+    <a href="#">test1</a><br>
+    <a href="#">test1</a><br>
+    <a href="#">test1</a><br>
+    <a href="#">test1</a><br>
+    <a href="#">test1</a><br>
+  </body>
+-----------------------------------
+ 		$(document).ready(function(){
+ 			$("a").click(function(){
+ 				alert("hello world");
+ 			})
+ 		})
+--------------------------------------------------
+2.将dom对象转化为jQuery，结果都是弹出一样的内容，只是两种方式比较
+<p id="clickMe">点击我</p>
+--------------------------
+ 		$(document).ready(function(){
+ 		 	var pElement = document.getElementsByTagName("p")[0];
+ 			var pElementjQuery = $(pElement);//将dom对象转化为jQuery对象
+ 			alert("dom方式："+pElement.innerHTML);
+ 			alert("jQuery方式："+pElementjQuery.html());
+ 		})
+==============================================================
+22.将jQuery对象转化为dom，结果都是弹出一样的内容，只是两种方式比较
+<p id="clickMe">点击我</p>
+------------------------------------
+ 		$(document).ready(function(){
+ 		 	var cm = $("#clickMe");//获得jQuery对象，获得页面中id为clickMe的对象，注意用#
+ 		 	var c = cm[0];//jQuery转化为dom对象的第一种方法
+ 		 	alert(c.innerHTML);//dom对象
+ 		 	var s = cm.get(0);//jQuery转化为dom对象的第二种方法
+ 		 	alert(s.innerHTML); //dom对象
+ 		})
+============================================================
+3.用jQuery来实现css样式，运行结果是点击我会变红
+	<p id="clickMe">点击我</p>
+	<script type="text/javascript">
+		$("#clickMe").css("color","#ff0000");
+	</script>
+========================================================
+4.点击按钮，动态的根据text里面的内容添加text文本框
+  <body>
+	<input type="text" id="itemNum"><input type="button" value="click" name="btn" onClick="addItem();">
+	<div id="div1"></div>
+  </body>
+----------------------------------
+用JavaScript实现
+		var addItem = function(){
+			document.getElementById("div1").innerHTML = "";
+			var num = parseInt(document.getElementById("itemNum").value);
+			for(var i=0;i<num;i++){
+				var input = document.createElement("input");//创建input标签
+				input.setAttribute("type", "text");//创建属性
+				var br = document.createElement("br");
+				document.getElementById("div1").appendChild(input);//在div标签下追加
+				document.getElementById("div1").appendChild(br);
+			}
+		}
+运行结果：当在text里输入5，点击按钮就会动态生成5个文本框
+========================================================================
+44.用jQuery实现
+		var addItem = function(){
+			document.getElementById("div1").innerHTML = "";
+			var num = parseInt($("#itemNum").val());//得到输入的值
+			var str = "";
+			for(var i=0;i<num;i++){
+				str +="<input type='text'><br>"//拼接字符串
+			}
+			$("#div1").append(str);//追加在div标签后面
+		}
+运行结果和上面一样
+=========================================================================

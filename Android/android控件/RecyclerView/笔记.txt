@@ -1,0 +1,6 @@
+官方demo：http://developer.android.com/intl/zh-cn/training/material/lists-cards.html
+
+RecyclerView 监听事件：http://blog.csdn.net/sbsujjbcy/article/details/44223303
+
+注意动态添加数据要adapter.notifyDataSetChanged();
+例子：http://www.worldbestlearningcenter.com/tips/Android-populate-listview-from-json-using-volley.htm

@@ -1,0 +1,29 @@
+/**
+ * 枚举
+ * @author Administrator
+ *
+ */
+public class ColorTest {
+
+	public static void main(String[] args) {
+		Color color = Color.Blue;
+		System.out.println(color);
+		System.out.println("--------------------------");
+		
+		for(Color color1 : Color.values()){
+			System.out.println(color1);
+		}
+	}
+}
+
+enum Color{
+	Blue,Red,Black,Wirte
+}
+///////////////////////////////////////////////////////////////////
+运行结果:
+Blue
+--------------------------
+Blue
+Red
+Black
+Wirte

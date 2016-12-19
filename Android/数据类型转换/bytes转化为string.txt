@@ -1,0 +1,10 @@
+///////////////////////////////////
+	public String readText() throws Exception
+	{
+		InputStream is = this.getClass()
+				.getResourceAsStream("/assets/text.txt");
+		int index = is.available();
+		byte data[] = new byte[index];
+		is.read(data);
+		return new String(data, "UTF-8");
+	}

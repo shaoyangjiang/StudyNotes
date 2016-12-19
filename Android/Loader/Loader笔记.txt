@@ -1,0 +1,11 @@
+官方文档
+https://developer.android.google.cn/guide/components/loaders.html?hl=zh-cn
+初级教程
+http://www.jianshu.com/p/385327e35711
+===============================================
+作用和优点：
+
+提供异步加载数据功能；
+对数据源变化进行监听，实时更新数据；
+在Activity配置发生变化（如横竖屏切换）时不避免数据重复加载；
+适用于任何Activity和Fragment；

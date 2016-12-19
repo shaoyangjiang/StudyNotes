@@ -1,0 +1,12 @@
+//得到输入的电话号码
+String mobile = mobileText.getText().toString();
+//得到输入短信的内容
+String content = contentText.getText().toString();
+//发短信，先得到短信管理对象
+SmsManager smsManager = SmsManager.getDefault();
+//拆分短信，当短信内容超过70个汉字的时候分多条短信发送
+ArrayList<String> texts = smsManager.divideMessage(content);
+//迭代 发短信，第一个参数是电话号码，第二个参数是服务中心地址，第三个参数是发送内容，第四个参数是发送服务，第五个参数是送达服务
+for(String text : texts){
+	smsManager.sendTextMessage(mobile, null, text, null, null);
+}

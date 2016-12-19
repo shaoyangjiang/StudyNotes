@@ -1,0 +1,340 @@
+//---------------------------------------------------------------------------
+
+#include <vcl.h>
+#pragma hdrstop        
+
+#include "MainUnit.h"
+#include "LoginUnit.h"
+#include "BookBrowsingUnit.h"
+#include "BorrowingUnit.h"
+#include "ReturningUnit.h"
+#include "ReaderInsertUnit.h"
+#include "ReaderDeleteUnit.h"
+#include "BookInsertUnit.h"
+#include "BookDeleteUnit.h"
+#include "AlterUserNameUnit.h"
+#include "AlterUserNameUnit.h"
+#include "LibrarianInsDelUnit.h"
+
+
+
+
+
+
+
+
+
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+#pragma resource "*.dfm"
+TMainForm *MainForm;
+//TBrowsingBook *BrowsingBook;
+//TBorrowingBook *BorrowingBook;
+//TReturningBook *ReturningBook;
+//TReaderInsert *ReaderInsert;
+//TReaderDelete *ReaderDelete;//---------------------------------------------------------------------------
+//TBookInsert *BookInsert;
+//TBookDelete *BookDelete;
+
+//String IdentityStr, UserName, PassStr;
+String AdministratorName = "administrator", AdministratorPass = "654321";
+//---------------------------------------------------------------------------
+__fastcall TMainForm::TMainForm(TComponent* Owner)
+        : TForm(Owner)
+{
+}
+//---------------------------------------------------------------------------
+bool TMainForm::IsCreatedForm(TForm *Form)
+{
+  if(Form==NULL)  return false;    //Form为空则返回false
+  int flag = 0;
+  for(int i=0;i<Screen->FormCount;i++)
+  {
+    if(Screen->Forms[i]->ClassType()==Form->ClassType())  //逐个检查
+    {
+      flag = 1;
+      break;
+    }
+  }
+  if(flag == 0) return false;
+  if(Form->WindowState == wsMinimized) ShowWindow(Form->Handle, SW_SHOWNORMAL);
+  else  ShowWindow(Form->Handle, SW_SHOWNA);
+  if(!Form->Visible) Form->Visible = true;
+  Form->BringToFront();
+  Form->SetFocus();
+  return true;
+}
+bool TMainForm::Login()
+{
+  int flag = -1;
+  TLoginForm *LoginForm;   
+  LoginForm = new TLoginForm(this);
+  flag = LoginForm->ShowModal();
+
+  return false;
+  while(flag != mrYes)
+  {
+     int msg = MessageDlg("您还没有登录，不能使用该系统。要放弃登录吗？", mtConfirmation, TMsgDlgButtons()<<mbYes<<mbNo,0);
+     if(msg==6)  {IdentityStr = ""; return false;}
+     flag = LoginForm->ShowModal();
+  }
+  String strSQL;
+  IdentityStr = LoginForm->IdentityComboBox->Text;
+  if(IdentityStr=="一般读者") strSQL = "Select * from ReaderTable where UserName = '" + LoginForm->UserEdit->Text + "'";
+  else if(IdentityStr=="读书馆工作人员") strSQL = "Select * from LibrarianTable where LibrarianId = '" + LoginForm->UserEdit->Text + "'";
+  else //系统管理员
+  {
+    if((LoginForm->UserEdit->Text!=AdministratorName)||(LoginForm->PassEdit->Text!=AdministratorPass))
+    {
+      ShowMessage("非法的系统管理员！");
+      IdentityStr = "";
+      return false;
+    }
+    else
+    {
+      UserName = LoginForm->UserEdit->Text;
+      PassStr = LoginForm->PassEdit->Text;
+      IdentityStr = LoginForm->IdentityComboBox->Text;
+      return true;
+    }
+  }
+  LoginQuery->SQL->Text = strSQL;
+  LoginQuery->ExecSQL();
+  LoginQuery->Active = true;
+  if(LoginQuery->RecordCount == 0)
+  {
+    ShowMessage("系统不存在该用户，请先注册！");
+    IdentityStr = "";
+    return false;
+  }
+  if(LoginQuery->Fields->FieldByName("Password")->AsString != LoginForm->PassEdit->Text)
+  {
+    ShowMessage("密码输入有误！");
+    return false;
+  }
+  UserName = LoginForm->UserEdit->Text;
+  PassStr = LoginForm->PassEdit->Text;
+  IdentityStr = LoginForm->IdentityComboBox->Text;
+  LoginForm->Free();
+  return true;
+}
+
+
+
+void __fastcall TMainForm::NLoginClick(TObject *Sender)
+{
+  IdentityStr = "";
+  UserName = "";
+  PassStr = "";
+ //Login();
+
+   UserName = "administrator";
+  PassStr = "654321";
+  IdentityStr = "系统管理员";
+
+
+  if(IdentityStr=="") //登录不成功
+  {
+    BrowsingTBtn->Enabled = false;
+    BorrowingTBtn->Enabled = false;
+    ReturnTBtn->Enabled = false;
+  }
+  else if(IdentityStr=="一般读者")
+  {
+    BrowsingTBtn->Enabled = true;
+    BorrowingTBtn->Enabled = false;
+    ReturnTBtn->Enabled = false;
+  }
+  else if((IdentityStr=="读书馆工作人员")||(IdentityStr=="系统管理员"))
+  {
+    BrowsingTBtn->Enabled = true;
+    BorrowingTBtn->Enabled = true;
+    ReturnTBtn->Enabled = true;
+  } 
+  NBrowsingBook->Enabled = false;
+  BorrowingManage->Enabled = false;
+  SystemManage->Enabled = false;
+
+  MainForm->Caption = "图书借阅信息管理系统 ---- 登录身份：" + IdentityStr + "  用户名：" + UserName;
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TMainForm::NExitClick(TObject *Sender)
+{
+  this->Close();        
+}
+//---------------------------------------------------------------------------
+
+
+void __fastcall TMainForm::NBrowsingBookClick(TObject *Sender)
+{
+  if(!IsCreatedForm(BrowsingBook)) BrowsingBook = new TBrowsingBook(this);
+  BrowsingBook->Show(); 
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TMainForm::NOperationClick(TObject *Sender)
+{
+  if(IdentityStr=="")
+  {   
+    NBrowsingBook->Enabled = false;
+    BorrowingManage->Enabled = false;
+    SystemManage->Enabled = false;
+    ShowMessage("您还没有登录，请先登录，谢谢！"); 
+  }
+  else if(IdentityStr=="一般读者")
+  {
+    NBrowsingBook->Enabled = true;
+  }
+  else if(IdentityStr=="读书馆工作人员")
+  {
+    NBrowsingBook->Enabled = true;
+    BorrowingManage->Enabled = true;
+  }
+  else if(IdentityStr=="系统管理员")
+  {
+    NBrowsingBook->Enabled = true;
+    BorrowingManage->Enabled = true;
+    SystemManage->Enabled = true;
+  }    
+}
+//---------------------------------------------------------------------------
+
+
+
+void __fastcall TMainForm::NBorrowingBookClick(TObject *Sender)
+{
+   if(!IsCreatedForm(BorrowingBook)) BorrowingBook = new TBorrowingBook(this);
+   BorrowingBook->Show();
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TMainForm::NRerurningBookClick(TObject *Sender)
+{
+   if(!IsCreatedForm(ReturningBook)) ReturningBook = new TReturningBook(this);
+   ReturningBook->Show();
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TMainForm::NReaderInsertClick(TObject *Sender)
+{
+   if(!IsCreatedForm(ReaderInsert)) ReaderInsert = new TReaderInsert(this);
+   ReaderInsert->Show();
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TMainForm::NReaderDeleteClick(TObject *Sender)
+{
+  if(!IsCreatedForm(ReaderDelete)) ReaderDelete = new TReaderDelete(this);
+  ReaderDelete->Show();
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TMainForm::NBookInsertClick(TObject *Sender)
+{
+  if(!IsCreatedForm(BookInsert)) BookInsert = new  TBookInsert(this);
+  BookInsert->Show();
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TMainForm::NBookDeleteClick(TObject *Sender)
+{
+  if(!IsCreatedForm(BookDelete)) BookDelete = new TBookDelete(this);
+  BookDelete->Show();
+}
+//---------------------------------------------------------------------------
+
+
+void __fastcall TMainForm::WinCloseAllExecute(TObject *Sender)
+{
+  for(int i=0;i<MDIChildCount;i++)
+  {
+    MDIChildren[i]->Free(); 
+  }        
+}
+//---------------------------------------------------------------------------
+
+
+
+
+void __fastcall TMainForm::test1Click(TObject *Sender)
+{
+  //
+  //ActionList1->       
+}
+//---------------------------------------------------------------------------
+
+
+
+void __fastcall TMainForm::WinCloseAllUpdate(TObject *Sender)
+{
+  if(MDIChildCount>0)
+  {
+    dynamic_cast<TAction *>(Sender)->Enabled = true;
+  }
+  else
+  {
+    dynamic_cast<TAction *>(Sender)->Enabled = false;
+  }        
+}
+//---------------------------------------------------------------------------
+
+
+
+void __fastcall TMainForm::NAlterUserPassClick(TObject *Sender)
+{
+  //if(!IsCreatedForm(BrowsingBook)) BrowsingBook = new TBrowsingBook(this);
+  ///BrowsingBook->Show();
+  AlterUserNameForm = new TAlterUserNameForm(this);
+  AlterUserNameForm->ShowModal();
+
+  MainForm->Caption = "图书借阅信息管理系统 ---- 登录身份：" + IdentityStr + "  用户名：" + UserName;
+
+
+//TAlterUserNameForm *AlterUserNameForm;
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TMainForm::SystemManageClick(TObject *Sender)
+{
+  if(!IsCreatedForm(LibrarianInsDel)) LibrarianInsDel = new TLibrarianInsDel(this);
+  LibrarianInsDel->Show();
+}
+//---------------------------------------------------------------------------
+
+
+
+
+
+void __fastcall TMainForm::LoginTBtnClick(TObject *Sender)
+{
+  NLoginClick(Sender);
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TMainForm::FormCreate(TObject *Sender)
+{
+  BrowsingTBtn->Enabled = false;
+  BorrowingTBtn->Enabled = false;
+  ReturnTBtn->Enabled = false;
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TMainForm::BrowsingTBtnClick(TObject *Sender)
+{
+  NBrowsingBookClick(Sender);
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TMainForm::BorrowingTBtnClick(TObject *Sender)
+{
+  NBorrowingBookClick(Sender);
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TMainForm::ReturnTBtnClick(TObject *Sender)
+{
+  NRerurningBookClick(Sender);
+}
+//---------------------------------------------------------------------------
+

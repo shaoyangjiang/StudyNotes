@@ -1,0 +1,4 @@
+1 right click on the root folder of your project.
+2 Click "Open Module Setting".
+3 Go to the Flavours tab.
+4 Change the applicationID to whatever package name you want. Press OK.

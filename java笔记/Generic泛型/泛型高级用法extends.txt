@@ -1,0 +1,29 @@
+/**
+ * 限制泛型的类别时，可以用extends关键字，后面跟类或接口都可以。
+ * @author Administrator
+ *
+ * @param <T>
+ */
+public class ListGenericFoo<T extends List> {
+
+	private T[] foo;
+
+	public T[] getFoo() {
+		return foo;
+	}
+
+	public void setFoo(T[] foo) {
+		this.foo = foo;
+	}
+
+	public static void main(String[] args) {
+		//直面的参数只能是List的之类，这里用了LinkedList，不然传不进去
+		ListGenericFoo<LinkedList> foo1 = new ListGenericFoo<LinkedList>();
+		LinkedList[] list = new LinkedList[10];
+		foo1.setFoo(list);
+		
+		ListGenericFoo<ArrayList> foo2 = new ListGenericFoo<ArrayList>();
+		ArrayList[] list2 = new ArrayList[10];
+		foo2.setFoo(list2);
+	}
+}

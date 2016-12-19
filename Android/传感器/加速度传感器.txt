@@ -1,0 +1,47 @@
+手机屏幕向上（z轴朝天）水平放置的时侯，（x，y，z）的值分别为（0，0，10）；
+手机屏幕向下（z轴朝地）水平放置的时侯，（x，y，z）的值分别为（0，0，-10）；
+手机屏幕向左侧放（x轴朝天）的时候，（x，y，z）的值分别为（10，0，0）；
+手机竖直（y轴朝天）向上的时候，（x，y，z）的值分别为（0，10，0）；
+其他的如此类推，规律就是：朝天的就是正数，朝地的就是负数。
+利用x,y,z三个值求三角函数，就可以精确检测手机的运动状态了。
+=============================================================================
+编写步骤：
+	private SensorManager mSensorManager = null;
+	private Sensor mSensor = null;
+	private float x, y, z;
+
+1.SensorMannager传感器管理对象
+mSensorManager = (SensorManager)this.getSystemService(SENSOR_SERVICE);		
+mSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION);//得到重力传感器
+=============================================================================
+2.实现SensorEventListener接口
+	SensorEventListener lsn = new SensorEventListener() {	
+		@Override
+		public void onSensorChanged(SensorEvent event) {
+			x = event.values[SensorManager.DATA_X];
+			y = event.values[SensorManager.DATA_Y];
+			z = event.values[SensorManager.DATA_Z];
+		}	
+		@Override
+		public void onAccuracyChanged(Sensor sensor, int accuracy) {
+			// TODO Auto-generated method stub			
+		}
+	};
+=============================================================================
+3.注册SensorEventListener  一般都在onResume()里注册
+mSensorManager.registerListener(lsn, mSensor, SensorManager.SENSOR_DELAY_GAME);
+=============================================================================
+4.注销传感器 一般都在onStop()里注册
+mSensorManager.unregisterListener(lsn);
+=============================================================================
+5.当点击屏幕的时候，让x，y，z显示在屏幕上
+	public boolean onTouchEvent(MotionEvent event){
+
+		if(event.getAction() == MotionEvent.ACTION_DOWN){		
+			mSensorManager.registerListener(lsn, mSensor, SensorManager.SENSOR_DELAY_GAME);
+			
+			String str = "x=" + x + "; y=" + y + "; z=" + z;
+			Toast.makeText(getApplicationContext(), str, Toast.LENGTH_LONG).show();
+		}	
+		return super.onTouchEvent(event);
+	}

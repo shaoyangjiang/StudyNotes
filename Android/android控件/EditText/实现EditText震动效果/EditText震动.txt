@@ -1,0 +1,30 @@
+http://www.linuxidc.com/Linux/2012-02/54857.htm
+主要效果是点击一下按钮TextView出现震动
+================================================================
+布局：
+    <EditText android:id="@+id/pw"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:singleLine="true"
+        android:password="true"
+    />
+
+    <Button android:id="@+id/login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/googlelogin_login"
+    />
+=====================================================================
+主代码：
+		Button loginButton = (Button)findViewById(R.id.login);
+		loginButton.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Animation shake = AnimationUtils.loadAnimation(Animation1.this, R.anim.shake);
+				findViewById(R.id.pw).startAnimation(shake);
+			}
+		});
+====================================================================================
+再添加两个anim布局，新建一个anim文件夹，放进去即可

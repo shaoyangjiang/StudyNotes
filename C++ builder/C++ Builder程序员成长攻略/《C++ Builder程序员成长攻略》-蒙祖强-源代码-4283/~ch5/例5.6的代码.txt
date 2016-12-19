@@ -1,0 +1,86 @@
+//---------------------------------------------------------------------------
+
+#include <vcl.h>
+#pragma hdrstop
+
+#include "Unit1.h"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+#pragma resource "*.dfm"
+TForm1 *Form1;
+//---------------------------------------------------------------------------
+__fastcall TForm1::TForm1(TComponent* Owner)
+        : TForm(Owner)
+{
+}
+void TForm1::SetTime(SYSTEMTIME *STL)
+ {
+  int StartPos,EndPos;
+  String date,Time;
+  date = Edit1->Text;
+
+  StartPos = 1;
+  EndPos = date.Pos("年")-1;
+  STL->wYear = StrToInt(date.SubString(StartPos,EndPos-StartPos+1).Trim());
+
+  StartPos = EndPos+3;
+  EndPos = date.Pos("月")-1;
+  STL->wMonth = StrToInt(date.SubString(StartPos,EndPos-StartPos+1).Trim());
+  //STL->wMonth = StrToInt(date.SubString(6,1));
+
+  StartPos = EndPos+3;
+  EndPos = date.Pos("日")-1;
+  STL->wDay = StrToInt(date.SubString(StartPos,EndPos-StartPos+1).Trim());
+
+  Time = Edit2->Text;
+  StartPos = 1;
+  EndPos = Time.Pos(":")-1;
+
+  STL->wHour = StrToInt(Time.SubString(StartPos,EndPos-StartPos+1).Trim());
+
+  Time = Time.SubString(EndPos+2,Time.Length()-(EndPos+1));
+  StartPos = 1;
+  EndPos = Time.Pos(":")-1;
+  STL->wMinute = StrToInt(Time.SubString(StartPos,EndPos-StartPos+1).Trim());
+
+  StartPos = EndPos+2;
+  EndPos = Time.Length();
+  STL->wSecond = StrToInt(Time.SubString(StartPos,EndPos-StartPos+1).Trim());
+ }
+
+//---------------------------------------------------------------------------
+
+
+void __fastcall TForm1::Button2Click(TObject *Sender) //取时间
+{
+ SYSTEMTIME *GT;
+  GT = new SYSTEMTIME;
+  GetSystemTime(GT); //取格林威治时间
+  Edit1->Text = String(GT->wYear)+ "年" + String(GT->wMonth) + "月" + String(GT->wDay) + "日";   //年
+  Edit2->Text = String(GT->wHour)+":"+String(GT->wMinute)+":"+String(GT->wSecond);
+  Edit3->Text = String(GT->wDayOfWeek);
+
+  GetLocalTime(GT);//取本地时间
+  Edit4->Text = String(GT->wYear)+ "年" + String(GT->wMonth) + "月" + String(GT->wDay) + "日";   //年
+  Edit5->Text = String(GT->wHour)+":"+String(GT->wMinute)+":"+String(GT->wSecond);
+  Edit6->Text = String(GT->wDayOfWeek);
+}
+//---------------------------------------------------------------------------
+void __fastcall TForm1::Button1Click(TObject *Sender)//设置时间
+{
+  SYSTEMTIME *ST;
+  ST = new SYSTEMTIME;
+  SetTime(ST);
+  if(SetSystemTime(ST)) ShowMessage("成功设置格林威治时间");
+  else ShowMessage("设置格林威治时间操作失败");
+}
+//---------------------------------------------------------------------------
+void __fastcall TForm1::Button3Click(TObject *Sender) //设置时间
+{
+  SYSTEMTIME *ST;
+  ST = new SYSTEMTIME;
+  SetTime(ST);
+  if(SetLocalTime(ST)) ShowMessage("成功设置本地时间");
+  else ShowMessage("设置本地时间操作失败");
+}
+//---------------------------------------------------------------------------

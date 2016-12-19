@@ -1,0 +1,43 @@
+-- 读者信息表（ReaderTable）的结构
+Drop Table ReaderTable;
+CREATE  TABLE ReaderTable (ReaderId 	Char(7)  NOT NULL Primary Key,
+Name 		Varchar(8) 		NOT NULL ,
+UserName	Varchar(12)		NOT NULL,
+Password		Varchar(12)		NOT NULL ,
+Gender 		Char(2) ,
+Unit 		Varchar(50) , 
+Ident 		Varchar (10) ,
+Number 		Integer 			NOT NULL,
+Remark 		Varchar(500) );
+
+
+-- 图书信息表（BookTable）的结构
+Drop Table BookTable;
+CREATE  TABLE  BookTable (ISBN	Char(5) 	NOT NULL Primary Key,
+BookName	Varchar(50) 		NOT NULL,
+Editor		Varchar(8),
+Publisher 	Varchar(50),
+PubDate		DateTime,
+BookIndex	Varchar(20),		
+Price		Money,
+Stutate 		Char(4) 			NOT NULL);
+
+
+-- 馆员信息表（LibrarianTable）的结构
+Drop Table LibrarianTable;
+CREATE  TABLE  LibrarianTable (LibrarianId	 Char(5)	NOT NULL Primary Key,
+Name 	Varchar(50)	NOT NULL,
+Password	Varchar(12)	NOT NULL);
+
+
+-- 借阅事务信息表（BorrowingTable）的结构
+Drop Table BorrowingTable;
+CREATE  TABLE  BorrowingTable(TaskId	int Identity(1000,1)  NOT NULL	Primary Key,
+ReaderId			Char(7)		NOT NULL,
+ReaderName		Varchar(8),
+ISBN			Char(5)		NOT NULL,
+BookName		Varchar(50),
+Editor			Varchar(8),
+BorrowDate		DateTime		NOT NULL,
+ReturnDate		DateTime		NOT NULL,
+LibrarianId		Char(5)		NOT NULL);

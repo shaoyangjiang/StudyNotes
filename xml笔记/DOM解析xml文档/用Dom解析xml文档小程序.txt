@@ -1,0 +1,56 @@
+/**
+ * 用dom解析xml文件,xml文件为candidate。注意文档路径就可以，这里默认和程序放在同一个工程
+ * @author Administrator
+ *
+ */
+public class DomTest1 {
+	public static void main(String[] args) throws Exception {
+		//step 1: 获得dom解析器工厂(作用是创建具体的解析器)
+		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+		//step 2：获得具体的dom解析器
+		DocumentBuilder db = dbf.newDocumentBuilder();
+		//step 3：解析一个xml文档，获得Document对象(根结点)
+		Document document = db.parse(new File("candidate.xml"));
+		//得到Person节点的所用元素
+		NodeList list = document.getElementsByTagName("PERSON");
+		//遍历所有的元素
+		for(int i = 0;i <list.getLength();i++){
+			Element element = (Element)list.item(i);
+			String content = element.getElementsByTagName("NAME").item(0).getFirstChild().getNodeValue();
+			System.out.println("name:"+content);
+			
+			content = element.getElementsByTagName("ADDRESS").item(0).getFirstChild().getNodeValue();
+			System.out.println("address:"+content);
+			
+			content = element.getElementsByTagName("TEL").item(0).getFirstChild().getNodeValue();
+			System.out.println("Tel:"+content);
+			
+			content = element.getElementsByTagName("EMAIL").item(0).getFirstChild().getNodeValue();
+			System.out.println("Email:"+content);
+			System.out.println("-----------------------------------------");
+		}
+		
+	}
+}
+===========================================================================
+运行结果：
+name:Tony Blair
+address:10 Downing Street, London, UK
+Tel:(061) 98765
+Email:blair@everywhere.com
+-----------------------------------------
+name:Bill Clinton
+address:White House, USA
+Tel:(001) 6400 98765
+Email:bill@everywhere.com
+-----------------------------------------
+name:Tom Cruise
+address:57 Jumbo Street, New York, USA
+Tel:(001) 4500 67859
+Email:cruise@everywhere.com
+-----------------------------------------
+name:Linda Goodman
+address:78 Crax Lane, London, UK
+Tel:(061) 54 56789
+Email:linda@everywhere.com
+-----------------------------------------

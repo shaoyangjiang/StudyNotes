@@ -1,0 +1,37 @@
+1.java只可以有一个父类，但可以有多个接口
+a.接口只有方法，没有实现
+b.接口中的方法是抽象的，公开的
+c.接口中不能不能有构造器
+d.可以有public，静态的和final属性
+e.方法默认为public，abstract类型
+f.int a = 1;所有变量都必须显示初始化，变成常量
+============================================
+例子：
+public interface Sport{
+	int num = 1;//正确
+	public abstract void football();
+	public abstract int count(int a);
+}
+=========================================
+2.接口不能实现另一个接口，但它可以继承多个其他的接口
+public interface A  
+ {  
+  void methodA();  
+ }  
+ public interface B  
+ {  
+  void methodB();  
+ }  
+ public interface C extends A, B   //C称为复合接口  
+ {  
+  void methodC();  
+ }  
+ public interface C implements A{...}   //错 
+=============================================================
+3.当类实现了某个Java接口时,它必须实现接口中的所有抽象方法,否则这个类必须声明为抽象的。
+================================================================
+4.一个类只能继承一个直接的父类,但可以实现多个接口,间接的实现了多继承.
+public class A extends B implements C, D{...} //B为class,C,D为interface
+=======================================================================
+5.接口的作用
+接口的最主要的作用是达到统一访问，就是在创建对象的时候用接口创建，【接口名】 【对象名】=new 【实现接口的类】，这样你想用哪个类的对象就可以new哪个对象了

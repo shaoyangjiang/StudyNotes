@@ -1,0 +1,131 @@
+步骤一：将youmiad-android.jar 导入您的工程中。
+1 右键您的工程根目录，选择“Properties”
+2 在左面板中选择“Java Build Path”
+3 然后选择“Libraries”标签
+4 点击“Add External JARs…”
+5 选择youmiad-android.jar 的目录路径
+6 点击“OK”即导入成功
+================================================================================================
+步骤二：在manifest.xml文件中配置,z layout.xml文件中添加布局文件，主Activity添加2个自定义的Activity。
+           <activity android:name="com.example.com.senser.cn.MyView" android:configChanges="keyboardHidden|orientation"/>
+       <service android:name="com.example.com.senser.cn.MyService" />
+        <meta-data
+            android:name="com.dianle.cid"
+            android:value="meta_cid" />
+=======================================================================
+	<uses-permission android:name="android.permission.INTERNET" />
+<uses-permission android:name="android.permission.GET_TASKS" />
+<uses-permission android:name="android.permission.READ_PHONE_STATE" />
+<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+<uses-permission android:name="android.permission.READ_LOGS" /> 
+<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+<uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
+
+第三步：实现接口
+implements GetTotalMoneyListener, GiveMoneyListener, SpendMoneyListener,
+GetADAcountListener, SetTotalMoneyListener, GetOnlineParamsListener, GetUpdateMessageListener{
+
+//全局变量
+  private long num ;
+  private String name = "";
+  private String message="你目前的积分";
+  private Button myButton;
+  private EditText mEditTextParms;
+  private TextView myTextView;
+
+在onCreat()函数里写入
+//在不方便的时候，可以自定义activity继承sdk的Activity和Service，然后再Androidmenifest.cml里面注册。然后根据文档或sdk范例一步步去实现。
+	Dianle.setCustomActivity("com.example.com.senser.cn.MyView");//MyView所在的包和类名，MyView要继承DianleOfferActivity
+	Dianle.setCustomService("com.example.com.senser.cn.MyService");//MyService所在的包和类名，MyService要继承DianleOfferHelpService
+	Dianle.initDianleContext(this, "fdd36b69cab0c39c3eb09d46b7fd009e");
+	Dianle.getTotalMoney(new GetTotalMoneyListener() {
+
+		@Override
+		public void getTotalMoneySuccessed(String name0, long amount) {
+			name = name0;
+			num = amount;
+		}
+
+		@Override
+		public void getTotalMoneyFailed(String error) {
+		}
+	});
+
+	myTextView = (TextView)findViewById(R.id.myTextView);
+	 mEditTextParms = (EditText) findViewById(R.id.et4);
+	myButton = (Button)findViewById(R.id.myButton);
+	myButton.setOnClickListener(new OnClickListener() {
+		
+		@Override
+		public void onClick(View v) {
+			Dianle.getOnlineParams(readEditTextViewString(mEditTextParms), BCD.this, "false");
+			String value = Dianle.getOnlineParams(readEditTextViewString(mEditTextParms), "true");
+				if(value.equals("true")){
+					Dianle.showOffers();
+				}
+		}
+	});
+=========================================================================================================
+布局文件：
+    <TextView 
+    android:id="@+id/myTextView" 
+  android:layout_width="fill_parent" 
+  android:layout_height="wrap_content" 
+  android:text="你目前的积分是：0"
+  ></TextView>
+    <Button 
+  android:id="@+id/myButton" 
+  android:layout_width="fill_parent" 
+  android:layout_height="wrap_content" 
+  android:text="点击获取积分"></Button>
+  
+          <EditText
+        android:visibility="gone"
+		    	android:id="@+id/et4"
+		    	android:layout_width="150dip" 
+		    	android:layout_height="42dip"
+		    	android:layout_marginLeft="4dip"
+		    	android:text="isopen" 
+		    	/>
+============================================================================================================
+//方法
+	public String readEditTextViewString(EditText editText) {
+		String string = editText.getText().toString();
+		if (string == null || string.trim().equals("")) {
+			return null;
+		} else {
+			return string;
+		}
+	}
+
+第五步：实现接口
+==============================================================================================
+	@Override
+	public void setTotalMoneySuccessed(String name0, long amount) {
+		// TODO Auto-generated method stub
+		message = "总金额" + amount;
+		myTextView.setText(message);
+	}
+
+=================================================================================
+小技巧
+		if(num < 60){
+    			Toast.makeText(BCD.this, "请按获取积分按钮随便获得积分后才能查看测试哦", Toast.LENGTH_LONG).show();
+    		} else {
+注意注意：加入点乐的布局
+
+							if(num < 100){
+					            new AlertDialog.Builder(MainActivityW.this)
+					            .setTitle("解锁？")
+					            .setMessage("高仿iphone锁屏效果，非常逼真，音效也很好，为了考虑到用户体验，使用后不再出现广告，本软件采用了免费获取100以上金币进行激活，激活后，任何高清图片都可以做背景解锁图，不再出现任何广告，谢谢理解。")
+					            .setPositiveButton("确定解锁", 
+					            	new DialogInterface.OnClickListener() {					
+					            	@Override
+					            	public void onClick(DialogInterface dialog, int which) {
+					            		Dianle.showOffers();
+					            	}
+					            	})
+					            .show();
+							}

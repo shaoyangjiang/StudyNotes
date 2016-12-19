@@ -1,0 +1,18 @@
+新建一个DTD文件
+<?xml version="1.0" encoding="UTF-8"?>
+<!ELEMENT poem (author, title, content)>
+<!ELEMENT author (#PCDATA)>
+<!ELEMENT title (#PCDATA)>
+<!ELEMENT content (#PCDATA)>
+================================================================
+再新建一个xml文件，xml文件引用外部的dtd文件
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE poem SYSTEM "poem.dtd">
+<poem>
+	<author>杜甫</author>
+	<title>月夜</title>
+	<content>今夜鄜州月，闺中只独看。
+			遥怜小儿女，未解忆长安。
+			香雾云鬟湿，清辉玉臂寒。
+			何时倚虚幌，双照泪痕干！</content>
+</poem>

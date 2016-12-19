@@ -1,0 +1,36 @@
+http://blog.csdn.net/u010800530/article/details/40622757
+----------------------
+   // 为每个菜单定义一个标识
+    final int MENU1 = 0x111;
+    final int MENU2 = 0x112;
+    final int MENU3 = 0x113;
+--------------------------------
+出发menu，view代表控件。可以是button，textview等
+registerForContextMenu(view);
+-----------------------
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v,
+                                    ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        menu.add(0, MENU1, 0, "红色");
+        menu.add(0, MENU2, 0, "绿色");
+        menu.add(0, MENU3, 0, "蓝色");
+    }
+
+    // 上下菜单的菜单项被单击时触发该方法。
+    @Override
+    public boolean onContextItemSelected(MenuItem mi)
+    {
+        switch (mi.getItemId())
+        {
+            case MENU1:
+                break;
+            case MENU2:
+                break;
+            case MENU3:
+                break;
+        }
+        return true;
+    }
+-------------------------------------------
+

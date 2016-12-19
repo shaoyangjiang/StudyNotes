@@ -1,0 +1,25 @@
+/**语法：
+ * for(type element :array){
+ * 	System.out.println(element);
+ * }
+ * @author Administrator
+ *
+ */
+public class ForTest3 {
+
+	public static void main(String[] args) {
+		Collection<String> col = new ArrayList<String>();
+		col.add("one");
+		col.add("two");
+		col.add("three");
+		
+		for(String element : col){
+			System.out.println(element);
+		}
+	}
+}
+/////////////////////////////////////////////////////////////////
+运行结果：
+one
+two
+three

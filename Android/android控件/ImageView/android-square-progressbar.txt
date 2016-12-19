@@ -1,0 +1,30 @@
+功能:进度条包围图片
+项目地址：https://github.com/mrwonderman/android-square-progressbar
+-----------------------------
+首先：
+allprojects {
+    repositories {
+        jcenter()
+        maven { url "https://jcenter.bintray.com" }
+    }
+}
+---------------------------
+dependencies {
+    // other repos ...
+    compile 'ch.halcyon:squareprogressbar:1.6.0'
+}
+---------------------------
+布局：
+<ch.halcyon.squareprogressbar.SquareProgressBar
+    android:id="@+id/sprogressbar"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentTop="true"
+    android:layout_centerHorizontal="true"
+    android:paddingTop="20dp" >
+</ch.halcyon.squareprogressbar.SquareProgressBar>
+---------------------
+代码：50.0表示展示50的进度条
+SquareProgressBar squareProgressBar = (SquareProgressBar) rootView.findViewById(R.id.sprogressbar);
+squareProgressBar.setImage(R.drawable.example);
+squareProgressBar.setProgress(50.0);

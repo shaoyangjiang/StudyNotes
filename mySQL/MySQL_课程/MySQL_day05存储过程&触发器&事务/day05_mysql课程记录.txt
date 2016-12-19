@@ -1,0 +1,220 @@
+1、存储过程的概念
+	1）、存储过程是数据库的一门语言（相当于是方法，函数）
+	2）、存储过程实质上就是将很多SQL语句按照一定的流程存放到一起
+	3）、存储过程在保存至数据库时预先先编译
+2、创建第一个存储过程
+	/*删除存储过程*/
+	drop procedure if exists p1;
+	/*转译MYSQL的分隔符*/
+	delimiter //
+	/*创建一个存储过程*/
+	create procedure p1()
+		begin
+			/*SQL语句*/
+			select * from t;
+			update t set s1=6;
+			select * from t;
+			select * from student;
+		end ;
+	//
+	delimiter ;
+
+	/*调用存储过程*/
+	call p1();
+
+3、创建一个存储过程，显示`Hello world`
+	delimiter //
+	create procedure p2()
+	begin
+		select 'Hello world' as message;
+	end;
+	//
+	delimiter ;
+	call p2();
+
+4、创建一个过程，打印出两列数据，第一列是当前的日期和时间，第二列打印出一个随机数
+	delimiter //
+	create procedure p3()
+	begin
+		select now() as now, rand() as rand;
+	end;
+	//
+	delimiter ;
+	call p3();
+
+5、MySQL存储过程的参数类型
+	JAVA：(数据类型  形参名字)  (int i)
+	存储过程的参数：(参数类型[IN OUT INOUT]  参数的名字  数据类型)
+	create procedure p4(IN p INT)
+
+6、IN参数的例子（只能调用者传给存储过程，存储过程没办法传给调用者）
+	delimiter //
+	create procedure demo_in_parameter(IN p_in INT)
+	begin
+		select p_in;/*1*/
+		set p_in=2;
+		select p_in;/*2*/
+	end;
+	//
+	delimiter ;
+	set @x=1;
+	call demo_in_parameter(@x);
+	select @x;/*1*/
+
+7、用户变量（约定俗成的习惯，如果是定义用户变量前面就统一加上@符号）
+	定义语法：相当于（int i = 0）
+		1）、变量的名字：@x，值：'hello world'，数据类型：根据前面的值来
+		select 'hello world' into @x;
+		2）、set @y=1;
+		3）、@z=1+2+3;
+
+8、OUT参数的例子（OUT是存储过程传值给调用者，调用者没办法传值给存储过程）
+	delimiter //
+	create procedure demo_out_parameter(OUT p_out INT)
+	begin
+		select p_out;/*null*/
+		set p_out=2;
+		select p_out;/*2*/
+	end;
+	//
+	delimiter ;
+	set @y=1;
+	call demo_out_parameter(@y);
+	select @y;/*2*/
+
+9、INOUT参数的例子（INOUT既可以调用者传值给存储过程，存储过程也可以传值给调用者）
+	delimiter //
+	create procedure demo_inout_parameter(INOUT p_inout INT)
+	begin
+		select p_inout;/*1*/
+		set p_inout=-5;
+		select p_inout;/*-5*/
+	end;
+	//
+	delimiter ;
+	set @z=1;
+	call demo_inout_parameter(@z);
+	select @z;/*-5*/
+
+10、局部变量（没有默认值）
+	DROP PROCEDURE IF EXISTS p8;
+	delimiter //
+	CREATE PROCEDURE p8()
+	BEGIN
+		DECLARE a INT;/* there is no DEFAULT clause */
+		DECLARE b INT;/* there is no DEFAULT clause */
+		SET a=5;/* there is a SET statement */
+		SET b=5;/* there is a SET statement */
+		INSERT INTO t(s1) VALUES(a);
+		SELECT s1*a FROM t WHERE s1>=b;
+	END;
+	//
+	delimiter ;
+	CALL p8();
+
+11、局部变量（含有默认值）
+	DROP PROCEDURE IF EXISTS p9;
+	delimiter //
+	CREATE PROCEDURE p9()
+	BEGIN
+		DECLARE a ,b INT DEFAULT 5;
+		INSERT INTO t(s1) VALUES(a);
+		SELECT s1*a FROM t WHERE s1>=b;
+	END;
+	//
+	delimiter ;
+	CALL p9();
+
+12、区分用户变量和局部变量
+	1）、用户变量和局部变量都可以在存储过程中定义
+	1）、语法区分：
+		用户变量：（3中方式）
+			set @x=1;
+		局部变量：declare
+
+13、IF-THEN-ELSE-END IF
+
+	IF 判断
+	THEN 语句
+	ELSEIF 判断  需要特别注意：ELSEIF
+	THEN 语句
+	ELSE 语句
+	END IF;
+
+14、写一个存储过程，要求有一个输入IN参数：
+	如果输入的参数为0，打印学生信息表（按ID从大到小排列）
+	如果输入的参数为1，打印学生信息表（按ID从小到大排列）
+	如果输入参数不为0或1，则告诉用户输入错误。
+
+	DROP PROCEDURE IF EXISTS p10;
+	delimiter //
+	CREATE PROCEDURE p10(IN p_in INT)
+	BEGIN
+		IF p_in=0 THEN
+		select * from student order by id desc;
+		ELSEIF p_in=1 THEN
+		select * from student order by id;
+		ELSE
+		select '输入错误' as message;
+		END IF;
+	END;
+	//
+	delimiter ;
+	CALL p10();
+
+
+
+15、触发器第一个示例（记录学生信息插入日志）
+	drop trigger if exists student_log_trigger1;
+	delimiter //
+	create trigger student_log_trigger1 before insert on student for each row
+	begin
+		/*业务SQL语句*/
+		insert into student_log(stuname, logtime, operatortype, logmemo) values(NEW.name, now(), 'insert', '学生信息插入日志');
+	end;
+	//
+	delimiter ;
+
+16、触发器是不能被覆盖的
+	如果需要修改触发器，就需要先drop原来的触发器
+
+17、触发器示例二（修改NEW列的值）
+	drop trigger if exists student_log_trigger1;
+	delimiter //
+	create trigger student_log_trigger1 before insert on student for each row
+	begin
+		/*业务SQL语句*/
+		insert into student_log(stuname, logtime, operatortype, logmemo) values(NEW.name, now(), 'insert', '学生信息插入日志');
+		/*给年龄字段增加一岁*/
+		set NEW.age= NEW.age+1;
+	end;
+	//
+	delimiter ;
+
+18、课堂习题：delete备份和记录日志
+	drop trigger if exists student_delete_log_trigger;
+	delimiter //
+	create trigger student_delete_log_trigger after delete on student for each row
+	begin
+		/*业务SQL语句*/
+		/*1、记录日志*/
+		insert into student_log(stuname, logtime, operatortype, logmemo) values(OLD.name, now(), 'delete', '学生信息删除日志');
+		/*2、备份*/
+		insert into student_bak(name, age) values(OLD.name, OLD.age);
+	end;
+	//
+	delimiter ;
+	
+19、课堂习题：update记录日志
+	drop trigger if exists student_update_log_trigger;
+	delimiter //
+	create trigger student_update_log_trigger after update on student for each row
+	begin
+		/*业务SQL语句*/
+		/*1、记录日志*/
+		insert into student_update_log(stuid, oldname, newname, oldage, newage, logtime, logmemo) values(OLD.id, OLD.name, NEW.name, OLD.age, NEW.age, now(), '学生信息修改日志');
+	end;
+	//
+	delimiter ;
+	
+

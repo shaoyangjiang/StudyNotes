@@ -1,0 +1,17 @@
+https://www.google.com/design/icons/
+
+icon官网教程
+http://google.github.io/material-design-icons/
+
+----------------------
+安装icon插件方法
+1.打开Android Studio，依次【File】-【Settings】
+-------------------------
+2.在打开的settings界面里找到plugins设置项，点击右侧的“Browser。。”按钮
+--------------------------
+3.在搜索栏里输入material关键字，可以看到右侧已经搜索到插件，点击install安装。
+
+☆android-material-design-icon-generator-plugin
+安装好后，依次file-new，选择material icon generator
+然后选择你要的icon即可
+--------------------------------

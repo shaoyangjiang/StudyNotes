@@ -1,0 +1,129 @@
+客户端程序编写：
+①调用Socket()创建一个流套接字，并连接到服务器端；
+②调用Socket类的getOutputStream()和getInputStream获取输出流和输入流，开始网络数据的发送和接收。
+③最后关闭通信套接字。
+==============================================================================================
+1.
+private Socket socket;
+socket = new Socket("192.168.1.9",6789);
+==============================================================================================
+2.
+OutputStream os = socket.getOutputStream();
+InputStream is = socket.getInputStream();
+==============================================================================================
+3.
+socket.close();
+==============================================================================================
+具体代码
+public class Chatting extends Activity {
+    private EditText et1;
+    private Button bt1;
+    private TextView tv1;
+    private Socket socket;
+    private StringBuilder sb = new StringBuilder("");//定义一个StringBuilder用来显示聊天内容，主要是可追加作用
+    Handler mHandler;
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.main);
+        et1 = (EditText)findViewById(R.id.et1);
+        bt1 = (Button)findViewById(R.id.bt1);
+        bt1.setOnClickListener(new OnClickListener() {	       
+			@Override
+			public void onClick(View v) {
+				String str = et1.getText().toString();
+				try {
+					OutputStream os = socket.getOutputStream();//靠socket得到输出流
+					os.write(str.getBytes());//写入内容
+					
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}	
+				et1.setText("");
+			}
+		
+		});
+        
+        tv1 = (TextView)findViewById(R.id.tv1);
+        getSocket();     //调用getSocket()函数，得到socket，并连接到主机
+        new myThread(socket).start();//启动一个线程，用来接受服务端发送的内容
+        mHandler = new MyHandler();//启动一个handler，用来更新activity
+    }
+    /**
+     * 当退出程序的时候关闭套接字
+     */
+    @Override
+    protected void onDestroy() {
+    	// TODO Auto-generated method stub
+    	super.onDestroy();
+    	try {
+			socket.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    }
+    /**
+     * 继承Handler，用来接受msg消息
+     * @author Administrator
+     *
+     */
+    private class MyHandler extends Handler{
+
+		@Override
+		public void handleMessage(Message msg) {
+			super.handleMessage(msg);
+			switch(msg.what){
+			case 1:
+				tv1.setText(sb);
+			}
+		}
+    	
+    }
+    /**
+     * 这个函数用来得到socket
+     */
+    public void getSocket(){
+    	try {
+			socket = new Socket("192.168.1.9",6789);
+		} catch (UnknownHostException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+    }
+    /**
+     * 这个线程主要是用来接受服务器端传过来的内容，并用msg在启动handler，从而更新主activity
+     * @author Administrator
+     *
+     */
+    class myThread extends Thread{    	
+    	private Socket socket;	
+    	
+    	public myThread(Socket socket){
+    		this.socket = socket;
+    	}
+    	
+    	public void run(){
+    		InputStream is = null;		
+    		try {
+				is = socket.getInputStream();//靠socket来得到一个输入流
+				while(true){
+					byte[] buffer = new byte[1024];
+					int len = 0;
+					while((len = is.read(buffer, 0, buffer.length))!= -1){//读输入的内容
+						String str = new String(buffer,0,len);
+						System.out.println("client"+str);
+						sb.append(str+"\n");
+						Message msg = new Message();//启动Message，用来唤醒handler
+						msg.what = 1;
+						Chatting.this.mHandler.sendMessage(msg);				
+					}
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+    	}
+    }
+}

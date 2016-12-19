@@ -1,0 +1,93 @@
+http://dyh7077063.iteye.com/blog/970672
+============================================================================================================
+public class GameView extends View {
+	private Paint mPaint = new Paint();//new出画笔
+	private Bitmap compass;
+	public GameView(Context context) {
+		super(context);
+		//加载图片
+		compass = BitmapFactory.decodeResource(getResources(), R.drawable.icon);
+	}
+
+	@Override
+	protected void onDraw(Canvas canvas) {
+		// TODO Auto-generated method stub
+		super.onDraw(canvas);
+		canvas.drawColor(Color.WHITE);//设置画布背景为白色
+		//画图片
+//		rotate(30,0,0);//旋转
+//		scale(0.5f,0.5f,0,0);//图像缩放
+//		compass = getRoundedCornerBitmap(compass, 100);//画圆角
+//		compass = createReflectionImageWithOrigin(compass);//画阴影
+		canvas.drawBitmap(compass, 100, 100, null);
+		canvas.save();//每画完一个图做备忘存储,以保证与其它图形互不影响
+	}
+	//图像缩放
+	public void scale(float sx,float sy,float px,float py){
+		Matrix matrix1 = new Matrix();
+		matrix1.reset();//设置martix被识别
+		matrix1.setScale(sx, sy, px, py);		
+		compass = Bitmap.createBitmap(compass, 0, 0, compass.getWidth(), compass.getHeight(), matrix1, true);
+	}
+	//图像旋转
+	public void rotate(float angle,float px,float py){
+		Matrix matrix1 = new Matrix();
+		matrix1.reset();
+		matrix1.setRotate(angle, px, py);
+		compass = Bitmap.createBitmap(compass, 0, 0, compass.getWidth(), compass.getHeight(), matrix1, true);
+	}
+	//画圆角
+	public static Bitmap getRoundedCornerBitmap(Bitmap bitmap, float roundPx) {
+		int w = bitmap.getWidth();
+		int h = bitmap.getHeight();
+		Bitmap output = Bitmap.createBitmap(w, h, Config.ARGB_8888);
+		Canvas canvas = new Canvas(output);
+		final int color = 0xff424242;
+		final Paint paint = new Paint();
+		final Rect rect = new Rect(0, 0, w, h);
+		final RectF rectF = new RectF(rect);
+		paint.setAntiAlias(true);
+		canvas.drawARGB(0, 0, 0, 0);
+		paint.setColor(color);
+		canvas.drawRoundRect(rectF, roundPx, roundPx, paint);
+		paint.setXfermode(new PorterDuffXfermode(Mode.SRC_IN));
+		canvas.drawBitmap(bitmap, rect, rect, paint);
+
+		return output;
+	}
+	//画阴影
+	public static Bitmap createReflectionImageWithOrigin(Bitmap bitmap) {
+		final int reflectionGap = 4;
+		int w = bitmap.getWidth();
+		int h = bitmap.getHeight();
+
+		Matrix matrix = new Matrix();
+		matrix.preScale(1, -1);
+
+		Bitmap reflectionImage = Bitmap.createBitmap(bitmap, 0, h / 2, w,
+				h / 2, matrix, false);
+
+		Bitmap bitmapWithReflection = Bitmap.createBitmap(w, (h + h / 2),
+				Config.ARGB_8888);
+
+		Canvas canvas = new Canvas(bitmapWithReflection);
+		canvas.drawBitmap(bitmap, 0, 0, null);
+		Paint deafalutPaint = new Paint();
+		canvas.drawRect(0, h, w, h + reflectionGap, deafalutPaint);
+
+		canvas.drawBitmap(reflectionImage, 0, h + reflectionGap, null);
+
+		Paint paint = new Paint();
+		LinearGradient shader = new LinearGradient(0, bitmap.getHeight(), 0,
+				bitmapWithReflection.getHeight() + reflectionGap, 0x70ffffff,
+				0x00ffffff, TileMode.CLAMP);
+		paint.setShader(shader);
+		// Set the Transfer mode to be porter duff and destination in
+		paint.setXfermode(new PorterDuffXfermode(Mode.DST_IN));
+		// Draw a rectangle using the paint with our linear gradient
+		canvas.drawRect(0, h, w, bitmapWithReflection.getHeight()
+				+ reflectionGap, paint);
+
+		return bitmapWithReflection;
+	}
+}

@@ -1,0 +1,39 @@
+/**
+ * 线程实现方法一：子类继承Thread类，重写run方法
+ * @author Administrator
+ *
+ */
+public class ThreadTest {
+
+	public static void main(String[] args) {
+		Thread1 t = new Thread1();
+		Thread2 t2 = new Thread2();
+		t.start();
+		t2.start();
+		
+	}
+
+}
+
+class Thread1 extends Thread{
+	
+	@Override
+	public void run() {
+		for(int i= 0; i < 3;i++){
+			System.out.println("hello world :"+i);
+		}
+	}
+}
+
+class Thread2 extends Thread{
+	
+	@Override
+	public void run() {
+		for(int i =0; i < 3;i++){
+			System.out.println("welcome:"+i);
+		}
+	}
+}
+================================================================
+运行结果：
+二个线程出现的先后顺序随机

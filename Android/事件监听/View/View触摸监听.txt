@@ -1,0 +1,32 @@
+//布局
+<View 
+	android:id="@+id/myView"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"/>
+
+public class TouchActivity extends Activity implements OnTouchListener{
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.main);       
+        View myView = (View)findViewById(R.id.myView);
+        myView.setOnTouchListener(this);
+    }
+    //对view进行监听
+	@Override
+	public boolean onTouch(View v, MotionEvent event) {
+		switch(event.getAction()){
+		case MotionEvent.ACTION_DOWN://按下按键
+			System.out.println("Action down");
+			break;
+		case MotionEvent.ACTION_UP:
+			System.out.println("Action up");//释放按键
+			break;
+		case MotionEvent.ACTION_MOVE://移动按键
+			System.out.println("Action move");
+			break;
+	}
+		return true;
+	}
+}
+

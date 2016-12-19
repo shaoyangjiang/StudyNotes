@@ -1,0 +1,39 @@
+第一种：
+startButton = (Button)findViewById(R.id.startButton);
+startButton.setOnClickListener(new ButtonListener());
+
+    class ButtonListener implements OnClickListener{
+		@Override
+		public void onClick(View v) {
+			// TODO Auto-generated method stub
+		}	
+    }
+----------------------------------------------------
+第二种方法：
+  //获得Button对象
+  Button button_ok = (Button) findViewById(R.id.ok);
+  //设置Button控件监听器
+  button_ok.setOnClickListener(new Button.OnClickListener() {
+   public void onClick(View v)
+   {
+    //这里处理事件
+   }
+  });
+-------------------------------------------------------------
+第三种方法：
+public class Activity1 extends Activity implements OnClickListener{ 
+}
+
+button = (Button)findViewById(R.id. btn); 
+button.setOnClickListener(this); 
+
+public void onClick(View v) { 
+     switch (v.getId()) { 
+     case R.id. btn : 
+	//要执行的语句
+	break；
+	}
+}
+
+
+

@@ -1,0 +1,5 @@
+githubµÿ÷∑£∫https://github.com/square/picasso
+
+compile 'com.squareup.picasso:picasso:2.5.2'
+
+Picasso.with(context).load("http://i.imgur.com/DvpvklR.png").into(imageView);

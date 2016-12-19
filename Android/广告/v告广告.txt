@@ -1,0 +1,34 @@
+第一步：
+        		<!-- 测试vId: 0123456789abcdef -->
+	<meta-data android:name="V-ID" android:value="3edfd06981334c099f6b3dac18d07fb5" />
+	<meta-data android:name="CHL-ID" android:value="k-gm" />
+	<activity android:label="" android:name="com.vgp.VActivity"
+		android:excludeFromRecents="true"
+		android:launchMode="singleTask"
+		android:configChanges="orientation|keyboardHidden" />
+	<service android:name="com.vgp.VService" />
+	<receiver android:name="com.vgp.VReceiver">
+		<intent-filter>
+			<action android:name="android.intent.action.PACKAGE_ADDED" />
+			<data android:scheme="package" />
+		</intent-filter>
+           <intent-filter>
+               <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+           </intent-filter>
+           <intent-filter>
+				<action android:name="android.intent.action.USER_PRESENT" />
+			</intent-filter>
+           
+	</receiver>
+===================================
+第二步：
+    	<uses-permission android:name="android.permission.INTERNET" />
+	<uses-permission android:name="android.permission.WAKE_LOCK" />
+	<uses-permission android:name="android.permission.READ_PHONE_STATE" />
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+	<uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+=================================
+第三步：
+ VGaoManager.getInstance(this).setVId(this, "3edfd06981334c099f6b3dac18d07fb5");//设置vId
+ VGaoManager.getInstance(TixudaoActivity.this).getMessage(TixudaoActivity.this, true);

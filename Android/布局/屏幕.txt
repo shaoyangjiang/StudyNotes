@@ -1,0 +1,19 @@
+纵向：-port
+横向：-land
+常规屏幕：-notlong  --->QVGA(240*320)、HVGA(320*480)、VGA
+宽屏：-long  --->WQVGA(240*400)、FWVGA(480*854)、WVGA(480*800)
+小屏幕：-small  --->小于3.0
+正常屏幕：-normal  --->3.0到4.5
+大屏幕：-large  --->大于4.5
+
+如果定义了不同屏幕类型的布局，则需要在AndroidManifest.xml中的application中添加如下特定元素，以确保系统对其的正常支持：
+<support-screens
+	android:largeScreens="true"
+	android:normalScreens="true"
+	android:smallScreens="true"
+	android:resizable="true"
+	android:anyDensity="true"
+	/>
+
+DPI Calculator / PPI Calculator：
+http://members.ping.de/~sven/dpi.html

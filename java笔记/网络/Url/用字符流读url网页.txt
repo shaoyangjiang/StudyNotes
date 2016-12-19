@@ -1,0 +1,23 @@
+/**
+ * 用字符流去读取网页源码效率更高
+ * @author Administrator
+ *
+ */
+public class UrlConnection2 {
+	public static void main(String[] args) throws Exception {
+		URL url = new URL("http://www.souhu.com");
+		//读
+		BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()));
+		FileOutputStream fos = new FileOutputStream("c:"+File.separator+"file.txt");
+		//写
+		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos));
+		String line = null;
+		while(null != (line = br.readLine())){
+			bw.write(line);
+		}
+		br.close();
+		bw.close();
+	}
+}
+==========================================================
+运行结果：在c盘下会创建一个file.txt文件，里面内容是souhu网站源码

@@ -1,0 +1,86 @@
+中文加粗：
+textView.getPaint().setFakeBoldText(true);
+----------------------------------------------------------------------------------
+加下划线：
+代码中：textView.setText(Html.fromHtml("<u>"+"hahaha"+"</u>"));
+或
+资源文件中：
+<resources>
+    <string name="hello"><u>phone: 1390123456</u></string>
+    <string name="app_name">MyLink</string>
+</resources>
+或
+android:autoLink="all" // 网址会自动高亮显示并下划线
+android:autoLink ：设置是否当文本为URL链接/email/电话号码/map时，文本显示为可点击的链接。可选值(none/web /email/phone/map/all)
+---------------------------------------------------------------------------------
+用html显示
+myTextView.setText(Html.fromHtml("<h2>Title</h2><br><p>Description here</p>"));
+------------------------------------------------
+中划线
+textview.getPaint().setFlags(Paint. STRIKE_THRU_TEXT_FLAG );
+底部加横线是
+textview.getPaint().setFlags(Paint. UNDERLINE_TEXT_FLAG );
+
+-----------------------------------------------------------------------------------
+投影效果：
+android:shadowColor="@color/actionbar_title_shadow_color"
+android:shadowRadius="1.0"
+android:shadowDx="2"
+android:shadowDy="2"
+--------------------------------------------------------------------------------
+跑马灯效果:
+第一种直接：
+<TextView
+        android:id="@+id/textview"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:ellipsize="marquee"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:gravity="center_horizontal"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:singleLine="true"
+        android:layout_gravity="center_horizontal"
+        android:textSize="20sp"
+        android:text="今天给您推荐的菜谱是：" 
+        />
+第二种（导入ScrollForeverTextView类，自定义）：
+<com.sigma.sigmacoupons.customview.ScrollForeverTextView
+	android:layout_width="fill_parent"   
+	android:layout_height="wrap_content"   
+	android:textSize="16sp"  
+	android:singleLine="true"  
+	android:ellipsize="marquee"  
+	android:marqueeRepeatLimit="marquee_forever"  
+	android:text="公告测试"  
+	android:focusable="true"  
+/>  
+------------------------------------------------------------------------------------
+注解：
+<TextView  xmlns:android="http://schemas.android.com/apk/res/android"  
+   android:id="@+id/textview"  
+   android:layout_width="fill_parent"   
+   android:layout_height="wrap_content"   
+   android:gravity="center_horizontal"  
+   //跑马灯
+   android:ellipsize="marquee"  
+  //单行显示
+   android:singleLine="true"  
+  //该textView适中获取焦点，只有获取焦点才能实现跑马灯效果，当然喽如果是多个TextView列表需要把这个属性去掉才能实现点击那个view那个view跑
+   android:focusable="true" 
+  //一直循环跑（可以换成相应数字此时对应-1），把这句去掉也可以实现循环跑纳闷，环境是模拟器4.0 
+   android:marqueeRepeatLimit="marquee_forever"
+  //该句必须有
+   android:focusableInTouchMode="true"  
+   android:text="Hello World, I am a string 我是跑马灯!"  
+   /> 
+
+android:ellipsize属性的含义:
+TextView及其子类，当字符内容太长显示不下时可以省略号代替未显示的字符；省略号可以在显示区域的起始，中间，结束位置，或者以跑马灯的方式显示文字(textview的状态为被选中)。 
+       其实现只需在xml中对textview的ellipsize属性做相应的设置即可。
+        android:ellipsize="start"        省略号在开头        
+        android:ellipsize="middle"       省略号在中间        
+        android:ellipsize="end"          省略号在结尾        
+        android:ellipsize="marquee"      跑马灯显示
+       或者在程序中可通过setEillpsize显式设置。
+       注: EditText不支持marquee这种模式。

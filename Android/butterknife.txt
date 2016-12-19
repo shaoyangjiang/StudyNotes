@@ -1,0 +1,33 @@
+项目地址：https://github.com/JakeWharton/butterknife
+文档地址：http://jakewharton.github.io/butterknife/
+---------------------------------
+使用方法：
+class ExampleActivity extends Activity {
+  @Bind(R.id.title) TextView title;
+  @Bind(R.id.subtitle) TextView subtitle;
+  @Bind(R.id.footer) TextView footer;
+
+  @Override public void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.simple_activity);
+    ButterKnife.bind(this);
+    // TODO Use fields...
+  }
+}
+------------------------------------------------
+public class FancyFragment extends Fragment {
+  @Bind(R.id.button1) Button button1;
+  @Bind(R.id.button2) Button button2;
+
+  @Override public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    View view = inflater.inflate(R.layout.fancy_fragment, container, false);
+    ButterKnife.bind(this, view);
+    // TODO Use fields...
+    return view;
+  }
+
+  @Override public void onDestroyView() {
+    super.onDestroyView();
+    ButterKnife.unbind(this);
+  }
+}

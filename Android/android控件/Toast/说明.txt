@@ -1,0 +1,5 @@
+用Utils.java工具类的时候，要把BaseApplication.java也加进去。
+--------------------------
+在AndroidManifest.xml中，添加
+    <application
+        android:name="包名.BaseApplication"

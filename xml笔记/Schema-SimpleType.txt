@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+
+	<xs:simpleType name="myType">
+	<!--simpleType的第一个子元素restriction,功能是定义一个约束条件
+		<xs:restriction base="xs:int">	
+			<xs:minExclusive value="0"/>
+			<xs:maxExclusive value="100"/>			
+		</xs:restriction>
+	 -->
+	 <!--simpleType的第二个子元素list，功能是从一个特定数据类型的集合中选择定义一个简单类型元素 -->
+		<xs:list itemType="xs:integer"/>
+	</xs:simpleType>
+	
+	<xs:element name="age" type="myType"></xs:element>
+</xs:schema>=======================================================
+xml文件：
+<?xml version="1.0" encoding="UTF-8"?>
+<age xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="C:\Documents and Settings\Administrator\My Documents\Altova Projects\myschema.xsd">
+<!-- restriction-->
+23 
+<!-- list-->
+11 12
+</age>
+===================================================================
+运行结果：试验成功

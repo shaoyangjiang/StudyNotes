@@ -1,0 +1,20 @@
+项目地址：https://github.com/yarolegovich/LovelyDialog
+=============================
+compile 'com.yarolegovich:lovely-dialog:1.0.4'
+==================================
+new LovelyStandardDialog(this)
+      .setTopColorRes(R.color.indigo)
+      .setButtonsColorRes(R.color.darkDeepOrange)
+      .setIcon(R.drawable.ic_star_border_white_36dp)
+      .setTitle(R.string.rate_title) 
+      .setMessage(R.string.rate_message)
+      .setPositiveButton(android.R.string.ok, new View.OnClickListener() {
+          @Override
+          public void onClick(View v) {
+              Toast.makeText(context, "positive clicked", Toast.LENGTH_SHORT).show();
+          }
+      }) 
+      .setNegativeButton(android.R.string.no, null)
+      .show();
+======================================
+一些颜色值和icon还有string都要自己添加。效果还是很漂亮的。

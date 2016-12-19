@@ -1,0 +1,68 @@
+一：将youmiad-android.jar 导入您的工程中。
+1 右键您的工程根目录，选择“Properties”
+2 在左面板中选择“Java Build Path”
+3 然后选择“Libraries”标签
+4 点击“Add External JARs…”
+5 选择youmiad-android.jar 的目录路径
+6 点击“OK”即导入成功
+————————————————————————————————
+二：声明Activity ,service, 布局增加download_notification.xml
+//<activity android:name="com.dianle.DianleOfferActivity" //android:configChanges="keyboardHidden|orientation"/> 
+//<service android:name="com.dianle.DianleOfferHelpService"/>
+★推荐方法！！！：
+新建包com.tiantian.dlad，然后把TiantianOfferActivity和TiantianOfferHelpService类复制进去，然后在Manifest中加入：
+<activity android:name="com.tiantian.dlad.TiantianOfferActivity" android:configChanges="keyboardHidden|orientation"/> 
+<service android:name="com.tiantian.dlad.TiantianOfferHelpService"/>
+
+在onCreate中：
+//设置自定义的Activity和Service
+Dianle.setCustomActivity("com.tiantian.dlad.TiantianOfferActivity");
+Dianle.setCustomService("com.tiantian.dlad.TiantianOfferHelpService");
+————————————————————————————————
+三：增加权限：
+<uses-permission android:name="android.permission.INTERNET"/> 
+<uses-permission android:name="android.permission.GET_TASKS"/> 
+<uses-permission android:name="android.permission.READ_PHONE_STATE"/> 
+<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/> 
+<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/> 
+<uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/> 
+<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> 
+<uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT"/>
+————————————————————————————————
+三：Activity实现接口和方法：
+implements GetTotalMoneyListener, GetOnlineParamsListener
+声明成员变量：
+private boolean isOpen = false; // 是否打开广告墙功能
+private long money; // 用户的积分数
+//点乐广告实现获取在线配置参数接口方法，并把结果存储在isOpen中
+@Override
+public void onParamsReturn(String arg0) {
+	if(arg0.equals("yes")){
+		isOpen = true;
+	}else if(arg0.equals("no")){
+		isOpen = false;
+	}
+	System.out.println("isOpen:" + isOpen);
+	}
+//点乐广告实现获取用户积分数失败的接口方法
+@Override
+public void getTotalMoneyFailed(String arg0) {
+}
+//点乐广告实现获取用户积分数成功的接口方法
+@Override
+public void getTotalMoneySuccessed(String arg0, long arg1) {
+	money = arg1;
+	System.out.println("TotalMoney:" + arg1);
+}
+————————————————————————————————
+三：onCreate中
+//初始化
+Dianle.initDianleContext(this, "56618ba7f9e858cbab78c4a8ed2dec4f");
+// 得到在线配置参数
+Dianle.getOnlineParams("isOpen", MainActivity.this, "yes");
+Dianle.getTotalMoney(MainActivity.this); // 得到用户现有的积分
+
+四：其他需要用的地方：
+Dianle.showOffers(); // 显示广告墙
+Dianle.getTotalMoney(MainActivity.this); // 得到用户现有的积分
+

@@ -1,0 +1,21 @@
+运行效果：当点击按钮的时候，按钮图片变化
+android:background="@drawable/bt_back"//某个button里写入代码
+
+bt_back.xml,在res目录下新建文件夹drawable，新建一个xml文档
+------------------
+<?xml version="1.0" encoding="UTF-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+  <item android:state_window_focused="false" android:drawable="@drawable/back" />       
+  <!-- 非触摸模式下获得焦点并单击时的背景图片 -->
+  <item android:state_focused="true" android:state_pressed="true" 
+        android:drawable="@drawable/back2" /> 
+        
+        <!-- 触摸模式下单击时的背景图片 -->
+  <item android:state_focused="false" android:state_pressed="true" 
+        android:drawable="@drawable/back2" /> 
+        
+        <!-- 获得焦点时的图片背景 -->
+  <item android:state_focused="true" 
+        android:drawable="@drawable/back2" /> 
+</selector>
+===============================================================

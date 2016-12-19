@@ -1,0 +1,42 @@
+/**
+ * 功能：在控制台输入单词，出来每个单词的个数
+ * @author Administrator
+ * 方法:把单词当作key，出现次数当作值，当key重复时，值加加
+ */
+public class HashMap3 {
+
+	public static void main(String[] args) {
+		//new 出一个HashMap
+		HashMap map = new HashMap();
+		//得到控制台里的单词
+		for(int i=0;i<args.length;i++){	
+			if(map.get(args[i]) == null){
+				//如果单词不存在就加入到HashMap中，值初始化为1
+				map.put(args[i], new Integer(1));
+			} else{
+				//如果已经存在单词，key不变，值加一
+				Integer in = (Integer)map.get(args[i]);
+				in = new Integer(in.intValue()+1);
+				map.put(args[i], in);
+			}
+		}
+		//得到HashMap的键的集合
+		Set set = map.keySet();
+		//迭代键，得到对应键的值
+		for(Iterator iter = set.iterator();iter.hasNext();){
+			//得到每个键
+			String key = (String)iter.next();
+			//得到键的值
+			Integer num = (Integer)map.get(key);
+			System.out.println(key +":" +num);
+		}
+	}
+}
+
+///////////////////////////////////////////////////////////////////////
+控制台里输入hello my name hello my name is my name
+得到打印结果：
+hello:2
+is:1
+name:3
+my:3

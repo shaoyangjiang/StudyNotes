@@ -1,0 +1,20 @@
+注意：设置减速
+rotate.setInterpolator(TextAndridActivity.this, android.R.anim.decelerate_interpolator);
+animation.setAnimationListener(……);
+-------------------------------------------------------------------------------------
+Tweened Animations(旋转，移动，伸展，淡入淡出等效果)
+步骤：
+1.创建一个AnimationSet对象
+2.根据需要创建相应的Animation对象
+3.根据软件动画的需求，为Animation对象设置相应的数据
+4.将Animation对象添加到AnimationSet对象中
+5.使用空间对象开始执行AnimationSet
+
+Tweened Animation通用属性：
+setDuration(long durationMills):设置动画持续时间(毫秒)
+setFillAfter(boolean fillAfter):设置为true后，动画运行后保留动画最后的样子
+setFillBefore(boolean fillBefore):设置为true后，动画运行后恢复原样
+setStartOffSet(long startOfStart):设置动画开始之前的等待时间
+setRepeatCount(int repeatCount):设置动画重复次数
+
+清除动画效果：view.clearAnimation();

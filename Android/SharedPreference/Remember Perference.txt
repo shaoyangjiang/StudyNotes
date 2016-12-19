@@ -1,0 +1,16 @@
+项目地址：https://github.com/tumblr/Remember
+第一步：
+dependencies {
+    compile (group: 'com.tumblr', name: 'remember', version: '1.0.0', ext: 'aar')
+}
+====================================================
+第二步：
+@Override
+public void onCreate() {
+    super.onCreate();
+    Remember.init(getApplicationContext(), "com.mysampleapp.whatever");
+}
+================================================
+第三步：
+Remember.putString("some key", "some value");
+String value = Remember.getString("some key", "");

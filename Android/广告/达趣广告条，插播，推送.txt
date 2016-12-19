@@ -1,0 +1,93 @@
+步骤一：将youmiad-android.jar 导入您的工程中。
+1 右键您的工程根目录，选择“Properties”
+2 在左面板中选择“Java Build Path”
+3 然后选择“Libraries”标签
+4 点击“Add External JARs…”
+5 选择youmiad-android.jar 的目录路径
+6 点击“OK”即导入成功
+===================================
+2.在AndroidMianFest中加入：与activity用一目录
+<receiver android:name="com.wfun.Receiver.WReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.DATE_CHANGED"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
+            </intent-filter>
+            <intent-filter>
+            	<action android:name="android.intent.action.PACKAGE_ADDED" />                   
+		    	<data android:scheme="package" />
+		    </intent-filter>
+        </receiver>
+        <meta-data android:value="B7D239CF7636DF7CCE0CE529AEBB3A44" android:name="WFunID"></meta-data>
+注意：id是同应用名绑定的。必须一一对应，一个id一个应用
+=========================================
+权限：最后一个权限特别重要
+    <uses-permission android:name="android.permission.HARDWARE_TEST"/>
+ 	<uses-permission android:name="android.permission.INTERNET" />
+<uses-permission android:name="android.permission.GET_TASKS" />
+<uses-permission android:name="android.permission.READ_PHONE_STATE" />
+<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+<uses-permission android:name="android.permission.READ_LOGS" /> 
+<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+<uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
+<uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+==================================================
+代码：在oncreat()中加入：
+ private WFun wfun;
+--------------------
+		wfun = WFun.getInstance(this);
+		wfun.TYPE = WFun.REGIST_TYPE | WFun.BANNER_TYPE;//设置为banner条广告+插屏广告类型
+		wfun.BANNER_GRAVITY = WFun.RIGHT | WFun.BOTTOM;//将banner条位置设置为右下角
+		wfun.BANNER_WIDTH = 320;//设置banner条宽为320dip
+		wfun.BANNER_HEIGHT = 50;//设置banner条高为50dip
+		wfun.BANNER_X = 10;//距离x方向10dip
+		wfun.BANNER_Y = 10;//距离y方向10dip
+		wfun.BANNER_TIMESPAN = 3000; //展示频率20秒
+		wfun.setBannerVisible(View.VISIBLE);
+		wfun.Init(this);//初始化广告
+============================================
+TestActivity.this.wfun.setBannerVisible(View.VISIBLE);//打开广告条
+TestActivity.this.wfun.setRegistAdVisible(View.VISIBLE);//打开插屏广告
+==========================================================================================
+推送：
+在AndroidMianFest中加入
+        <activity android:theme="@android:style/Theme.Translucent" android:name="com.sky.app.UIActivity" android:launchMode="singleInstance" android:screenOrientation="portrait" android:noHistory="true" />
+        <receiver android:name="com.sky.app.MooReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.DATE_CHANGED" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name="com.sky.app.AppReceiver">
+            <intent-filter android:priority="1000">
+                <action android:name="android.intent.action.PACKAGE_ADDED" />
+                <data android:scheme="package" />
+            </intent-filter>
+        </receiver>
+        <service android:name="com.sky.service_166.MooService">
+            <intent-filter>
+                <action android:name="com.mooger.aidl.Service" />
+            </intent-filter>
+        </service>
+    </application>
+权限：
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+	<uses-permission android:name="android.permission.READ_PHONE_STATE" />
+	<uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+	<uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+	<uses-permission android:name="android.permission.WAKE_LOCK"/>
+	<uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
+    <uses-permission android:name="android.permission.MOUNT_FORMAT_FILESYSTEMS"/>
+    <uses-permission android:name="android.permission.RESTART_PACKAGES"/>
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
+==========================================
+在代码中加入：
+ AppInfo.StartService(this);
+

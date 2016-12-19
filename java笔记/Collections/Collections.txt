@@ -1,0 +1,51 @@
+/**
+ * Collections是集合(Collection)的一个辅助类。提供的都是静态方法。
+ * @author Administrator
+ *这里主要是对LinkList进行排序
+ */
+public class CollectionsTest {
+
+	public static void main(String[] args) {
+		//new 出一个LinkList对象
+		LinkedList linkList = new LinkedList();
+		//往LinkList里添加四个整形数据
+		linkList.add(new Integer(10));
+		linkList.add(new Integer(-4));
+		linkList.add(new Integer(4));
+		linkList.add(new Integer(-10));
+		//定义集合的排列规则为倒叙。
+		Comparator r = Collections.reverseOrder();
+		//对指定的LinkList集合进行倒叙排列
+		Collections.sort(linkList,r);
+		//打印集合里的元素
+		for(Iterator iter = linkList.iterator(); iter.hasNext();){
+			System.out.println(iter.next());
+		}
+		
+		System.out.println();
+		//对集合进行随机排序
+		Collections.shuffle(linkList);
+		//打印集合里的元素
+		for(Iterator iter = linkList.iterator(); iter.hasNext();){
+			System.out.println(iter.next());
+		}
+		//打印集合里的最大值
+		System.out.println("集合里的最大值是："+Collections.max(linkList));
+		//打印集合里的最小值
+		System.out.println("集合里的最小值是:"+Collections.min(linkList));
+	}
+}
+
+//////////////////////////////////////////////////////////////////////////
+运行结果是:
+10
+4
+-4
+-10
+
+4
+-10
+10
+-4
+集合里的最大值是：10
+集合里的最小值是:-10

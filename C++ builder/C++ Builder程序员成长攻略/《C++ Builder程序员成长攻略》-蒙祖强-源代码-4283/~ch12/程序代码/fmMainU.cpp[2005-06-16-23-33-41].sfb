@@ -1,0 +1,80 @@
+//---------------------------------------------------------------------------
+
+#include <vcl.h>
+#pragma hdrstop
+
+#include "fmMainU.h"
+#include "fmPPaperU.h"
+#include "fmMarkermanageU.h"
+#include "fmCheckermanageU.h"
+#include "fmManageUnitU.h"
+#include "fmTaxTypeU.h"
+#include "fmTaxRaceU.h"
+#include "fmInitFileNoU.h"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+#pragma resource "*.dfm"
+TfmMain *fmMain;
+//---------------------------------------------------------------------------
+__fastcall TfmMain::TfmMain(TComponent* Owner)
+        : TForm(Owner)
+{
+}
+//---------------------------------------------------------------------------
+void __fastcall TfmMain::actExitExecute(TObject *Sender)
+{
+         this->Close();
+         
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TfmMain::N3Click(TObject *Sender)
+{
+        Application->CreateForm(__classid(TfmPPaper),&fmPPaper);
+        fmPPaper->ShowModal();
+}
+//---------------------------------------------------------------------------
+
+
+
+
+void __fastcall TfmMain::N5Click(TObject *Sender)
+{
+        Application->CreateForm(__classid(TfmMarkermanage),&fmMarkermanage);
+        fmMarkermanage->ShowModal();
+}
+//---------------------------------------------------------------------------
+void __fastcall TfmMain::N6Click(TObject *Sender)
+{
+        Application->CreateForm(__classid(TfmCheckermanage),&fmCheckermanage);
+        fmCheckermanage->ShowModal();
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TfmMain::N9Click(TObject *Sender)
+{
+        Application->CreateForm(__classid(TfmManageUnit),&fmManageUnit);
+        fmManageUnit->ShowModal();
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TfmMain::N7Click(TObject *Sender)
+{
+
+        Application->CreateForm(__classid(TfmTaxType),&fmTaxType);
+        fmTaxType->ShowModal();
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TfmMain::N8Click(TObject *Sender)
+{
+
+        Application->CreateForm(__classid(TfmTaxRace),&fmTaxRace);
+        fmTaxRace->ShowModal();
+}
+//---------------------------------------------------------------------------
+
+
+
+
+

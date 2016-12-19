@@ -1,0 +1,19 @@
+//第一步：在AndroidMainFest.xml文件下的<Activity>标签上写入下面一句代码
+ <uses-library android:name="android.test.runner" />
+//在AndroidMainFest.xml</application>下下句下面代码，注意targePackage是填自己应用程序的包名
+<instrumentation android:name="android.test.InstrumentationTestRunner"  android:targetPackage="cn.itcast.action" android:label="Tests for My App" />
+//第二步：编写单元测试代码（选择要测试的方法，右键点击“Run As”--“Android Junit Test” ）：
+
+package cn.itcast.test;
+
+import junit.framework.Assert;
+import cn.itcast.service.PersonService;
+import android.test.AndroidTestCase;
+
+public class PersonServiceTest extends AndroidTestCase {
+	public void testSave() throws Throwable{
+		PersonService service = new PersonService();
+		int b = service.save();//检验save()方法运行是否正常
+		Assert.assertEquals(78, b);//期望值78和所得到的b的值是否相同
+	}
+}

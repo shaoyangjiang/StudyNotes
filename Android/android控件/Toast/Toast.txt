@@ -1,0 +1,32 @@
+第一种方法：
+Toast.makeText(Text1Activity.this, "this is Toast", Toast.LENGTH_SHORT).show();
+----------------------------------------------------------------------
+----------------------------------------------------------------------
+第二种方法：
+Toast toast = Toast.makeText(Text1Activity.this, "this is Toast", Toast.LENGTH_SHORT);
+toast.show();
+-----------------------------------------------------------------------
+----------------------------------------------------------------------
+在中间显示：
+Toast toast = Toast.makeText(Text1Activity.this, "this is Toast", Toast.LENGTH_SHORT);
+toast.setGravity(Gravity.TOP, 0, 200);
+toast.show();	
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+toast中显示图片和文字
+//先定义一个Toast  
+Toast toast = Toast.makeText(Text1Activity.this, "this is picture Toast", Toast.LENGTH_SHORT);
+//定义一个ImageView 
+ImageView imageView = new ImageView(Text1Activity.this);
+imageView.setImageResource(R.drawable.icon);
+//获得Toast的View 
+View viewToast = toast.getView();
+//获得Toast的View 
+LinearLayout linearLayout = new LinearLayout(Text1Activity.this);
+linearLayout.setOrientation(LinearLayout.HORIZONTAL);
+//获得Toast的View 
+linearLayout.addView(imageView);
+linearLayout.addView(viewToast);
+//替换掉原有的ToastView 
+toast.setView(linearLayout);
+toast.show();

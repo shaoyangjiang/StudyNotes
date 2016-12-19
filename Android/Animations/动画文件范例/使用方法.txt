@@ -1,0 +1,12 @@
+创建动画文件：res/anim/XXX.xml:：
+代码：
+//用AnimationUtils工具类装载动画
+Animation animation = AnimationUtils.loadAnimation(LayoutAnimationControllerActivity.this, R.anim.translucent_enter);
+imageView.setAnimation(animation);
+
+
+系统anim：
+E:\Android\android-sdk-windows\platforms\android-8\data\res\anim
+其他:
+http://www.2cto.com/kf/201107/96606.html
+

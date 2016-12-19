@@ -1,0 +1,3 @@
+Intent intent = new Intent(Text1Activity.this,DialogTest1.class);
+startActivity(intent);
+注意：要进行Activity注册

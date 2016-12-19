@@ -1,0 +1,67 @@
+//---------------------------------------------------------------------------
+
+#include <vcl.h>
+#pragma hdrstop
+#include "fmInitFileNoU.h"
+#include "dmDataU.h"
+#include "SysFuncs.h"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+#pragma resource "*.dfm"
+TfmInitFileNo *fmInitFileNo;
+//---------------------------------------------------------------------------
+__fastcall TfmInitFileNo::TfmInitFileNo(TComponent* Owner)
+    : TForm(Owner)
+{
+}
+//---------------------------------------------------------------------------
+
+
+
+void __fastcall TfmInitFileNo::btnYesClick(TObject *Sender)
+{
+        if(edtFileNo->Text == "")
+        {
+           ::MessageBox(this->Handle,"初始号码为空，请重新输入！ ","警告",MB_OK);
+           return;
+        }
+        if(edtFileNo->Text == "")
+        {
+           ::MessageBox(this->Handle,"号码长度为空，请重新输入！ ","警告",MB_OK);
+           return;
+        }
+          AnsiString sSql;
+          TADOQuery * q(dmData->qry);
+          sSql = "insert into InitFileNo  values(" + edtFileLength->Text +",'" + edtFileNo->Text +  +"')" ;
+          ResultSql(q,sSql);
+          this->Close();
+
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TfmInitFileNo::edtFileNoKeyPress(TObject *Sender, char &Key)
+{
+    if(Key >= '0'&&Key <= '9')
+    {
+        return;
+    }
+    else
+    {
+        Key == 0;
+    }
+}
+//---------------------------------------------------------------------------
+void __fastcall TfmInitFileNo::edtFileLengthKeyPress(TObject *Sender, char &Key)
+{
+    
+    if(Key >= '0'&&Key <= '9')
+    {
+        return;
+    }
+    else
+    {
+        Key == 0;
+    }
+}
+//---------------------------------------------------------------------------
+

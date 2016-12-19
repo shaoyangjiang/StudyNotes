@@ -1,0 +1,9 @@
+图片类似：
+简体中文：res/drawable-zh-hdpi/
+美式英语：res/drawable-en-rUS-hdpi/
+……
+低屏幕像素密度：120dpi
+中屏幕像素密度：160dpi
+高屏幕像素密度：240dpi
+
+

@@ -1,0 +1,31 @@
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK
+				&& event.getAction() == KeyEvent.ACTION_DOWN) {
+			if ((System.currentTimeMillis() - exitTime) > 2000) {
+				ShowToast.Short("再按一次退出程序");
+				exitTime = System.currentTimeMillis();
+			} else {
+				AppManager.getAppManager().finishAllActivityAndExit(this);
+				finish();
+			}
+			return true;
+		}
+
+		return super.onKeyDown(keyCode, event);
+	}
+====================================
+第二种
+RelativeLayout mLayoutMainRoot;
+
+mLayoutMainRoot = (RelativeLayout) findViewById(R.id.layoutMainRoot);
+
+ @Override
+    public void onBackPressed() {
+        if (System.currentTimeMillis() - lastTime < 2000) {
+            super.onBackPressed();
+        } else {
+            lastTime = System.currentTimeMillis();
+            Snackbar.make(mLayoutMainRoot, "再按一次退出", Snackbar.LENGTH_SHORT).show();
+        }
+    }

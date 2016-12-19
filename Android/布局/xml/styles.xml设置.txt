@@ -1,0 +1,17 @@
+values新建styles.xml，如：
+<resources>
+    <style name="ActionBar">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">@dimen/actionbar_height</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:background">@drawable/actionbar_background</item>
+    </style>
+</resources>
+
+在xml布局文件中引用：
+style="@style/buttonStyle"
+
+
+
+
+

@@ -1,0 +1,17 @@
+www.json.org
+================================
+1.json(JavaScript Object Notation)
+=====================================================
+2.json不是文档格式，不是标记语言，不是通用可序列化格式
+=====================================
+3.json的基本使用方式
+ 	<script type="text/javascript">
+		var JSONObject= {
+		"name":"Bill Gates",
+		"street":"Fifth Avenue New York 666",
+		"age":56,
+		"phone":"555 1234567"};
+
+		alert(JSONObject.name);//弹出对话框bill gates
+ 	</script>
+===========================================================

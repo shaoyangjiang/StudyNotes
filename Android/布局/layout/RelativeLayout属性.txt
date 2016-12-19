@@ -1,0 +1,15 @@
+http://www.cnblogs.com/sevenyuan/archive/2010/09/16/1827940.html
+----------------------------------------------------------------
+指定移动像素
+android:layout_marginLeft="7px"//左偏移7px
+
+居中
+android:layout_centerVertical="true"//为true，将该控件垂直居中
+android:layout_centerInParent="true"//为true，将该控件置于父控件的中央
+android:layout_centerHorizontal="true"//为ture，将该控件水平居中
+
+相对于父控件
+android:layout_alignParentLeft="true"//为ture，将该控件的左部与父控件的左部对齐
+
+相对于给定ID控件
+android:layout_above="@id/shao"//将该控件的底部置与给定ID的控件之上

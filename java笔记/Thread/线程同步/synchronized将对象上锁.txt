@@ -1,0 +1,80 @@
+/**
+ * 如果一个对象有多个synchronized方法，某个线程进入到synchronized方法，
+ * 在方法没有执行完毕前，其他线程无法访问synchronized的方法
+ * 说白了，synchronized其实是对对象上锁
+ * @author Administrator
+ *
+ */
+public class ThreadTest3 {
+	public static void main(String[] args) {
+		Example example = new Example();
+		Thread t1 = new MyThread(example);
+		Thread t2 = new MyThread2(example);
+		
+		t1.start();
+		t2.start();
+	}
+}
+/**
+ * 一个类里面定义2个加锁的方法
+ * @author Administrator
+ *
+ */
+class Example{
+	
+	public synchronized void Execute(){
+		for(int i = 0;i < 5;i++){
+			System.out.println("hello :"+i);
+		}
+	}
+	
+	public synchronized void Execute2(){
+		for(int i = 0;i < 5;i++){
+			System.out.println("world :"+i);
+		}
+	}
+}
+/**
+ * 下面2个线程分别访问example里的加锁方法
+ * @author Administrator
+ *
+ */
+class MyThread extends Thread{
+	
+	private Example example;
+	
+	public MyThread(Example example){
+		this.example = example;
+	}
+	
+	@Override
+	public void run() {
+		this.example.Execute();
+	}
+}
+
+class MyThread2 extends Thread{
+	
+	private Example example;
+	
+	public MyThread2(Example example){
+		this.example = example;
+	}
+	
+	@Override
+	public void run() {
+		this.example.Execute2();
+	}
+}
+=====================================================
+运行结果：
+hello :0
+hello :1
+hello :2
+hello :3
+hello :4
+world :0
+world :1
+world :2
+world :3
+world :4

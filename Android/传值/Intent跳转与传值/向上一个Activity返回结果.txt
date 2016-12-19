@@ -1,0 +1,23 @@
+Activity01(startActivityForResult)调用Activity02，Activity02退出时把Result(setResult)返回给Activity01，Activity01(onActivityResult)接收
+
+>>Text1Activity
+private static final int TEST_CODE = 111;//请求码
+Intent intent = new Intent(Text1Activity.this,DialogTest1.class);
+startActivityForResult(intent, TEST_CODE);
+
+@Override
+protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+// TODO Auto-generated method stub
+super.onActivityResult(requestCode, resultCode, data);
+if(requestCode == TEST_CODE && resultCode == RESULT_OK){
+	String name = data.getExtras().getString("_return_a");
+	Toast.makeText(Text1Activity.this, name, Toast.LENGTH_LONG).show();
+	}
+}
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+>>Activity02:
+Intent intent = getIntent();//可以新建Intent对象
+intent.putExtra("_return_a", "shaoyangjiang");
+setResult(RESULT_OK, intent);
+finish();

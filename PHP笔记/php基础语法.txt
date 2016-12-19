@@ -1,0 +1,154 @@
+http://www.w3school.com.cn/php/php_variables.asp
+1.php代码以<? php为开始?>为结束，类似所有的HTML标记。
+a.XML风格
+				<?php echo '<p>Hello World<p>'; ?>
+b.Script风格
+				<script language ='php'> echo '<p>Order processed</p>';</script>
+=========================================================
+3.->符号一般用来调用类中的属性或者方法。
+2.变量都是已$符号开始，不需要申明变量类型
+$var_name = value;
+=====================================================
+3.php的字符串
+<?php
+$txt="Hello World";
+echo $txt;
+?>
+以上代码的输出是：Hello World
+============================================================
+4.字符串拼接用.的方式，也是唯一的方式。
+<?php
+$txt1="Hello World";
+$txt2="1234";
+echo $txt1 . " " . $txt2;
+?>
+以上代码的输出是：Hello World 1234
+=================================================
+5.strlen()函数用来计算字符串的长度
+<?php
+echo strlen("Hello world!");
+?>
+以上代码输出12
+=====================================================
+6.strpos（）函数用来返回第一个匹配的位置
+<?php
+echo strpos("Hello world!","world");
+?> 
+以上代码返回6
+================================================
+7.运算符
+"/"这个和java不一样，在php中5/2是2.5，在java中5/2是2
+==============================================
+8.数组
+a.数值数组存储的每个元素都带有一个数字ID键
+<?php
+$names = array("Peter","Quagmire","Joe");
+echo $names[1];
+?> 
+以上代码输出Quagmire
+------------------------------------
+b.关联数组是为每个ID键都关联一个值
+<?php
+$ages = array("Peter"=>32, "Quagmire"=>30, "Joe"=>34);
+echo $ages['Peter'];
+?> 
+以上代码输出32
+------------------------------------
+c.多维数组的主数组的每个元素也是一个数组，子数组的每个元素也可以是数组。
+<?php
+$families = array
+(
+  "Griffin"=>array
+  (
+  "Peter",
+  "Lois",
+  "Megan"
+  ),
+  "Quagmire"=>array
+  (
+  "Glenn"
+  ),
+  "Brown"=>array
+  (
+  "Cleveland",
+  "Loretta",
+  "Junior"
+  )
+);
+
+echo $families['Brown'][2];
+?>
+以上输出结果是Junior
+======================================================
+8.遍历foreach语句
+语法：
+foreach (array as value)
+{
+    code to be executed;
+}
+----------------------
+例子：
+<?php
+$arr=array("one", "two", "three");
+
+foreach ($arr as $value)
+{
+  echo "Value: " . $value . "<br />";
+}
+?>
+以上输出结果为
+Value: one
+Value: two
+Value: three
+=================================
+9.函数，都以关键字function开始
+<?php
+function readMe(){
+echo "shaoyangjiang";
+}
+
+readMe();
+?>
+以上代码输出shaoyangjiang
+===============================
+带参数的函数
+<?php
+function readMe($name){
+echo $name." is success";
+}
+
+readMe("shao");
+?>
+以上运行结果是shao is success
+=============================================
+10表单处理。
+表单实例（Post）：
+<html>
+	<body>
+		<form action="welcome.php" method="post">
+		Name: <input type="text" name="name" />
+		Age: <input type="text" name="age" />
+		<input type="submit" />
+		</form>
+	</body>
+</html>
+----------------------点击提交按钮会把数据送往welcome.php文件
+<html>
+	<body>
+		Welcome <?php echo $_POST["name"]; ?>.<br />
+		You are <?php echo $_POST["age"]; ?> years old.
+	</body>
+</html>
+以上结果为
+Welcome John.
+You are 28 years old.
+=============================
+用get方式，用$_GET变量时，所有的额变量名和值都会显示在Url中
+Welcome <?php echo $_GET["name"]; ?>.<br />
+You are <?php echo $_GET["age"]; ?> years old!
+=============================
+用$_REQUEST变量包含了对$_GET,$_POST,以及$_COOKIE的内容
+Welcome <?php echo $_REQUEST["name"]; ?>.<br />
+You are <?php echo $_REQUEST["age"]; ?> years old!
+====================================================
+

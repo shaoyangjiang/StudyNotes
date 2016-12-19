@@ -1,0 +1,36 @@
+项目地址：https://github.com/wangjiegulu/ShadowViewHelper
+============================
+作用是给任意的view添加阴影效果。
+======================================
+compile 'com.github.wangjiegulu:ShadowViewHelper:1.0.1'
+===========================
+xml:
+
+<LinearLayout
+      android:id="@+id/activity_main_shadow_view_b"
+      android:layout_width="wrap_content" android:layout_height="wrap_content"
+      android:layout_gravity="center"
+      android:layout_marginTop="32dp"
+      android:orientation="vertical"
+      android:gravity="center"
+      android:padding="8dp"
+      >
+      <ImageView android:layout_width="match_parent" android:layout_height="match_parent"
+                 android:src="@mipmap/ic_launcher"
+              />
+      <TextView android:layout_width="match_parent" android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="Shadow View with LinearLayout"
+                android:textSize="15sp"
+              />
+</LinearLayout>
+========================================
+ShadowViewHelper.bindShadowHelper(
+    new ShadowProperty()
+        .setShadowColor(0x77000000)
+        .setShadowDy(ABTextUtil.dip2px(context, 0.5f))
+        .setShadowRadius(ABTextUtil.dip2px(context, 3))
+    , findViewById(R.id.activity_main_shadow_view_b));
+==========================
+
+注意，ABTextUtil是工具类，网上搜索可以下载，这里只是用了工具类里的一个方法

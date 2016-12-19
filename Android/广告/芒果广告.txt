@@ -1,0 +1,210 @@
+步骤一：将youmiad-android.jar 导入您的工程中。
+1 右键您的工程根目录，选择“Properties”
+2 在左面板中选择“Java Build Path”
+3 然后选择“Libraries”标签
+4 点击“Add External JARs…”
+5 选择youmiad-android.jar 的目录路径
+6 点击“OK”即导入成功
+================================================================================================
+步骤二：在manifest.xml文件中配置
+        <!-- 声明有米的Activity -->
+        <activity
+            android:configChanges="keyboard|keyboardHidden|orientation"
+            android:name="net.youmi.android.AdActivity" />
+        <activity
+            android:configChanges="keyboard|keyboardHidden|orientation"
+            android:name="net.youmi.android.spotad.AdActivity" />
+
+        <!-- 声明多盟的Activity -->
+        <activity
+            android:name="cn.domob.android.ads.DomobActivity"
+            android:theme="@android:style/Theme.Translucent" />
+
+        <!-- 声明安沃的Activity -->
+        <activity
+            android:label="@string/app_name"
+            android:name="com.adwo.adsdk.AdwoAdBrowserActivity" />
+        <!-- 安沃全屏广告 -->
+        <activity
+            android:label="@string/app_name"
+            android:name="com.adwo.adsdk.AdwoSplashAdActivity" />
+
+        <!-- 声明AdMob的Activity -->
+        <activity
+            android:configChanges="orientation|keyboard|keyboardHidden"
+            android:name="com.google.ads.AdActivity" />
+
+        <!-- 声明AdChina的Activity -->
+        <activity
+            android:label="@string/app_name"
+            android:name="com.adchina.android.ads.views.AdBrowserView" />
+        <activity
+            android:configChanges="orientation|keyboard|keyboardHidden"
+            android:label="@string/app_name"
+            android:name="com.adchina.android.ads.views.FullScreenAdActivity"
+            android:theme="@android:style/Theme.Translucent" >
+        </activity>
+        <!-- 声明AppMedia的Activity -->
+        <activity android:name="cn.appmedia.ad.AdActivity" >
+        </activity>
+
+        <!-- 声明赢告的Activity -->
+        <activity android:name="com.winad.android.ads.VideoPlayerActivity" />
+
+        <receiver android:name="com.winad.android.ads.ReciveInstallPackage" >
+            <intent-filter >
+                <action android:name="android.intent.action.PACKAGE_ADDED" />
+
+                <data android:scheme="package" />
+            </intent-filter>
+        </receiver>
+
+        <!-- 声明指点的Activity -->
+        <activity
+            android:configChanges="keyboardHidden|orientation"
+            android:name="com.adzhidian.view.WebViewActivity" >
+        </activity>
+
+        <!-- 声明Greystripe的Activity -->
+        <provider
+            android:authorities="com.yourcompany.sample.AdContentProvider"
+            android:exported="false"
+            android:multiprocess="true"
+            android:name="com.greystripe.android.sdk.AdContentProvider" />
+
+        <activity
+            android:configChanges="keyboard|keyboardHidden|orientation"
+            android:name="com.greystripe.android.sdk.AdView" >
+            <intent-filter >
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- 声明MdotM的Activity -->
+        <activity
+            android:label="@string/app_name"
+            android:name="com.mdotm.android.ads.MdotmLandingPage" >
+            <intent-filter >
+                <category android:name="android.intent.category.BROWSABLE" />
+            </intent-filter>
+        </activity>
+
+        <!-- 声明Millennial的Activity -->
+        <activity
+            android:configChanges="orientation|keyboard|keyboardHidden"
+            android:name="com.millennialmedia.android.MMAdViewOverlayActivity"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+        <activity
+            android:configChanges="keyboardHidden|orientation|keyboard"
+            android:name="com.millennialmedia.android.VideoPlayer"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+
+        <!-- 声明AirAD的Activity -->
+        <activity
+            android:configChanges="orientation|keyboard|keyboardHidden"
+            android:name="com.mt.airad.MultiAD"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+        <!-- 声明LSense的Activity -->
+        <activity
+            android:configChanges="keyboard|keyboardHidden|orientation"
+            android:name="com.l.adlib_android.AdBrowseActivity"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+
+        <!-- 声明哇棒的Activity -->
+        <activity
+            android:configChanges="orientation|keyboardHidden"
+            android:name="com.wooboo.adlib_android.AdActivity" />
+        <activity
+            android:configChanges="orientation|keyboardHidden"
+            android:launchMode="singleTask"
+            android:name="com.wooboo.adlib_android.FullActivity" />
+
+        <!-- 声明力美的Activity -->
+        <activity
+            android:configChanges="keyboardHidden|orientation"
+            android:name="com.lmmob.ad.sdk.LmMobAdWebView" />
+        <activity
+            android:configChanges="keyboardHidden|orientation"
+            android:name="com.lmmob.ad.sdk.LmMobFullImageActivity" />
+
+        <!-- 声明聚赢的Activity -->
+        <activity android:name="com.tencent.mobwin.MobinWINBrowserActivity" />
+
+        <!-- 声明盈时的Activity -->
+        <activity
+            android:configChanges="orientation|keyboardHidden"
+            android:name="net.winsmedia.WebViewActivity" />
+
+        <!-- 添加随踪AdActivity -->
+        <activity
+            android:configChanges="keyboard|keyboardHidden|orientation"
+            android:name="com.suizong.mobplate.ads.AdActivity" />
+
+        <!-- 添加百度应用详情Activity -->
+        <meta-data
+            android:name="Market_ID"
+            android:value="1" />
+
+        <activity
+            android:configChanges="keyboard|keyboardHidden|orientation"
+            android:name="com.baidu.AppActivity" />
+
+        <!-- 您从百度移动联盟网站获取的APP ID -->
+        <meta-data
+            android:name="BaiduMobAd_APP_ID"
+            android:value="debug" />
+        <!-- 您从百度移动联盟网站获取的计费名 -->
+        <meta-data
+            android:name="BaiduMobAd_APP_SEC"
+            android:value="debug" />
+
+
+步骤二：在manifest.xml文件中配置，和activity并列
+
+      <!-- 注册Service，应用下载所需 -->
+        <service
+            android:exported="true"
+            android:name="com.admogo.UpdateService"
+            android:process=":remote" />
+      <!-- 下面的代码可以在主程序里添加-->
+        <meta-data
+            android:name="ADMOGO_KEY"
+            android:value="5e7f9892c3de412fa0dc837e9b815604" />
+
+步骤三：在manifest.xml文件中配置，权限
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+
+第四步；在主程序添加广告代码
+private final String mogoID = "5e7f9892c3de412fa0dc837e9b815604";//全局变量
+
+//在oncreat里添加广告
+        //广告部分
+		/************************ 代码方式添加Banner广告 ***********************/
+		AdMogoLayout adMogoLayoutCode = new AdMogoLayout(this, mogoID, false);
+		FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
+				FrameLayout.LayoutParams.FILL_PARENT,
+				FrameLayout.LayoutParams.WRAP_CONTENT);
+		// 设置广告出现的位置(悬浮于底部)
+		params.bottomMargin = 0;
+		// 添加广告状态监听
+		adMogoLayoutCode.setAdMogoListener(this);
+		params.gravity = Gravity.BOTTOM;
+		addContentView(adMogoLayoutCode, params);
+		/*************************** 添加Banner广告结束 ************************/
+第五步；注意
+public class RunningActivity extends Activity implements AdMogoListener{
+首先，那些jar文件应该置顶，还有在layout中添加两个文件

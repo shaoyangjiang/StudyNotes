@@ -1,0 +1,16 @@
+在文本框内输入内容，判断输入的内容是否为正确的邮箱
+jsp代码：
+email:<input type="text" name="email" id="email" onblur="isEmail(this.value)"><span id="emfo"></span><br>
+----------------------------------------
+验证函数：
+ 	   function clearEmailInfo(strEmail) {
+		   if(document.getElementById("email").value==""){
+			   document.getElementById("emfo").innerHTML ="<font color='black'>	请输入邮箱地址</font>"; 
+			   return false;
+		   }
+		   if (strEmail.search(/^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/) != -1){
+			   document.getElementById("emfo").innerHTML ="<font color='red'>邮箱地址正确</font>"; 
+		   return true;}
+		   else
+			   document.getElementById("emfo").innerHTML ="<font color='red'>邮箱地址有误</font>"; 
+		   }

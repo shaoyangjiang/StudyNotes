@@ -1,0 +1,18 @@
+/**
+ *打开输出流，一直写信息直到结束，关闭输出流
+ * @author Administrator
+ *
+ */
+public class OutputStreamTest {
+	
+	public static void main(String[] args) throws Exception {
+		OutputStream os = new FileOutputStream("c://out.txt");//创建文件输出流
+		//OutputStream os1 = new FileOutputStream("c://out.txt"，true);//可以追加文本
+		String str = "shaoyangjiang";
+		byte[] buffer = str.getBytes();//把字符串转化为字节数组
+		os.write(buffer);
+		os.close();
+	}
+}
+========================================================
+运行结果:在c盘会创建一个out.txt文件，里面内容是shaoyangjiang

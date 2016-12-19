@@ -1,0 +1,14 @@
+Dimension(尺寸)-dimens.xml：
+XML中声明：<dimen name="large">48sp</dimen>
+XML中引用：@dimen/large
+Java引用：getResources().getDimension(R.dimen.large);
+
+String-strings.xml：
+XML中声明：<string name="start">I\'m here</string>
+XML中引用：@string/start
+Java引用：getBasecontext().getString(R.string.start);
+
+Color-colors.xml：
+XML中声明：<color name="red">#f00</color>
+XML中引用：@color/red
+Java引用：getResources().getColor(R.color.red);

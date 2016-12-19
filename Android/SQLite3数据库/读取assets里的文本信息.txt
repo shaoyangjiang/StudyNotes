@@ -1,0 +1,88 @@
+/**
+ * 读取txt里的文件，然后解析后存放到数据库里.这里需要用到自定义的databaseHplper类
+ * @author Administrator
+ *
+ */
+public class MainActivity extends Activity {
+	private TakeOutDbHelper dbHelper;
+	private SQLiteDatabase db;
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        dbHelper = new TakeOutDbHelper(MainActivity.this, "takeout_menu_db");//创建数据库
+        db = dbHelper.getWritableDatabase();
+        AssetManager asset = getResources().getAssets();//得到assets文件夹里的Manager对象
+        insertGoodsInfo2Db(asset);
+        insertshopsInfo2Db(asset);
+    }
+    /**
+     * 插入商店表
+     * @param asset
+     */
+    private void insertshopsInfo2Db(AssetManager asset) {
+    	try {
+			InputStream is = asset.open("takeoutShop.txt");//得到输入流
+			is.skip(3); // 解决utf-8第一行乱码
+			BufferedReader br = new BufferedReader( new InputStreamReader(is));//封装留
+			String line = "";
+			while(null != (line= br.readLine())){
+				line = line.trim();
+				if(!line.equals("")){
+					String[] s = line.split("-");//已“-”来分割
+					if(s.length > 0){
+						//插入数据
+						db.execSQL("insert into takeoutMenuShopTb values('" + s[0].toString().trim() +"', '" + s[1]  + "','"+ s[2] +"', '" + s[3]  + "','"+ s[4] +"')");
+						System.out.println("加油"+s[0].toString().trim());
+					}
+					
+				}
+				
+			}
+			//读取数据
+			Cursor cursor = db.query("takeoutMenuShopTb", null, null, null, null, null, null);
+			while(cursor.moveToNext()){
+				int id = cursor.getInt(cursor.getColumnIndex("shopId"));
+				String shopName = cursor.getString(cursor.getColumnIndex("shopName"));
+				String shopNote = cursor.getString(cursor.getColumnIndex("shopNote"));
+				String shopShortTel = cursor.getString(cursor.getColumnIndex("shopShortTel"));
+				String shopLongTel = cursor.getString(cursor.getColumnIndex("shopLongTel"));
+				System.out.println(id + ";" + shopName + ";" + shopNote +";"+shopShortTel+";"+shopLongTel);
+			}
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}   	
+    }
+/**
+ * 插入商品表
+ * @param asset
+ */
+	private void insertGoodsInfo2Db(AssetManager asset) {
+		try {
+			InputStream is = asset.open("takeoutMenu.txt");
+			is.skip(3); // 解决utf-8第一行乱码
+			BufferedReader br = new BufferedReader( new InputStreamReader(is));
+			String line = "";
+			while(null != (line= br.readLine())){
+				line = line.trim();
+				if(!line.equals("")){
+					String[] s = line.split("-");
+					db.execSQL("insert into takeoutMenuGoodsTb values('" + s[0] +"', '" + s[1]  + "','"+ s[2] +"')");
+				}
+				
+			}
+			Cursor cursor = db.query("takeoutMenuGoodsTb", null, null, null, null, null, null);
+			while(cursor.moveToNext()){
+				int id = cursor.getInt(cursor.getColumnIndex("shopId"));
+				String goodsName = cursor.getString(cursor.getColumnIndex("goodsName"));
+				String goodsPrice = cursor.getString(cursor.getColumnIndex("goodsPrice"));
+				System.out.println(id + ";" + goodsName + ";" + goodsPrice);
+			}
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+}

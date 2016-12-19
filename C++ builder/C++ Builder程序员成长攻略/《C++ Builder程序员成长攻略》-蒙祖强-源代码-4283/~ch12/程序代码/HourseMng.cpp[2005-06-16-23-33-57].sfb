@@ -1,0 +1,52 @@
+//---------------------------------------------------------------------------
+
+#include <vcl.h>
+#pragma hdrstop
+//---------------------------------------------------------------------------
+USEFORM("fmMainU.cpp", fmMain);
+USEFORM("fmVBaseU.cpp", fmVBase);
+USEFORM("fmPPaperU.cpp", fmPPaper);
+USEFORM("dmDataU.cpp", dmData); /* TDataModule: File Type */
+USEFORM("fmUpdateU.cpp", fmUpdate);
+USEFORM("fmUpdatePropU.cpp", fmUpdateProp);
+USEFORM("fmHoursePropU.cpp", fmHourseProp);
+USEFORM("fmSharePropU.cpp", fmShareProp);
+USEFORM("fmUpdateTaxU.cpp", fmUpdateTax);
+USEFORM("fmUpdateOtherPropU.cpp", fmUpdateOtherProp);
+USEFORM("fmUpDateGroundPropU.cpp", fmUpDateGroundProp);
+USEFORM("fmMarkermanageU.cpp", fmMarkermanage);
+USEFORM("fmCheckermanageU.cpp", fmCheckermanage);
+USEFORM("fmManageUnitU.cpp", fmManageUnit);
+USEFORM("fmTaxTypeU.cpp", fmTaxType);
+USEFORM("fmTaxRaceU.cpp", fmTaxRace);
+USEFORM("fmInitFileNoU.cpp", fmInitFileNo);
+//---------------------------------------------------------------------------
+WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
+{
+        try
+        {
+                 Application->Initialize();
+                 Application->CreateForm(__classid(TfmMain), &fmMain);
+         Application->CreateForm(__classid(TfmUpdate), &fmUpdate);
+         Application->CreateForm(__classid(TfmVBase), &fmVBase);
+         Application->CreateForm(__classid(TdmData), &dmData);
+         Application->Run();
+        }
+        catch (Exception &exception)
+        {
+                 Application->ShowException(&exception);
+        }
+        catch (...)
+        {
+                 try
+                 {
+                         throw Exception("");
+                 }
+                 catch (Exception &exception)
+                 {
+                         Application->ShowException(&exception);
+                 }
+        }
+        return 0;
+}
+//---------------------------------------------------------------------------

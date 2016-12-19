@@ -1,0 +1,49 @@
+用jsp来进行页面跳转到Servlet跳转到jsp，实现参数传值。
+=========================================================================
+经典代码：
+myForword.jsp
+  <body>
+    <form action="myServlet">
+    	username:<input type="text" name="username">
+    	<input type="submit" value="submit">
+    </form>
+  </body>
+====================================================================
+myServlet.java
+------------
+public class myServlet extends HttpServlet {
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		String username = req.getParameter("username");
+		req.setAttribute("username",username);
+		
+		List<String> list = new ArrayList<String>();
+		for(int i=0;i<100;i++){
+			list.add(String.valueOf(i));
+		}
+		req.setAttribute("list",list);
+		
+		//转发到jsp页面
+		RequestDispatcher rd = req.getRequestDispatcher("myResult.jsp");
+		rd.forward(req,resp);
+	}
+}
+==========================================================================
+myResult.jsp代码
+  <body>
+    <%
+    	String username = (String)request.getAttribute("username");
+    	List<String> list = (List<String>)request.getAttribute("list");
+    %>
+          用户名为：<%= username %>
+     
+    <%
+    	for(int i=0;i<list.size();i++){
+    		out.print(i);
+    	}
+    %>     
+  </body>
+===============================================================
+运行结果：当在用户名输入jk后，输出结果
+用户名为：jk 0123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899 

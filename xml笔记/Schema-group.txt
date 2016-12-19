@@ -1,0 +1,32 @@
+schema文件：
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="name" type="xs:string"/>
+	<xs:element name="birthday" type="xs:string"/>
+	<xs:element name="age" type="xs:int"/>
+	
+	<xs:group name="myGroup">
+		<xs:sequence>
+			<xs:element ref="name"/>
+			<xs:element ref="birthday"/>
+			<xs:element ref="age"/>
+		</xs:sequence>
+	</xs:group>
+	
+	<xs:element name="person">
+		<xs:complexType>
+			<xs:group ref="myGroup"/>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>
+================================================================
+xml文件：
+<?xml version="1.0" encoding="UTF-8"?>
+<person xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="C:\Documents and Settings\Administrator\My Documents\Altova Projects\myschema.xsd">
+	<name>邵洋江</name>
+	<birthday>1989年6月</birthday>
+	<age>23</age>
+	
+</person>
+=================================================================
+运行结果:验证成功

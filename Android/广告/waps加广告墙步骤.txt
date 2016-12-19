@@ -1,0 +1,51 @@
+参考文献http://waps.cn/overview.jsp?sdk=sdk
+1.登录万普平台，进入开发者页面，点击添加应用，输入应用名称，点保存，之后打开应用详情页面，记下WAPS_ID的值备第2步骤使用。后面的信息也尽量完善起来，
+文件程序等最后完成广告集成并测试后再上传即可。
+
+2.在我的项目的AndroidManifest.xml文件下添加广告需要的权限(具体要哪些权限参加广告SDK的帮助和实际情况定):
+<uses-permission android:name="android.permission.READ_PHONE_STATE" />
+ <uses-permission android:name="android.permission.INTERNET" />
+ <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+ <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+ <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+ <uses-permission android:name="android.permission.GET_TASKS" />
+在Application项上加入:
+  <meta-data android:name="WAPS_ID" android:value="735e3ab4fac0e0bf447fd1aa615d994d" />
+  <meta-data android:name="WAPS_PID" android:value="WAPS" />
+  <activity android:name="com.waps.OffersWebView" 
+   android:configChanges="keyboardHidden|orientation" />
+
+代码里添加：
+AppConnect.getInstance("cac64d952a801ff3a8761686d383ce30", "WAPS", this);
+再添加一个com.waps.OffersWebView类
+第一行android:value对应的字符串要替换成步骤1从万普添加应用后得到的ID,千万不要填错哦。
+
+3.Eclipse->Project->Properties->Java Build Path->Libraries->Add External JARs->选择我们前面下载解压出来的AppOffer_1.5.3.jar，来完成添加万普SDK的Jar包。
+在对应更多应用菜单的处理事件里加入AppConnect.getInstance(this).showOffers(this);来打开广告墙。
+========================================================================================
+4.打开项目的入口Activity,在onCreate事件里写入AppConnect.getInstance(this);
+========================================================================================
+AppConnect.getInstance(this).getPushAd(); //自动推送使用,如果你在万普web端配置自动推送则可以注释次行
+========================================================================================
+        //3.广告条
+		//设置迷你广告背景颜色 
+		AppConnect.getInstance(this).setAdBackColor(Color.argb(50, 120, 240, 120)); 
+		//设置迷你广告广告语颜色 
+		AppConnect.getInstance(this).setAdForeColor(Color.YELLOW); 
+		//若未设置以上两个颜色，则默认为黑底白字 
+		LinearLayout miniLayout =(LinearLayout)findViewById(R.id.miniAdLinearLayout); 
+		new MiniAdView(this, miniLayout).DisplayAd(10); //默认10秒切换一次广告 
+
+<LinearLayout
+ android:id="@+id/miniAdLinearLayout" 
+ android:layout_width="wrap_content" 
+ android:layout_height="wrap_content" 
+ android:gravity="center_horizontal"/> 
+========================================================================================
+			//2.回馈信息
+			//AppConnect.getInstance(this).showFeedback();
+========================================================================================
+在退出应用的地方(我是在入口Activity的onDestroy事件)写入
+AppConnect.getInstance(this).finalize();
+
+5.正式签名发布

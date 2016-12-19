@@ -1,0 +1,28 @@
+/**
+ * jdom基本使用，查看帮组文档很重要。注意导入jdom.jar文档
+ * @author Administrator
+ *
+ */
+public class JdomTest1 {
+
+	public static void main(String[] args) throws Exception{
+		Document document = new Document();//生成一个文档对象
+		Element root = new Element("root");//生成一个根元素root
+		document.addContent(root);//在文档里加入根元素
+		Comment comment = new Comment("this is my commnet");//生成一个注释对象
+		root.addContent(comment);//把注释加入到元素里面
+		Element e = new Element("book");
+		root.addContent(e);//加入子元素
+		e.setAttribute("百度", "www.baidu.com");
+		Format format = Format.getPrettyFormat();//格式化输出代码
+		XMLOutputter out = new XMLOutputter(format);//生成一个xml文档输出流
+		out.output(document, new FileOutputStream("jdom.xml"));//把文档内容输出
+	}
+}
+=======================================================================
+运行结果：在同目录下会生成一个jdom.xml文档，内容是
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+  <!--this is my commnet-->
+  <book 百度="www.baidu.com" />
+</root>

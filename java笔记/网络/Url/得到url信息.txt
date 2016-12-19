@@ -1,0 +1,16 @@
+public class Url {
+
+	public static void main(String[] args) throws Exception {
+		
+		URL url = new URL("http://www.baidu.com/");
+		String host = url.getHost();
+		String ref = url.getRef();
+		String protocol = url.getProtocol();
+		int port = url.getPort();
+		
+		System.out.println("host:"+host+","+"ref:"+ref+","+"protocol:"+protocol+","+"port:"+port);
+	}
+}
+============================================================
+运行结果：-1代表没有设定
+host:www.baidu.com,ref:null,protocol:http,port:-1

@@ -1,0 +1,145 @@
+//---------------------------------------------------------------------------
+
+#include <vcl.h>
+#pragma hdrstop
+
+#include "Unit1.h"
+//#include "windows.h"
+ 
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+#pragma resource "*.dfm"
+TForm1 *Form1;
+//---------------------------------------------------------------------------
+__fastcall TForm1::TForm1(TComponent* Owner)
+        : TForm(Owner)
+{
+}
+//---------------------------------------------------------------------------
+String ShowDoub2(double x) //以四舍五入显示两位小数
+{
+  x = x + 0.005;
+  long y = x*100;
+  x = y/100.0;
+  return FloatToStr(x);
+}
+String TForm1::GetDrivType(UINT DrivType)
+{
+  String DrivTypeStr;
+  if(DrivType == DRIVE_FIXED)
+         {
+            DrivTypeStr = "本地磁盘";
+         }
+
+         else if(DrivType == DRIVE_CDROM)
+         {
+            DrivTypeStr =  "光驱";
+         }
+         else if(DrivType == DRIVE_REMOVABLE)
+         {
+            DrivTypeStr = "可移动磁盘";
+         }
+         else if(DrivType == DRIVE_REMOTE)
+         {
+            DrivTypeStr = "网络磁盘";
+         }
+         else if(DrivType == DRIVE_RAMDISK)
+         {
+            DrivTypeStr = "虚拟RAM磁盘";
+         }
+         else if (DrivType == DRIVE_UNKNOWN)
+         {
+           DrivTypeStr = "未知设备";
+         }
+         else if (DrivType == 1)
+         {
+           DrivTypeStr = "根目录不存在";
+         }
+  return DrivTypeStr;
+}
+
+
+
+
+void __fastcall TForm1::ListBox1Click(TObject *Sender)
+{
+
+  UINT DrivType;
+  unsigned long lpSectorsPerCluster;
+ unsigned long lpBytesPerSector;
+ unsigned long lpNumberOfFreeClusters;
+ unsigned long lpTotalNumberOfClusters;
+ char FileName[100],tmpDrivCh;
+ String DrivStr;
+ for(int i=0;i<ListBox1->Items->Count;i++)
+ {
+   if(ListBox1->Selected[i])
+   {
+     DrivStr = ListBox1->Items->Strings[i].SubString(0,1);
+     break;
+   }
+
+ }
+  char RootDirtmp[4]={'x',':','\\','\0'},*pCh;//????????????????   "C:\\"
+  pCh = DrivStr.c_str();
+  RootDirtmp[0] = pCh[0];
+
+  GroupBox1->Caption = "磁盘  " + (String)RootDirtmp[0] + "  的有关信息";
+
+  DrivType = GetDriveType(RootDirtmp);
+
+  Label1->Caption = "类型：           " + GetDrivType(DrivType);
+
+  DWORD SeriaNumber = NULL;
+
+  GetVolumeInformation(RootDirtmp,NULL,NULL,&SeriaNumber,NULL,NULL,FileName,100);
+
+  Label2->Caption = "文件系统：    " + (String)FileName;
+
+
+  GetDiskFreeSpace(RootDirtmp,&lpSectorsPerCluster,&lpBytesPerSector,&lpNumberOfFreeClusters,&lpTotalNumberOfClusters);
+  double  FreeSpace = (double)lpBytesPerSector * lpSectorsPerCluster * lpNumberOfFreeClusters;
+  double  TotalSpace = (double)lpBytesPerSector * lpSectorsPerCluster * lpTotalNumberOfClusters;
+
+   Label3->Caption = "已用空间：" + (String)(TotalSpace-FreeSpace) + "  字节";
+   Label4->Caption = "可用空间：" + (String)FreeSpace + "    字节";
+   Label5->Caption = "总  空  间：" + (String)TotalSpace + "  字节";
+  
+   Label6->Caption =  ShowDoub2((TotalSpace-FreeSpace)/1024/1024/1024) + "	GB";
+   Label7->Caption =  ShowDoub2(FreeSpace/1024/1024/1024)+ "	GB";
+   Label8->Caption =  ShowDoub2(TotalSpace/1024/1024/1024)+ "	GB";
+
+   Label9->Caption =  "磁盘序列号：  " + (String)SeriaNumber;
+
+
+}
+//---------------------------------------------------------------------------
+void __fastcall TForm1::Button2Click(TObject *Sender)
+{
+ int DiskNum = 0,DrivNameLength;   
+  DWORD DiskInfo;
+  DiskInfo = GetLogicalDrives();
+  String str="";
+  while(DiskInfo)//通过循环检查DiskInfo中每一位是否为1来决定对应的驱动器是否存在
+  {
+     if(DiskInfo&1)
+     {
+       DiskNum++;
+     }
+     DiskInfo = DiskInfo >> 1;//右移动一位。
+  }
+  DrivNameLength = GetLogicalDriveStrings(0,NULL); // 获取所有驱动器字符串信息长度
+  char* DrivNameStr = new char[DrivNameLength];
+  GetLogicalDriveStrings(DrivNameLength,(LPTSTR)DrivNameStr);
+  ListBox1->Items->Clear();
+  for(int i=0;i<DrivNameLength/4;++i) //依次获取每个驱动器的信息
+  {
+     char RootDir[3]={DrivNameStr[i*4],':','\\'};
+     str = RootDir[0];
+     str = str + " 盘";
+     ListBox1->Items->Add(str);
+  }
+
+
+}
+//---------------------------------------------------------------------------

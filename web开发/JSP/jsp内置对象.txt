@@ -1,0 +1,64 @@
+1.jsp内置对象包括：request(请求对象)，response(响应对象)，pageContext(页面上下文对象)，session(会话对象)，application(应用程序对象)，out(输出对象)，config(配置对象)，page(页面对象)，exception(异常对象)。
+===========================================================================
+2.request对象：代表的是来自客户端的请求，例如我们在form表单中填写的信息等，是最常用的对象。关于它的方法使用较多的是getParameter、getParameterNames和getParameterValues，通过调用这几个方法来获取请求对象中所包含的参数的值。
+经典代码：
+    <%
+    String userName = request.getParameter("userName");
+    String password = request.getParameter("password");
+    out.print("userName:"+userName+"<br>");
+    out.print("password:"+password+"<br>");
+    %>
+    <!-- 用户获取参数名-->
+    <%
+    Enumeration e = request.getParameterNames(); 
+    while(e.hasMoreElements()){
+    	System.out.println(e.nextElement());
+    }
+    %>
+    <!-- 当多个参数名都一致的时候使用这个方法-->
+    <%
+    String[] names = request.getParameterValues("userName");
+    for(String name:names){
+    	System.out.println(name);
+    }
+    %>
+===========================================================================
+3.session对象：代表服务器与客户端所建立的会话，当需要在不同的jsp页面中保留客户信息的情况下使用，比如在线购物、客户轨迹跟踪等。
+经典代码：
+session1.jsp
+    <form action="session2.jsp">
+    	用户名:<input type="text" name="username"/>
+    	<input type="submit" value="submit"/>
+    </form>
+------------------------------------------
+session2.jsp
+    <%
+    String name = request.getParameter("username");
+    session.setAttribute("username",name);
+    %>
+    <%= name %>
+    <a href="session3.jsp">session3链接</a>
+----------------------------------------------
+session3.jsp
+    <%
+    	String name = (String)session.getAttribute("username");
+    %>
+    <%= name %>
+===========================================================================
+4.applacation对象：负责提供应用程序在服务器中运行时的一些全局信息，常用的方法有getMimeType和getRealPath等。
+经典代码：用来统计网页的访问次数
+  <body>
+    <%	
+    	if(null == application.getAttribute("counter")){
+    		application.setAttribute("counter", "1");
+    	} else{
+    		int strNum = Integer.parseInt((String)application.getAttribute("counter"));
+    		strNum++;
+    		application.setAttribute("counter", Integer.toString(strNum));
+    	}
+    %>
+    
+ 	你是第：<%= application.getAttribute("counter") %>访问者。
+  </body>
+=====================================================================
+5.

@@ -1,0 +1,12 @@
+文档地址：http://docs.bmob.cn/android/developdoc/index.html?menukey=develop_doc&key=develop_android
+
+功能：Bmob平台为您的移动应用提供了一个完整的后端解决方案，我们提供轻量级的SDK开发包，让开发者以最小的配置和最简单的方式使用Bmob平台提供的服务，进而完全消除开发者编写服务器代码以及维护服务器的操作。
+
+1.把jar文件导入到libs中
+===========================
+2.初始化BmobSdk
+// 使用时请将第二个参数Application ID替换成你在Bmob服务器端创建的Application ID
+        Bmob.initialize(this, "Your Application ID");
+=========================================================
+3.增删改查方法见文档
+http://docs.bmob.cn/android/faststart/index.html?menukey=fast_start&key=start_android

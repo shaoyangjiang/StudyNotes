@@ -1,0 +1,101 @@
+/**
+ * 用泛型来HashSet传入对象
+ * @author Administrator
+ *
+ */
+public class SetTest {
+
+	public static void main(String[] args) {
+		Set<Person> person = new HashSet<Person>();
+		//往person集合里加入三个对象
+		person.add(new Person("shaoyangjiang",20,"shaoxing"));
+		person.add(new Person("wangjie",20,"huzhou"));
+		person.add(new Person("xingxing",19,"shaohai"));
+		//迭代打印
+		for(Iterator<Person> iter =person.iterator();iter.hasNext();) {
+			Person p = iter.next();
+			String name = p.getName();
+			int age = p.getAge();
+			String address = p.getAddress();
+			System.out.println(name+age +address);
+		}
+	}
+}
+
+class Person{
+	private String name;
+	private int age;
+	private String address;
+	
+	public Person(String name,int age,String address){
+		this.name = name;
+		this.age = age;
+		this.address = address;
+	}
+	
+//复写hastcode()和equals()方法
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((address == null) ? 0 : address.hashCode());
+		result = prime * result + age;
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Person other = (Person) obj;
+		if (address == null) {
+			if (other.address != null)
+				return false;
+		} else if (!address.equals(other.address))
+			return false;
+		if (age != other.age)
+			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		return true;
+	}
+//setter和getter方法
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public int getAge() {
+		return age;
+	}
+
+	public void setAge(int age) {
+		this.age = age;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+	
+}
+
+//////////////////////////////////////////////////////////////
+打印结果;
+xingxing19shaohai
+wangjie20huzhou
+shaoyangjiang20shaoxing

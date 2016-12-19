@@ -1,0 +1,8 @@
+Arrays类可以提供很多数组的方法，里面的方法都是静态的，可以直接通过类名.方法名调用。
+比如：
+二分法查询：binarySearch(int[] a,int key)//返回要查询的数字要几次查到
+复制：copeOf(int[] ariginal,int newLength)//返回新的复制的数组
+填充：fill(int[] a,int val)//把数组里所有的值都换成val
+排序：sort(int[] a)//把数组里的元素按升序排序
+
+

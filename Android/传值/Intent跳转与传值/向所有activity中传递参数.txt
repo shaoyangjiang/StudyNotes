@@ -1,0 +1,9 @@
+1.在当前的activity中创建intent
+Intent i = new Intent(getApplicationContext(), NewActivity.class);
+i.putExtra("new_variable_name","value");
+startActivity(i);
+============================================================
+2.在其他新的activity中得到
+Intent i = new Intent(getApplicationContext(), NewActivity.class);
+i.putExtra("new_variable_name","value");
+startActivity(i);

@@ -1,0 +1,93 @@
+ private double lastDistance=0;
+
+	/**
+	 * 进行双指缩放识别
+	 * @param pt0X  第一个触点的x坐标
+	 * @param pt0Y  第一个触点的y坐标
+	 * @param pt1X  第二个触点的x坐标
+	 * @param pt1Y  第二个触点的y坐标
+	 */	 
+	public void zoomProcess(int pt0X,int pt0Y,int pt1X,int pt1Y){
+		double curDistance = 0;//当前距离
+		double dtDistance = 0; //相差距离
+		double range = 20; //幅度
+		//计算两个触点之间的当前的距离
+		curDistance = Math.sqrt(Math.pow((pt1X - pt0X),2)-Math.pow(pt1Y - pt0Y,2));
+		//计算与上次的距离差
+		dtDistance = curDistance - lastDistance;
+		//距离差的绝对值大于幅度
+		if(Math.abs(dtDistance)>range){
+			if(dtDistance > 0){
+				mTextView.setText("放大"+String.valueOf(dtDistance));
+			} else{
+				mTextView.setText("缩小"+String.valueOf(dtDistance));
+			}
+		}
+		lastDistance = curDistance;
+	}
+////////////////////////////////////////////////////////////////////////////////////////////////////
+//具体案例
+public class GestureActivity extends Activity implements OnTouchListener{
+    private TextView mTextView;
+    private double lastDistance=0;
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.main);
+        mTextView = (TextView)findViewById(R.id.mTextView);
+        View mView = (View)findViewById(R.id.mView);
+        mView.setOnTouchListener(this);      
+        mView.setLongClickable(true);
+    }
+    
+	@Override
+	public boolean onTouch(View v, MotionEvent event) {
+		//获得触点的数量
+		int points = event.getPointerCount();
+		switch(event.getAction()){
+			case MotionEvent.ACTION_DOWN:
+				//System.out.println("Action down");
+				break;
+			case MotionEvent.ACTION_UP:
+				//System.out.println("Action up");
+				break;
+			case MotionEvent.ACTION_MOVE:
+				System.out.println("i am moving");
+				if(points ==2){
+					int pt0X = (int)event.getX(0);
+					int pt0Y = (int)event.getY(0);
+					int pt1X = (int)event.getX(1);
+					int pt1Y = (int)event.getY(1);
+					//进行双指缩放检测
+					zoomProcess(pt0X,pt0Y,pt1X,pt1Y);
+				}
+				break;
+		}
+		return false;
+	}
+	/**
+	 * 进行双指缩放识别
+	 * @param pt0X  第一个触点的x坐标
+	 * @param pt0Y  第一个触点的y坐标
+	 * @param pt1X  第二个触点的x坐标
+	 * @param pt1Y  第二个触点的y坐标
+	 */	 
+	public void zoomProcess(int pt0X,int pt0Y,int pt1X,int pt1Y){
+		double curDistance = 0;//当前距离
+		double dtDistance = 0; //相差距离
+		double range = 20; //幅度
+		//计算两个触点之间的当前的距离
+		curDistance = Math.sqrt(Math.pow((pt1X - pt0X),2)-Math.pow(pt1Y - pt0Y,2));
+		//计算与上次的距离差
+		dtDistance = curDistance - lastDistance;
+		//距离差的绝对值大于幅度
+		if(Math.abs(dtDistance)>range){
+			if(dtDistance > 0){
+				mTextView.setText("放大"+String.valueOf(dtDistance));
+			} else{
+				mTextView.setText("缩小"+String.valueOf(dtDistance));
+			}
+		}
+		lastDistance = curDistance;
+	}	
+}

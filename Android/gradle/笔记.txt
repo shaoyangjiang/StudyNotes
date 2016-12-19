@@ -1,0 +1,35 @@
+什么是Gradle？
+Gradle是一种依赖管理工具，基于Groovy语言，面向Java应用为主，它抛弃了基于XML的各种繁琐配置，取而代之的是一种基于Groovy的内部领域特定（DSL）语言。
+=====================================================================
+安装Gradle
+Win平台会默认下载到 C:\Documents and Settings<用户名>.gradle\wrapper\dists 目录
+修改 环境变量 : X:\Program Files\gradle-1.11\bin,
+测试gradle , 在cmd模式下, 输入: gradle -version 即可:
+===================================================================
+5. 修改gradle
+
+有时候 需要手动设置, gradle环境, 否则会报错, 位置: File->Settings->Gradle , 进行设置:
+
+Use default gradle wrapper : 使用的是 系统环境变量 的gradle;
+
+Use local gradle distribution : 手动指定gradle的位置;
+===================================================================
+
+项目名/app/build.gradle
+这个文件是app文件夹下这个Module的gradle配置文件，也可以算是整个项目最主要的gradle配置文件，我们来看下这个文件的内容：
+dependencies {
+    // 编译libs目录下的所有jar包
+   compile fileTree(dir: 'libs', include: ['*.jar'])
+
+ compile 'com.squareup.picasso:picasso:2.5.2'
+}
+================================================================
+我的stduio
+dependencies {
+    // 编译libs目录下的所有jar包
+   compile fileTree(dir: 'libs', include: ['*.jar'])
+
+ compile 'com.squareup.picasso:picasso:2.5.2'
+compile 'com.android.support:appcompat-v7:22.1.1'
+compile 'com.android.support:support-v4:22.+'
+}

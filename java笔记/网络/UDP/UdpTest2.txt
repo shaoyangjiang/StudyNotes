@@ -1,0 +1,19 @@
+public class UdpTest2
+{ 
+	public static void main(String[] args) throws Exception
+	{
+		DatagramSocket socket = new DatagramSocket(7000);//socket对象用来接受和发送数据包，监听7000端口
+		byte[] buffer = new byte[1000];
+		DatagramPacket packet = new DatagramPacket(buffer, 1000);
+		socket.receive(packet);//接受数据包
+		System.out.println(new String(buffer, 0, packet.getLength()));
+
+		String str = "welcome";
+		DatagramPacket packet2 = new DatagramPacket(str.getBytes(),
+				str.length(), packet.getAddress(), packet.getPort());
+		socket.send(packet2);//发送数据包
+		socket.close();//关闭
+	}
+}
+=================================================================
+先运行UdpTest2，在运行UdpTest1，这两个程序会分别接受到对方发来的数据

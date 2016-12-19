@@ -1,0 +1,99 @@
+步骤一：将youmiad-android.jar 导入您的工程中。
+1 右键您的工程根目录，选择“Properties”
+2 在左面板中选择“Java Build Path”
+3 然后选择“Libraries”标签
+4 点击“Add External JARs…”
+5 选择youmiad-android.jar 的目录路径
+6 点击“OK”即导入成功
+================================================================================================
+步骤二：在manifest.xml文件中配置
+		<meta-data android:value="56OJz1louM7W82FayJ" android:name="DOMOB_PID"/>
+
+		<activity android:name="cn.domob.android.ads.DomobActivity" android:theme="@android:style/Theme.Translucent">
+		</activity>
+=====================================================================
+	<uses-permission android:name="android.permission.INTERNET"/>
+	<uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/> <!-- Option -->
+================================================================================================
+步骤三：在res/values 文件夹中添加attrs.xml。如果你没有添加这个文件，那你将不能在layout 中设置AdView 的属性。
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+	<declare-styleable name="cn.domob.android.ads.DomobAdView"> 
+    	<attr name="backgroundColor" format="color" />
+    	<attr name="primaryTextColor" format="color" />
+    	<attr name="keywords" format="string" />
+    	<attr name="spots" format="string" />
+    	<attr name="refreshInterval" format="integer" />
+    </declare-styleable>
+</resources>
+================================================================================================
+步骤四：在main.xml 中布局多盟广告视图
+xmlns:myapp="http://schemas.android.com/apk/res/com.shao.BluetoothChat"
+
+    <cn.domob.android.ads.DomobAdView     
+        	android:id="@+id/domobAd"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            myapp:keywords="game"
+            myapp:refreshInterval="20"
+        />
+================================================================================================
+步骤五：在代码 中布局多盟广告视图
+		DomobAdView adView = new DomobAdView(this);	 	 
+		FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.FILL_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT);	
+		//设置广告出现的位置(悬浮于屏幕右下角)		 
+		params.gravity=Gravity.BOTTOM|Gravity.RIGHT; 
+		adView.setRequestInterval(20);
+		//将广告视图加入Activity中
+		addContentView(adView, params);
+==========================================================================
+第二版本：
+第一步：在application标签上添加
+		<activity android:name="cn.domob.android.ads.DomobActivity"
+			android:theme="@android:style/Theme.Translucent"></activity>
+			<meta-data android:value="56OJz1louMw06AB/R4" android:name="DOMOB_PID" />
+================================================================================================================
+第二步：权限
+	<uses-permission android:name="android.permission.INTERNET" />
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+	<uses-permission android:name="android.permission.READ_PHONE_STATE" />
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+==================================================================================================================
+第三步：在onCreat()函数里
+
+//全局变量：
+	DomobAdView mAdview320x50;
+
+        mAdview320x50 = (DomobAdView) findViewById(R.id.domobAdXML);
+		//设置广告view的监听器。
+		mAdview320x50.setOnAdListener(new DomobAdListener() {
+			@Override
+			public void onReceivedFreshAd(DomobAdView adview) {
+				Log.i("DomobSDKDemo", "onReceivedFreshAd");
+			}
+			@Override
+			public void onFailedToReceiveFreshAd(DomobAdView adview) {
+				Log.i("DomobSDKDemo", "onFailedToReceiveFreshAd");
+			}
+			@Override
+			public void onLandingPageOpening() {
+				Log.i("DomobSDKDemo", "onLandingPageOpening");
+			}
+			@Override
+			public void onLandingPageClose() {
+				Log.i("DomobSDKDemo", "onLandingPageClose");
+			}
+		});
+========================================================================================================================
+第四步：
+在布局文件中：放在最前面
+	<cn.domob.android.ads.DomobAdView
+			android:id="@+id/domobAdXML" 
+			android:layout_width="fill_parent" 
+			android:layout_height="wrap_content"
+			android:gravity="bottom"/>

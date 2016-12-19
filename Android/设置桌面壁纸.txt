@@ -1,0 +1,6 @@
+加权限：
+<uses-permission android:name="android.permission.SET_WALLPAPER"/>
+得到WallpaperManager的实例：
+wallpaperManager = WallpaperManager.getInstance(this);
+设置壁纸：
+wallpaperManager.setResource(R.raw.chuyin21);

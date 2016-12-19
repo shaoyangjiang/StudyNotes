@@ -1,0 +1,75 @@
+/**
+ * 随机访问文件
+ * @author Administrator
+ *
+ */
+public class RandomAccessFileTest {
+	
+	public static void main(String[] args) throws Exception {
+		Person p1= new Person(1,"shaoyangjiang",170.00);
+		RandomAccessFile raf = new RandomAccessFile("c://files.txt", "rw");
+		p1.Write(raf);//写
+		raf.seek(0);//让读的位置重新返回到文件开头
+		
+		Person p2 = new Person();
+		p2.Read(raf);//读
+		System.out.println(p2.getAge());
+		System.out.println(p2.getName());
+		System.out.println(p2.getHeight());
+	}
+}
+
+class Person{
+	int age;
+	String name;
+	double height;
+	
+	public Person(){
+		
+	}
+	
+	public Person(int age,String name,double height){
+		this.age = age;
+		this.name = name;
+		this.height = height;
+	}
+	//往文件写内容的方法
+	public void Write(RandomAccessFile raf) throws Exception{
+		raf.writeInt(this.age);
+		raf.writeUTF(this.name);
+		raf.writeDouble(this.height);
+	}
+	//往文件里读内容的方法
+	public void Read(RandomAccessFile raf) throws Exception{
+		this.age = raf.readInt();
+		this.name = raf.readUTF();
+		this.height = raf.readDouble();
+	}
+	//所有属性的get和set方法
+	public int getAge() {
+		return age;
+	}
+
+	public void setAge(int age) {
+		this.age = age;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public double getHeight() {
+		return height;
+	}
+
+	public void setHeight(double height) {
+		this.height = height;
+	}
+}
+==================================================================
+运行结果:在c盘会创建一个files.txt文件，
+在控制台会打印出files里面的内容

@@ -1,0 +1,17 @@
+实现下拉刷新功能：
+一：把pull_to_refresh_header复制到layout中，把自定义控件PullRefreshListView复制到项目中等等
+
+二：布局文件中：
+<com.tiantian.test.PullRefreshListView 
+        android:id="@+id/refreshList"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:cacheColorHint="#000000"
+        />
+
+三：代码见MainActivity.java
+其中的有关异步任务可参考：
+F:\作业\Android\笔记\线程&异步同步操作\async异步操作&sync同步操作\async异步操作
+------------------------------------------------------------------------------------
+PullRefreshListView：自定义ListView，可实现下拉刷新功能
+pull_to_refresh_header.xml：自定义ListView刷新前下拉的布局

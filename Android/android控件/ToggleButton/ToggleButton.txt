@@ -1,0 +1,22 @@
+    <ToggleButton 
+    	android:id="@+id/mToggleButton"
+    	android:layout_width="wrap_content"
+    	android:layout_height="wrap_content"
+    	android:textOn="buttonOn"
+    	android:textOff="buttonOff"/>
+
+ 	private ToggleButton mToggleButton;
+
+        mToggleButton = (ToggleButton)findViewById(R.id.mToggleButton);
+        mToggleButton.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+			
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+				if(isChecked){
+					System.out.println("i am on");
+				} else {
+					System.out.println("i am off");
+				}
+				
+			}
+		});

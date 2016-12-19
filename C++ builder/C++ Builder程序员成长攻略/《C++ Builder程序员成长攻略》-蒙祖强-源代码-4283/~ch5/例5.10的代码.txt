@@ -1,0 +1,27 @@
+编写窗体的OnCteate事件处理程序，得到的代码及其说明如下：
+
+void __fastcall TForm1::FormCreate(TObject *Sender)
+{
+  HRGN W1,W2,W3;
+  int x,y,xw,yw;
+  xw = Image1->Width;
+  yw = Image1->Height;
+  Form1->Width = xw;            //使窗体大小刚好与待建的不规则窗口一样
+  Form1->Height = yw;
+  W2=CreateRectRgn(0,0,0,0);    //创建矩形区域W2，但是它的“面积”为0，以在下面使用它
+  for(y=0;y<yw;y++)
+  {
+    for(x=0;x<xw;x++)
+    {
+      if(Image1->Canvas->Pixels[x][y]!=clRed)   		//如果不是背景颜色，
+      {
+        W1=CreateRectRgn(x,y,x+1,y+1);          	//则创建该区域
+        CombineRgn(W2,W2,W1,RGN_XOR);   		//将区域W2和W1合并到区域W2
+        DeleteObject(W1);                       	//撤销区域实例W1（该语句不可或缺）
+      }
+     }
+   }
+   SetWindowRgn(Handle,W2,true);                	//在创建不规则窗体并显示
+   DeleteObject(W2);
+}
+

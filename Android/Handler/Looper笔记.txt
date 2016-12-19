@@ -1,0 +1,32 @@
+1.一个线程对应一个Looper对象，一个Looper对象对应一个MessageQueue(消息队列)，MessageQueue用来存放Message。
+2.Looper对象为子线程开启一个消息循环，从而操作MessageQueue。
+3.在一个线程中只能有一个Looper和MessageQueue，但可以有多个Handler
+==========================================================================
+实例：
+a.在activity中写入
+		LoopThread m1 = new LoopThread();
+		m1.start();
+==========================================================================
+b.创建一个继承Thread类的LoopThread，重写run()方法中创建Handler对象，发送并处理消息
+class LoopThread extends Thread{
+	public Handler mHandler;//声明一个Handler对象
+	@Override
+	public void run() {
+		super.run();
+		Looper.prepare();//初始化Looper对象
+		//...要执行的代码(更新UI；抓取网络的内容等)
+		//实例化一个handler对象
+		mHandler = new Handler(){
+			@Override//处理消息的方法
+			public void handleMessage(Message msg) {
+				super.handleMessage(msg);
+			}
+			
+		};
+		Message m=mHandler.obtainMessage();//获取一个消息
+		m.what = 1;//设置message的what属性的值
+		mHandler.sendMessage(m);//发送消息
+		Looper.loop();//启动looper
+	}
+}
+============================================================================

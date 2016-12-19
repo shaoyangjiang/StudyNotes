@@ -1,0 +1,10 @@
+问题描述: 
+ListView中Item加入Button后,导致ListView无法点击。 
+
+解决方案: 
+如果ListView子视图中有Button等抢焦点的控件，那么需要在item的xml根标签配置中加入
+android:descendantFocusability="blocksDescendants"  
+
+同时，对Button等控件需要加入 
+Java代码  
+android:focusable="false"  

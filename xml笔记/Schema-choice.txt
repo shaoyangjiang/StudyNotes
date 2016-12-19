@@ -1,0 +1,22 @@
+choice功能：允许唯一的元素在组中被选择
+====================================================================
+schema文件：
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:complexType name="myType">
+		<xs:choice maxOccurs="1" minOccurs="1">
+			<xs:element name="cat" type="xs:string"/>
+			<xs:element name="dog" type="xs:string"/>
+			<xs:element name="dock" type="xs:string"/>
+		</xs:choice>
+	</xs:complexType>
+	<xs:element name="pets" type="myType"/>
+</xs:schema>
+===================================================================
+xml文件：
+<?xml version="1.0" encoding="UTF-8"?>
+<pets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="C:\Documents and Settings\Administrator\My Documents\Altova Projects\myschema.xsd">
+<cat>kitty</cat>
+</pets>
+===================================================================
+运行结果：验证成功

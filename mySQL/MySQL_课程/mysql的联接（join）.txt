@@ -1,0 +1,49 @@
+将WHERE子句作为关联条件（多个条件之间用and）：
+select * from student, classes where student.classes_id = classes.id and age < 23;
+
+使用表的别名：
+select a.id, a.name, a.age, a.sex, b.name from student a, classes as b where a.classes_id = b.id;
+---------------------------------------------------------------------------------
+join语句：
+跟“, where”语句效果一样：
+select * from `stu` join `classes` on `stu`.classes_number = classes.number where number < 30;
+---------------------------------------------------------------------------------
+内联接（inner join）：
+上面的join语句都是内联接，
+特征是“结果中只包含那些满足联接条件的组合行”。
+在使用JOIN语句时，如果没有显式指明联接类型，则缺省为INNER，即内联接。
+select * from student JOIN classes ON student.classes_id=classes.id;
+等同于：
+select * from student INNER JOIN classes ON student.classes_id=classes.id;
+---------------------------------------------------------------------------------
+外联接（outer join）：
+外联接分为两种类型： 
+	左外联接（LEFT OUTER JOIN) ：有null行出现了
+	右外联接（RIGHT OUTER JOIN)：在下面的例子中和原来不变
+
+左外联接：
+- 返回左表中所有无匹配的行
+- 对于左表行中那些与右表无匹配的列，使用NULL值代替
+select * from `stu` s left outer join `classes` c on s.`classes_number` = c.`number`;
+
+右外联接：
+- 返回右表中所有无匹配的行
+- 对于右表行中那些与左表无匹配的列，使用NULL值代替
+select * from `stu` s right outer join `classes` c on s.`classes_number` = c.`number`;
+-------------------------------------------------------------------------------
+子查询：
+概念：在select语句的where子句中出现的select语句
+
+子查询中返回多个值（SELECT…IN…）：
+select * from `stu` s where s.classes_number in (select c.number from classes c);
+
+子查询中返回一个值（select…=…）
+select * from `stu` s where s.classes_number = (select c.number from classes c where c.id = 1);
+
+
+
+
+
+
+
+

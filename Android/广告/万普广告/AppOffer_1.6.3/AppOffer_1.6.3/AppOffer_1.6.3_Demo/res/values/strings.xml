@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hello">Hello World, DemoActivity!</string>
+    <string name="app_name">Demo_1.6.3</string>
+    
+    <string name="offerList">OfferList</string>
+    <string name="pushAd">PushAd</string>
+    <string name="spendPoints">SpendPoints(10)</string>
+    <string name="awardPoints">AwardPoints(10)</string>
+    <string name="feedback">Feedback</string>
+    <string name="ownsApp">OwnsApp</string>
+    <string name="onlineConfig">OnlineConfig</string>
+    <string name="catchException">CatchException</string>
+    <string name="iconAd">IconAd</string>
+    <string name="pushInfo">PushInfomation</string>
+    <string name="diyAd">DiyAd</string>
+    <string name="diyAdList">DIY AD List</string>
+    <string name="checkUpdate">CheckUpdate</string>
+    
+</resources>

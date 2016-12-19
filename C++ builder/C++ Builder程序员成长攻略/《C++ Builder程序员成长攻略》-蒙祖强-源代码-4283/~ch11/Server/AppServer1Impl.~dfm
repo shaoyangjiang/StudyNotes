@@ -1,0 +1,7 @@
+object AppServer1: TAppServer1
+  OldCreateOrder = False
+  Left = 402
+  Top = 200
+  Height = 168
+  Width = 240
+end

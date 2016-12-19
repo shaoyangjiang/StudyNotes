@@ -1,0 +1,51 @@
+/**
+ * 用泛型来使用HashMap
+ * @author Administrator
+ *
+ */
+public class MapTest {
+
+	public static void main(String[] args) {
+		Map<String,String> map = new HashMap<String,String>();
+		//往HashMap集合里存放四对键值对
+		map.put("a", "aa");
+		map.put("b", "bb");
+		map.put("c", "cc");
+		map.put("d", "dd");
+		//得到键的集合
+		Set<String> set = map.keySet();
+		//迭代
+		for(Iterator<String> iter = set.iterator();iter.hasNext();){
+			String key = iter.next();
+			//根据键得到值
+			String value = map.get(key);
+			System.out.println(key +":"+ value);
+		}
+		
+		System.out.println("-------------------");
+		//得到键值对的集合
+		Set<Map.Entry<String, String>> set2 = map.entrySet();
+		//迭代
+		for(Iterator<Map.Entry<String, String>> iter = set2.iterator();iter.hasNext();){
+			//得到每一个键值对
+			Entry<String,String> entry = iter.next();
+			//得到键
+			String key = entry.getKey();
+			//得到值
+			String value = entry.getValue();
+			System.out.println(key+":"+value);
+		}
+				
+	}
+}
+/////////////////////////////////////////////////////////////////
+运行结果：
+d:dd
+b:bb
+c:cc
+a:aa
+-------------------
+d:dd
+b:bb
+c:cc
+a:aa

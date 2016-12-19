@@ -1,0 +1,73 @@
+DatabaseHelper继承SQLiteOpenHelper类
+写构造函数
+//该函数是在第一次创建数据库时执行
+public void onCreate(SQLiteDatabase arg0)
+//execSQL函数用于执行SQL语句
+//_id INTEGER PRIMARY KEY设置ID
+SQLiteDatabase对象.execSQL("create table user(_id INTEGER PRIMARY KEY, name varchar(20))");
+INTEGER PRIMARY KEY AUTOINCREMENT
+
+※※创建数据库：
+//创建一个DatabaseHelper对象,此时还没有创建数据库
+DatabaseHelper dbHelper = new DatabaseHelper(SqliteActivity.this, "tiantian_text_db");
+//只有调用了DatabaseHelper的getReadableDatabase()或者	getWriteableDatabase()才会真正创建数据库
+SQLiteDatabase db = dbHelper.getReadableDatabase();
+
+※※在数据库中插入数据-----------------------------------
+//生成ContentValues对象
+ContentValues values = new ContentValues();
+//向该对象中插入键值对，键是列名，值是希望插入到这一列的值，值得类型必须匹配
+values.put("id", 1);
+values.put("name", "wangjie");
+DatabaseHelper dbHelper = new DatabaseHelper(SqliteActivity.this, "tiantian_text_db");
+SQLiteDatabase db = dbHelper.getWritableDatabase();
+//调用insert方法，将数据插入到数据库中
+db.insert("user", null, values);
+
+SQL语句插入
+db.execSQL("insert into storeTb values(null, '" + SONE + "')");
+
+
+※※更新数据库的数据-----------------------------------
+DatabaseHelper dbHelper = new DatabaseHelper(SqliteActivity.this, "tiantian_text_db");
+SQLiteDatabase db = dbHelper.getWritableDatabase();
+ContentValues values = new ContentValues();
+//把name这列的值改成"yushuiqin"
+values.put("name", "yushuiqin");
+db.update("user", values, "id = ?", new String[]{"17"});
+
+※※查询数据库的数据-----------------------------------
+DatabaseHelper dbHelper = new DatabaseHelper(SqliteActivity.this, "tiantian_text_db");
+SQLiteDatabase db = dbHelper.getReadableDatabase();
+//Cursor :游标
+Cursor cursor = db.query("user", new String[]{"id","name"}, "id = ?", 
+		new String[]{"1"}, null, null, null);
+	while(cursor.moveToNext()){
+String name = cursor.getString(cursor.getColumnIndex("name"));
+System.out.println("query---->" + name);
+}
+
+※※删除数据库的数据-----------------------------------
+DatabaseHelper dbHelper = new DatabaseHelper(SqliteActivity.this, "tiantian_text_db");
+SQLiteDatabase db = dbHelper.getWritableDatabase();
+db.delete("user", "id = ?", new String[]{"1"});
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+进入数据库的命令
+adb
+adb shell
+ls -l
+cd data
+ls -l
+cd data
+ls -l
+cd tiantian.Package
+ls
+cd databases
+ls
+sqlite3 tiantian_text_db(进入名为tiantian_text_db的数据库)
+删除数据库 rm -r 数据库
+返回上一步 cd ..
+
+命令(.schema)显示当前数据库所有的表及创建它的语句是什么
+命令(select * from user;)显示表user的内容

@@ -1,0 +1,6 @@
+使用ExecuteNonQuery()的步骤小结
+1.创建Connection对象
+2.定义sql语句
+3.创建Command对象
+4.执行ExecuteNonQuary()方法
+5.根据返回的结果进行处理

@@ -1,0 +1,70 @@
+//---------------------------------------------------------------------------
+
+#include <vcl.h>
+#pragma hdrstop
+
+#include "Unit1.h"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+#pragma resource "*.dfm"
+TForm1 *Form1;
+//---------------------------------------------------------------------------
+__fastcall TForm1::TForm1(TComponent* Owner)
+        : TForm(Owner)
+{
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::Button1Click(TObject *Sender)
+{
+  OSVERSIONINFO info;
+  info.dwOSVersionInfoSize = sizeof(info);
+  String VersionStr;
+  char ComName[30],UserName[30];
+  DWORD size;
+  GetVersionEx(&info);
+  switch(info.dwPlatformId)
+  {
+    case VER_PLATFORM_WIN32s:
+      VersionStr = "操作系统：  Windows 3.1";
+      break;
+    case VER_PLATFORM_WIN32_WINDOWS:
+      VersionStr = "操作系统：  Windows 95";
+      break;
+    case VER_PLATFORM_WIN32_NT:
+      VersionStr = "操作系统：  Windows NT";
+      break;
+    default:
+      VersionStr = "操作系统：  未知";
+  }
+  Label2->Caption = VersionStr;
+  VersionStr = info.dwMajorVersion;
+  VersionStr = "版本号：      " + VersionStr + "."+info.dwMinorVersion; //版本号
+  Label3->Caption = VersionStr;
+  VersionStr = "Build:              "+(String)info.dwBuildNumber; // Build:
+  Label4->Caption = VersionStr;
+  //Label5->Caption = "其他信息：   Service Pack 3"+String(info.szCSDVersion);
+  Label5->Caption = "其他信息：   "+String(info.szCSDVersion);
+  GetComputerName(ComName,&size);
+  Edit1->Text = ComName;
+  size = 30;
+  GetUserName(UserName,&size);
+  Label8->Caption = "登录用户名：  "+(String)UserName;
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::BitBtn1Click(TObject *Sender)
+{
+  if(SetComputerName(Edit1->Text.c_str()))
+    ShowMessage("成功设置机器名");
+  else
+    ShowMessage("机器名设置失败");
+  BitBtn1->Enabled = false;  
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::Edit1Change(TObject *Sender)
+{
+  BitBtn1->Enabled = true;        
+}
+//---------------------------------------------------------------------------

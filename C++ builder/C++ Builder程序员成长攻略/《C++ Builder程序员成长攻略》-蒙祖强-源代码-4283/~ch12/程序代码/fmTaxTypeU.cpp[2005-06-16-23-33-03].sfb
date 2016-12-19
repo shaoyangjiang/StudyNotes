@@ -1,0 +1,60 @@
+//---------------------------------------------------------------------------
+
+#include <vcl.h>
+#pragma hdrstop
+
+#include "fmTaxTypeU.h"
+#include "SysFuncs.h"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+#pragma resource "*.dfm"
+TfmTaxType *fmTaxType;
+//---------------------------------------------------------------------------
+__fastcall TfmTaxType::TfmTaxType(TComponent* Owner)
+        : TForm(Owner)
+{
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TfmTaxType::actAddExecute(TObject *Sender)
+{
+        tabIndex->Append();
+        edtMarker->Text = "";
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TfmTaxType::actPostExecute(TObject *Sender)
+{
+        int nId;
+        TADOQuery * q(dmData->qry);
+        tabIndex->FieldByName("TaxType")->AsString = edtMarker->Text;
+        tabIndex->Post();
+}
+//---------------------------------------------------------------------------
+void __fastcall TfmTaxType::actCancleExecute(TObject *Sender)
+{
+         tabIndex->Cancel();
+}
+//---------------------------------------------------------------------------
+void __fastcall TfmTaxType::tabIndexAfterScroll(TDataSet *DataSet)
+{
+        edtMarker->Text = tabIndex->FieldByName("TaxType")->AsString  ;        
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TfmTaxType::FormActivate(TObject *Sender)
+{
+    tabIndex->Active = true;    
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TfmTaxType::actDeleteExecute(TObject *Sender)
+{
+    if(MessageDlg("删除记录不可恢复，你确定要删除吗？ ", mtError,
+        TMsgDlgButtons() << mbOK<<mbCancel, 0) == mrOk  )
+    {
+        tabIndex->Delete();
+    }
+}
+//---------------------------------------------------------------------------
+

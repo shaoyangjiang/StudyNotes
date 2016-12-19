@@ -1,0 +1,42 @@
+/**
+ * 泛型的意思就是变量类型的参数化
+ * @author Administrator
+ *
+ * @param <T>
+ */
+public class GenericFoo<T> {
+
+	private T foo;
+	
+	public T getFoo() {
+		return foo;
+	}
+
+	public void setFoo(T foo) {
+		this.foo = foo;
+	}
+
+	public static void main(String[] args) {
+		GenericFoo<Boolean> bool = new GenericFoo<Boolean>();//把T类型的引用换成Boolean
+		bool.setFoo(new Boolean(false));//存
+		Boolean b = bool.getFoo();//取
+		
+		GenericFoo<Integer> integer = new GenericFoo<Integer>();
+		integer.setFoo(new Integer(2));
+		Integer i = integer.getFoo();
+		//这里会出来警告，不影响结果，主要是没有泛型，传入的是Object类型，得到的时候要强制转化为自己的类型，
+		//这里值String类型
+		GenericFoo str = new GenericFoo();
+		str.setFoo("hello");
+		String s = (String)str.getFoo();
+		
+		System.out.println(b);
+		System.out.println(i);
+		System.out.println(s);
+	}
+}
+///////////////////////////////////////////////////////////////////////
+打印结果：
+false
+2
+hello

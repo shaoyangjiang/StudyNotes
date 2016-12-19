@@ -1,0 +1,105 @@
+服务器程序编写：
+①调用ServerSocket(int port)创建一个服务器端套接字，并绑定到指定端口上；
+②调用accept()，监听连接请求，如果客户端请求连接，则接受连接，返回通信套接字。
+③调用Socket类的getOutputStream()和getInputStream获取输出流和输入流，开始网络数据的发送和接收。
+④最后关闭通信套接字。
+==============================================================================================
+1.
+ServerSocket ss = null;
+ss = new ServerSocket(6789);
+==============================================================================================
+2.
+Socket socket = ss.accept();
+==============================================================================================
+3.
+InputStream is = null;
+is = socket.getInputStream();
+
+OutputStream os = null;
+os = socket.getOutputStream();
+==============================================================================================
+4.
+if(is!=null) is.close();
+if(os!=null) os.close();
+if(socket!=null) socket.close();
+==============================================================================================
+具体代码：
+public class MyServer {
+	static List<Socket> sockets = new ArrayList<Socket>();//创建一个容器来存放客服端
+	public static void main(String args[]){
+	    ServerSocket ss = null;  
+		try {
+			ss = new ServerSocket(6789); //实例化一个ServerSocket
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+		
+		try {
+			while(true){
+				Socket socket = ss.accept(); //接受客服端连接
+				System.out.println("accept");
+				new myThread(socket).start(); //启动一个线程
+			}
+		} catch(Exception e){
+			e.printStackTrace();
+		} finally {//最终关闭服务器
+			try {
+				ss.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+	
+}
+/**
+ * 这个线程主要是用来接受客服端的数据，并发送给每个客服端
+ * @author Administrator
+ *
+ */
+class myThread extends Thread{
+	
+	private Socket socket;
+	
+	public myThread(Socket socket){
+		this.socket = socket;
+	}
+	
+	public void run() {
+System.out.println("i am in ");
+		MyServer.sockets.add(socket); //把客服端放到容器里
+		InputStream is = null;
+		OutputStream os = null;
+		try {
+			is = socket.getInputStream();//靠socket获得输入流		
+			while(true){
+				byte[] buffer = new byte[1024];
+				int len = 0;
+				while((len = is.read(buffer, 0, buffer.length))!= -1){//读内容
+					String str = new String(buffer, 0, len);
+					System.out.println(str);	
+					
+					for(Socket socket: MyServer.sockets){//遍历，发送内容到每个客户端
+						os = socket.getOutputStream();//靠socket得到输出流
+						os.write(str.getBytes());//写内容
+						System.out.println(socket);
+					}
+				}
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally{
+			try {
+				if(is!=null) is.close();//关闭输入输出流
+				if(os!=null) os.close();
+				if(socket!=null) socket.close();//关闭套接字
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+}

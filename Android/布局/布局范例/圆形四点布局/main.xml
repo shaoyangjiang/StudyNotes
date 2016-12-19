@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#FFFFFF"
+    android:id="@+id/viewGroup"
+	>
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/hello" />
+    <RadioButton 
+        android:id="@+id/imageA"
+        android:drawableTop="@drawable/earth"
+        android:text=" earth"
+        style="@style/buttonStyle"
+        />
+    <RadioButton 
+        android:id="@+id/imageB"
+        android:drawableTop="@drawable/gmail"
+        android:text=" gmail"
+        style="@style/buttonStyle"
+        />
+    <RadioButton 
+        android:id="@+id/imageC"
+        android:drawableTop="@drawable/picasa"
+        android:text=" picasa"
+        style="@style/buttonStyle"
+        />
+    <RadioButton 
+        android:id="@+id/imageD"
+        android:drawableTop="@drawable/talk"
+        android:text=" gtalk"
+        style="@style/buttonStyle"
+        />
+	
+</RelativeLayout>

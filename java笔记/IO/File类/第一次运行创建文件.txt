@@ -1,0 +1,15 @@
+		1.主要功能是当软件第一次运行时来创建文件，第二次运行就不创建文件直接运行。有些软件第一次要加配置信息就可以这样做。
+		String dirPath = "/data/data/com.example.applicationtest/shao/";//目录
+		File file = new File(dirPath);//创建文件
+		System.out.println(file.isFile());
+		if(!file.exists()){
+			try {
+				file.createNewFile();//创建文件
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			System.out.println(file.isFile());
+			System.out.println("create a file");
+		}else{
+			System.out.println("the file is exist");
+		}

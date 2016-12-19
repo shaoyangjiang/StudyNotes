@@ -1,0 +1,4 @@
+private Bitmap   _compass;
+
+// ‘ÿ»ÎÕº∆¨
+_compass  = BitmapFactory.decodeResource(getResources(), R.drawable.compass1);

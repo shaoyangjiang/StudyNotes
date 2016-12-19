@@ -1,0 +1,32 @@
+//编写Button1的OnClick事件处理程序，代码如下：
+
+void __fastcall TForm1::Button1Click(TObject *Sender)
+{
+  SYSTEM_INFO *sysinfo;
+  sysinfo = new SYSTEM_INFO();
+  GetSystemInfo(sysinfo);
+  Edit1->Text = sysinfo->wProcessorLevel;
+  String str;
+   switch(sysinfo->dwProcessorType)
+   {
+      case  PROCESSOR_INTEL_386:
+        str = "Intel80386";
+        break;
+      case PROCESSOR_INTEL_486:
+        str = "Intel 80486";
+        break;
+      case PROCESSOR_INTEL_PENTIUM:
+        str = "Intel Pentium";
+        break;
+      case PROCESSOR_MIPS_R4000:
+        str = "MIPS R4000";
+        break;
+      case PROCESSOR_ALPHA_21064:
+        str = "ALPHA 21064";
+        break;
+      default:
+        str = "Unknown";
+   }
+    Edit1->Text = str;   
+}
+

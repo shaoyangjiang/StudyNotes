@@ -1,0 +1,19 @@
+先写布局文件：注意前面是包名
+             <com.sigma.sigmacoupons.customview.ScrollForeverTextView
+                android:id="@+id/TakeOutExplain"
+		        android:layout_width="fill_parent"   
+		        android:layout_height="wrap_content"   
+		        android:textSize="16sp" 
+		        android:textColor="#123456"
+		        android:singleLine="true"  
+		        android:paddingLeft="5dp"
+		        android:ellipsize="marquee"  
+		        android:marqueeRepeatLimit="marquee_forever"  
+		        android:focusable="true" 
+		    />  
+=============================================================
+在主Activity中定义：
+private ScrollForeverTextView shopExplain;
+//得到控件
+shopExplain = (ScrollForeverTextView)findViewById(R.id.TakeOutExplain);
+

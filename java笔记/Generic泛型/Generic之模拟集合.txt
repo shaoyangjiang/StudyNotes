@@ -1,0 +1,58 @@
+/**
+ * 用泛型去模拟集合
+ * @author Administrator
+ *
+ * @param <T>
+ */
+public class SimpleCollection<T> {
+
+	private T[] objArr;
+	
+	private int index = 0;
+	//构造一个长度为10的数组
+	public SimpleCollection(){
+		this.objArr = (T[])new Object[10];
+	}
+	//生成一个任意大小的数组
+	public SimpleCollection(int capacity){
+		this.objArr = (T[])new Object[capacity];
+	}
+	//取
+	public T getObjArr(int i) {
+		return objArr[i];
+	}
+	//存
+	public void setObjArr(T t) {
+		this.objArr[index++] = t;
+	}
+	//得到长度
+	public int getLength(){
+		return this.index;
+	}
+	
+	public static void main(String[] args) {		
+		SimpleCollection<Integer> s = new SimpleCollection<Integer>();
+		//存
+		for(int i = 0;i < 10; i++){
+			s.setObjArr(new Integer(i));
+		}
+		//取
+		for(int i = 0;i <10; i++){
+			Integer in = s.getObjArr(i);
+			System.out.println(in);
+		}
+
+	}
+}
+///////////////////////////////////////////////////////////////////
+运行结果：
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9

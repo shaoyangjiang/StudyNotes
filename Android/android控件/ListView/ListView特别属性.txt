@@ -1,0 +1,59 @@
+stackFromBottom属性，设置该属性之后你做好的列表就会显示你列表的最下面，值为true和false 
+android:stackFromBottom="true" 
+--------------------------------------------------------------------------------------
+divider属性，该属性作用是每一项之间需要设置一个图片做为间隔，或是去掉item之间的分割线android:divider="@drawable/list_driver"  其中  @drawable/list_driver 是一个图片资源，如果不想显示分割线则只要设置为android:divider="@drawable/@null" 就可以了 
+--------------------------------------------------------------------------------------
+fadingEdge属性，上边和下边有黑色的阴影android:fadingEdge="none" 设置后没有阴影了~ 
+--------------------------------------------------------------------------------------
+crollbars属性，作用是隐藏listView的滚动条，android:scrollbars="none"与setVerticalScrollBarEnabled(true);的效果是一样的，不活动的时候隐藏，活动的时候也隐藏
+--------------------------------------------------------------------------------------
+fadeScrollbars属性，android:fadeScrollbars="true"  配置ListView布局的时候，设置这个属性为true就可以实现滚动条的自动隐藏和显示。 
+
+--------------------------------------------------------------------------------------
+让ListView自动滚动？ 
+注意stackFromBottom以及transcriptMode这两个属性。类似Market客户端的低端不断滚动。 
+<ListView android:id="list"  
+     android:layout_width="fill_parent"  
+     android:layout_height="fill_parent"  
+     android:stackFromBottom="true"    
+     android:transcriptMode="alwaysScroll"  
+/> 
+--------------------------------------------------------------------------------------
+遍历listView 的的多选框
+ListView listView = (ListView)findViewById(R.id.配置文件中ListView的ID);  
+//全选遍历ListView的选项，每个选项就相当于布局配置文件中的RelativeLayout  
+for(int i = 0; i < listView.getChildCount(); i++){  
+      View view = listView.getChildAt(i);  
+      CheckBox cb = (CheckBox)view.findViewById(R.id.CheckBoxID);  
+      cb.setChecked(true);  
+}  
+--------------------------------------------------------------------------------------
+ListView不通过notifyDataSetChanged()更新指定的Item：
+Listview一般大都是通过notifyDataSetChanged()來更新listview,但通过notifyDataSetChanged()会把界面上现实的的item都重绘一次，这样会影响ui性能。 
+可以通过更新指定的Item提高效率，代码如下： 
+Java代码   
+private void updateView(int itemIndex){    
+  int visiblePosition = yourListView.getFirstVisiblePosition();    
+  View v = yourListView.getChildAt(itemIndex - visiblePosition);
+//Do something fancy with your listitem view
+  TextView tv = (TextView)v.findViewById(R.id.sometextview);  
+  tv.setText("Hi! I updated you manually");  
+}  
+-------------------------------------------------------------------------------------
+让ListView中长按某些Item时能弹出contextMenu，有些不能 
+定义了一个listView，并为他设置了setOnCreateContextMenuListener的监听，但这样做只能使这个listView中的所有项在长按的时候弹出contextMenu 。 
+有时希望的是有些长按时能弹出contextMenu，有些不能。解决这个问题的办法是为这个listView设置setOnItemLongClickListener监听
+然后实现 ：
+public boolean onItemLongClick(AdapterView<?> parent, View view,   
+int position, long id) {   
+  if(id == 1){   
+    return true;   
+  }   
+  return false;   
+}   
+如果这一项的id=1,就不能长按。 这样就可以了 
+-------------------------------------------------------------------------------------
+
+
+
+   

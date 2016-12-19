@@ -1,0 +1,163 @@
+//---------------------------------------------------------------------------
+
+#include <vcl.h>
+#pragma hdrstop
+
+#include "Unit1.h"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+#pragma resource "*.dfm"
+TForm1 *Form1;
+//---------------------------------------------------------------------------
+__fastcall TForm1::TForm1(TComponent* Owner)
+        : TForm(Owner)
+{
+}
+//---------------------------------------------------------------------------
+void TForm1::SetButton()
+{
+ if(Query1->Bof) //光标在第一行上
+  {
+    BitBtn1->Enabled = false;
+    BitBtn2->Enabled = true;
+    BitBtn3->Enabled = false;
+    BitBtn4->Enabled = true;
+  }
+  else  //光标不在第一行上
+  {
+    BitBtn1->Enabled = true;
+   // BitBtn2->Enabled = true;
+    BitBtn3->Enabled = true;
+   // BitBtn4->Enabled = true;
+  }
+  if(Query1->Eof) //光标在最后一行上
+  {
+    BitBtn1->Enabled = true;
+    BitBtn2->Enabled = false;
+    BitBtn3->Enabled = true;
+    BitBtn4->Enabled = false;
+  }
+  else  //光标不在最后一行上
+  {
+    //BitBtn1->Enabled = true;
+     BitBtn2->Enabled = true;
+    //BitBtn3->Enabled = true;
+    BitBtn4->Enabled = true;
+  }
+
+}
+
+
+void __fastcall TForm1::ComboBox1Change(TObject *Sender)
+{
+  CheckListBox1->ItemIndex = ComboBox1->ItemIndex;
+}
+//---------------------------------------------------------------------------
+
+
+void __fastcall TForm1::FormCreate(TObject *Sender)
+{
+  Query1->DatabaseName = "MyCBuilderOdbc";
+  Query1->SQL->Clear();
+  Query1->SQL->Add("Select * from StuTable");
+  Query1->Active = true;
+  ComboBox1->Items->Clear();
+  CheckListBox1->Items->Clear();
+  for(int i=0;i<Query1->Fields->Count;i++)
+  {
+    ComboBox1->Items->Add(Query1->Fields->Fields[i]->FieldName);
+    CheckListBox1->Items->Add(Query1->Fields->Fields[i]->FieldName);
+    CheckListBox1->Checked[i] = true;
+  }
+  ComboBox1->ItemIndex = 1;
+  CheckListBox1->ItemIndex = 1;
+  RadioGroup1->ItemIndex = 0;
+  BitBtn1->Enabled = false;
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::Button1Click(TObject *Sender)
+{
+  String strSQL,strValue,strField;
+  strValue = Edit1->Text;
+  strField = ComboBox1->Text; //"name";
+  strSQL = "select ";
+  int flag = 0;
+  for(int i=0; i<CheckListBox1->Items->Count; i++)
+  if(CheckListBox1->Checked[i])
+  {
+    strSQL = strSQL + CheckListBox1->Items->Strings[i]+", ";
+    flag=1;
+  }
+  if(flag==0) {ShowMessage("请选择待显示的字段！");return;}
+  strSQL = strSQL.SubString(1,strSQL.Length()-2);
+  if(RadioGroup1->ItemIndex==0) strSQL = strSQL + " from StuTable where "+ strField +" = '"+strValue+"'"; //全字匹配
+  if(RadioGroup1->ItemIndex==1) strSQL = strSQL + " from StuTable where "+ strField +" like '%"+strValue+"%'"; //部分匹配
+  if(Edit1->Text == "")  strSQL = "select * from StuTable"; //空值表示全部浏览
+  Query1->Active = false;
+  Query1->SQL->Clear();
+  Query1->SQL->Add(strSQL);
+  Query1->Active = true;
+}
+//---------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+void __fastcall TForm1::RadioGroup1Click(TObject *Sender)
+{
+  String str;
+  ComboBox1->Items->Clear();
+  for(int i=0;i<Query1->Fields->Count;i++)
+  {
+    str = Query1->Fields->Fields[i]->ClassName();
+    if(RadioGroup1->ItemIndex == 1) if(str!="TStringField") continue;
+    ComboBox1->Items->Add(Query1->Fields->Fields[i]->FieldName);
+  }
+  if(RadioGroup1->ItemIndex == 0)
+  {
+    ComboBox1->ItemIndex = 1;
+    CheckListBox1->ItemIndex = 1;
+  }
+  else
+  {
+    ComboBox1->ItemIndex = 0;
+    CheckListBox1->ItemIndex = 1;
+  }
+}
+//---------------------------------------------------------------------------
+
+
+void __fastcall TForm1::BitBtn1Click(TObject *Sender)
+{
+  Query1->First();
+  SetButton();
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::BitBtn2Click(TObject *Sender)
+{
+  Query1->Next();
+  SetButton();
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::BitBtn3Click(TObject *Sender)
+{
+  Query1->Prior();
+  SetButton();
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::BitBtn4Click(TObject *Sender)
+{
+  Query1->Last();
+  SetButton();
+}
+//---------------------------------------------------------------------------
+

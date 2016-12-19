@@ -1,0 +1,38 @@
+教程网站：https://github.com/greenrobot/EventBus/blob/master/HOWTO.md
+Event：事件
+Subscriber：事件订阅者，接收特定的事件
+Publisher:事件发布者，用于通知Subscriber有事件发生
+=========================================
+案例：
+事件：
+public class MessageEvent {
+
+    public  String message;
+
+    public MessageEvent(String message) {
+        this.message = message;
+    }
+
+
+    public String getMessage() {
+        return message;
+    }
+
+}
+===============================
+Subscriber：
+MainActivity中
+onCreate中注册： EventBus.getDefault().register(this);
+onDestroy中注销：EventBus.getDefault().unregister(this);
+方法：
+    // Called in Android UI's main thread
+    public void onEventMainThread(MessageEvent event) {
+        //tv1.setText(event.getMessage());
+        Toast.makeText(this,event.getMessage(),Toast.LENGTH_SHORT).show();
+    }
+====================================
+Publisher:
+在任意一个Fragment中
+ EventBus.getDefault().post(new MessageEvent("Hello everyone!"));
+===================================
+效果：在MainActivity中会出现toast，hello everyone！

@@ -1,0 +1,19 @@
+布局
+    <Chronometer android:id="@+id/chronometer"
+        android:format="@string/chronometer_initial_format"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:paddingBottom="30dip"
+        android:paddingTop="30dip"
+        />
+==================================================================
+ Chronometer mChronometer;
+========================
+主activity
+mChronometer = (Chronometer) findViewById(R.id.chronometer);
+mChronometer.start();//开始方法
+mChronometer.stop();//停止
+mChronometer.setBase(SystemClock.elapsedRealtime());//清除
+mChronometer.setFormat("Formatted time (%s)");//格式化时钟
+mChronometer.setFormat(null);//清除格式化

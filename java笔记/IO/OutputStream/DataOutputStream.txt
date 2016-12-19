@@ -1,0 +1,38 @@
+/**
+ * 过滤流里面封装了节点流
+ * 这里输出数据流里面封装了文件输出流。
+ * @author Administrator
+ *
+ */
+public class DataOutputStreamTest {
+	
+	public static void main(String[] args) throws Exception {
+		//输出数据流里封装了带缓存的输出流，又封装了文件输出流
+		DataOutputStream dos = new DataOutputStream(new BufferedOutputStream(new FileOutputStream("c://data.txt")));
+		int a = 3;
+		byte b = 4;
+		char c ='c';
+		float d = 4.4f;
+		//写
+		dos.writeInt(a);
+		dos.writeByte(b);
+		dos.writeChar(c);
+		dos.writeFloat(d);
+		
+		dos.close();
+		//输入数据流里封装了带缓存的输入流，又封装了文件输入流
+		DataInputStream dis = new DataInputStream(new BufferedInputStream(new FileInputStream("c://data.txt")));
+		//读和写一定要保持一致
+		System.out.println(dis.readInt());
+		System.out.println(dis.readByte());
+		System.out.println(dis.readChar());
+		System.out.println(dis.readFloat());
+		dis.close();
+		
+	}
+}
+
+=======================================================================
+运行结果：
+一开始在c盘创建了一个data.txt文件，里面的内容是乱码
+后来在控制台读取文件的内容，显示正常

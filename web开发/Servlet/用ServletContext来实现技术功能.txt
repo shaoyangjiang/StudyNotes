@@ -1,0 +1,20 @@
+运行结果：每次刷新网页计数器都会加1.
+=========================================================
+servlet端代码：CounterServlet.java
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		//得到ServletContext对象，可以作为web端共享内存，本质上就是application
+		ServletContext context = req.getSession().getServletContext();
+		if(null == context.getAttribute("counter")){
+			context.setAttribute("counter",1);
+		} else{
+			int count = (Integer)context.getAttribute("counter");
+			context.setAttribute("counter",count+1);
+		}
+		req.getRequestDispatcher("counter.jsp").forward(req,resp);
+	}
+----------------------------------------------------
+JSP端代码：Countet.jsp
+  <body>
+    点击数：<%= application.getAttribute("counter") %>
+  </body>

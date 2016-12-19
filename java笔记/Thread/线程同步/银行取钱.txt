@@ -1,0 +1,62 @@
+/**
+ * 模拟银行取钱，用了线程同步synchronized
+ * @author Administrator
+ *
+ */
+public class FetchMoney {
+
+	public static void main(String[] args) {
+		Bank bank = new Bank();
+		Thread t1 = new BankThread(bank);//柜台取钱		
+		Thread t2 = new BankThread(bank);//取款机取钱
+		
+		t1.start();
+		t2.start();
+	}
+
+}
+/**
+ * 银行账户，有取款方法
+ * @author Administrator
+ *
+ */
+class Bank{
+	private int money = 1000;
+	
+	public synchronized int getMoney(int number){
+		if(number < 0){
+			return -1;
+		} else if(number > money){
+			return -2;
+		} else if(money < 0){
+			return -3;
+		} else {
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			money -= number;
+			System.out.println("left money"+ money);
+			return number;
+		}
+	}
+}
+
+class BankThread extends Thread{
+	private Bank bank;
+	
+	public BankThread(Bank bank){
+		this.bank = bank;
+	}
+	
+	@Override
+	public void run() {
+		System.out.println(bank.getMoney(800));
+	}
+}
+=====================================================================
+运行结果:
+left money200
+800
+-2

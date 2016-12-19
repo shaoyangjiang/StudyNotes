@@ -1,0 +1,6 @@
+http://stackoverflow.com/questions/4967669/android-install-apk-programmatically
+看网页中那个回复的，异步处理
+
+另一种方法：
+https://github.com/kongdongdong/updateService
+

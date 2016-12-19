@@ -1,0 +1,134 @@
+参考http://www.oschina.net/question/54100_32486  
+注意啦：当你弹出一个对话框的时候，主线程虽然被遮挡而且失去了焦点，但主线程的Activity并没有执行onPause()方法。说明对话框和Activity在同一个线程中
+----确定按钮的消息框
+new AlertDialog.Builder(this)
+.setTitle(R.string.about)
+.setMessage(R.string.about_text)
+.setPositiveButton("确定", null)
+.show();
+如果要对确定按钮进行点击后相应时间就用下面的代码,所有的相应事件都这样编写，只是里面实现的方法不一样
+new AlertDialog.Builder(Dialog.this)
+.setTitle("标题")
+.setMessage("my first Dialog")
+.setPositiveButton("确定", 
+	new DialogInterface.OnClickListener() {					
+	@Override
+	public void onClick(DialogInterface dialog, int which) {
+	// TODO Auto-generated method stub	
+	dialog.dismiss();
+	}
+	})
+.show();
+-------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------
+<----确定和取消按钮的消息框：
+new AlertDialog.Builder(this)
+.setTitle("确认")
+.setMessage("确定吗？")
+.setPositiveButton("是", null)
+.setNegativeButton("否", null)
+.show(); 
+-------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------
+<----可以输入文本的对话框:并且可以把输入的内容显示在主activity中
+注意啦：当你弹出一个对话框的时候，主线程虽然被遮挡而且失去了焦点，但主线程的Activity并没有执行onPause()方法。说明对话框和Activity在同一个线程中
+http://blog.csdn.net/comkingfly/article/details/6578753
+
+final EditText et = new EditText(this);
+Dialog a = new AlertDialog.Builder(DialogTest1.this)
+.setTitle("请输入1")
+.setIcon(R.drawable.icon)
+.setView(et)
+.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+				
+@Override
+public void onClick(DialogInterface dialog, int which) {
+	// TODO Auto-generated method stub
+	str = et.getText().toString();
+	System.out.println(str);
+	et1 = (TextView)findViewById(R.id.tv1);
+	et1.setText(str);
+		}
+	})
+.setNegativeButton("取消", null)
+.show();
+
+-------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------
+<----单选框:
+这个网站的例子比较麻烦http://stackoverflow.com/questions/5660887/android-dialog-single-choice-get-radio-selected，不过还是很好看懂。自己的方法如下
+先定义一个全局数组
+private String[] choose = new String[]{"a","b","c"};
+
+new AlertDialog.Builder(this)
+.setTitle("请选择")
+.setIcon(android.R.drawable.ic_dialog_info)                
+.setSingleChoiceItems(choose, -1, new DialogInterface.OnClickListener() {			
+@Override
+public void onClick(DialogInterface dialog, int which) {
+	choosed = choose[which];
+	}
+})
+.setPositiveButton("确定", new DialogInterface.OnClickListener() {				
+	@Override
+	public void onClick(DialogInterface dialog, int which) {
+		et1.setText(choosed);//把选择的选项显示在单选框里
+		}
+	})
+.setNegativeButton("取消", null)
+.show();
+
+-------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------
+<----多选框:
+首先定义三个全局变量
+private boolean[] isChoosed = new boolean[3];
+private StringBuffer result = new StringBuffer("");
+private String[] chooses = new String[]{"a","b","c"};
+
+new AlertDialog.Builder(this)
+.setTitle("多选框")
+.setMultiChoiceItems(chooses, null,
+	new DialogInterface.OnMultiChoiceClickListener() {					
+	@Override
+	public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+		if(isChecked){
+			isChoosed[which] = true;
+		}else{
+			isChoosed[which] = false;
+			}
+		}
+	})
+.setPositiveButton("确定", new DialogInterface.OnClickListener() {			
+	@Override
+	public void onClick(DialogInterface dialog, int which) {
+	// TODO Auto-generated method stub
+	result = new StringBuffer("");
+	for(int i = 0; i < isChoosed.length; i++){
+		if(isChoosed[i]){
+			result.append(chooses[i] + " ");
+			isChoosed[i] = false;
+			}
+		}				
+		et1.setText(result);			
+		}
+	})                
+.setNegativeButton("取消", null)
+.show();  
+-------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------
+<----列表对话框:
+new AlertDialog.Builder(self)
+.setTitle("列表框")
+.setItems(new String[] {"列表项1","列表项2","列表项3"}, null)
+.setNegativeButton("确定", null)
+.show();
+-------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------
+ImageView img = new ImageView(this);
+img.setImageResource(R.drawable.icon);
+new AlertDialog.Builder(this)
+.setTitle("图片框")
+.setView(img)
+.setPositiveButton("确定", null)
+.show();

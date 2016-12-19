@@ -1,0 +1,18 @@
+/**
+ * 带缓存的输出流
+ * @author Administrator
+ *
+ */
+public class BufferOutputStreamTest {
+
+	public static void main(String[] args) throws Exception {
+		OutputStream os = new FileOutputStream("c://shao.txt");
+		//包装输出流
+		BufferedOutputStream bos = new BufferedOutputStream(os);
+		bos.write("shaoyangjiang".getBytes());
+		bos.close();
+		os.close();
+	}
+}
+===================================================
+运行结果：在c盘shao.txt文件里的内容为shaoyangjiang

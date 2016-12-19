@@ -1,0 +1,30 @@
+/**
+ * 通过反射来调用一个类里的方法
+ * @author Administrator
+ *
+ */
+public class DumpMethods {
+	
+	public static void main(String[] args) throws Exception{
+		//得到要反射的类名
+		Class<?> type = Class.forName("java.lang.Object");
+		//得到类里的所有方法
+		Method[] methods = type.getMethods();
+		//遍历所有的方法
+		for(Method method : methods){
+			System.out.println(method);
+		}
+	}
+}
+
+////////////////////////////////////////////////////////////////////
+运行结果：
+public final void java.lang.Object.wait() throws java.lang.InterruptedException
+public final void java.lang.Object.wait(long,int) throws java.lang.InterruptedException
+public final native void java.lang.Object.wait(long) throws java.lang.InterruptedException
+public native int java.lang.Object.hashCode()
+public final native java.lang.Class java.lang.Object.getClass()
+public boolean java.lang.Object.equals(java.lang.Object)
+public java.lang.String java.lang.Object.toString()
+public final native void java.lang.Object.notify()
+public final native void java.lang.Object.notifyAll()

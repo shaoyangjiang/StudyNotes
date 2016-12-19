@@ -1,0 +1,30 @@
+http://blog.sina.com.cn/s/blog_566be38401014l9j.html
+===========================================================
+a、在程序中导入相应的包
+	import android.util.Log;
+b、在需要输出信息的函数中增加相关的调试代码
+       Log.i("hi world","oncreate");
+c,创建新的Filter，把hi world添加到tag中，filter name可以随便取名
+============================================================
+logger高级使用方法
+项目地址：https://github.com/orhanobut/logger
+
+repositories {
+  // ...
+  maven { url "https://jitpack.io" }
+}
+
+dependencies {
+  compile 'com.github.orhanobut:logger:1.12'
+}
+---------------------------------------------
+初始化
+Logger.init(YOUR_TAG);
+---------------------------
+Logger.d("hello");
+Logger.e("hello");
+Logger.w("hello");
+Logger.v("hello");
+Logger.wtf("hello");
+Logger.json(JSON_CONTENT);
+Logger.xml(XML_CONTENT);

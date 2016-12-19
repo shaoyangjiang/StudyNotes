@@ -1,0 +1,104 @@
+//---------------------------------------------------------------------------
+
+#include <vcl.h>
+#pragma hdrstop
+
+#include "fmUpdateU.h"
+#include "fmUpdatePropU.h"
+#include "fmHoursePropU.h"
+#include "fmSharePropU.h"
+#include "fmUpdateTaxU.h"
+#include "fmUpDateGroundPropU.h"
+#include "fmUpdateOtherPropU.h"
+#include "fmUpdateTaxU.h"
+
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+#pragma resource "*.dfm"
+TfmUpdate *fmUpdate;
+//---------------------------------------------------------------------------
+__fastcall TfmUpdate::TfmUpdate(TComponent* Owner)
+        : TForm(Owner)
+{
+}
+//---------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+void __fastcall TfmUpdate::SpeedButton4Click(TObject *Sender)
+{
+        Application->CreateForm(__classid(TfmUpdateTax),&fmUpdateTax);
+        fmUpdateTax->ShowModal();
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TfmUpdate::SpeedButton1Click(TObject *Sender)
+{
+        Application->CreateForm(__classid(TfmUpdateTax),&fmUpdateTax);
+        fmUpdateTax->ShowModal();
+}
+//---------------------------------------------------------------------------
+
+
+
+void __fastcall TfmUpdate::Image1Click(TObject *Sender)
+{
+        Close();        
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TfmUpdate::SpeedButton13Click(TObject *Sender)
+{
+        Application->CreateForm(__classid(TfmUpdateOtherProp),&fmUpdateOtherProp);
+        fmUpdateOtherProp->ShowModal();
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TfmUpdate::SpeedButton10Click(TObject *Sender)
+{
+        Application->CreateForm(__classid(TfmUpdateProp),&fmUpdateProp);
+        fmUpdateProp->ShowModal();
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TfmUpdate::SpeedButton11Click(TObject *Sender)
+{
+        Application->CreateForm(__classid(TfmShareProp),&fmShareProp);
+        fmShareProp->ShowModal();
+
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TfmUpdate::Panel3Click(TObject *Sender)
+{
+         Application->CreateForm(__classid(TfmUpDateGroundProp),&fmUpDateGroundProp);
+         fmUpDateGroundProp->ShowModal();
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TfmUpdate::SpeedButton12Click(TObject *Sender)
+{
+        Application->CreateForm(__classid(TfmHourseProp),&fmHourseProp);
+        fmHourseProp->ShowModal();
+
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TfmUpdate::SpeedButton14Click(TObject *Sender)
+{
+        Application->CreateForm(__classid(TfmUpDateGroundProp),&fmUpDateGroundProp);
+        fmUpDateGroundProp->ShowModal();
+}
+//---------------------------------------------------------------------------
+

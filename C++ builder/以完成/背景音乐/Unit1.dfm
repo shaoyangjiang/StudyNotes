@@ -1,0 +1,27 @@
+object Form1: TForm1
+  Left = 1104
+  Top = 128
+  Width = 280
+  Height = 87
+  Caption = 'Form1'
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'MS Sans Serif'
+  Font.Style = []
+  OldCreateOrder = False
+  OnCreate = FormCreate
+  PixelsPerInch = 96
+  TextHeight = 13
+  object MediaPlayer1: TMediaPlayer
+    Left = 8
+    Top = 16
+    Width = 253
+    Height = 30
+    AutoOpen = True
+    FileName = 'D:\KuGou\adele - someone like you.mp3'
+    TabOrder = 0
+    OnNotify = MediaPlayer1Notify
+  end
+end

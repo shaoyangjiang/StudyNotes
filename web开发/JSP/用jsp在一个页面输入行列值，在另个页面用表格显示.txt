@@ -1,0 +1,36 @@
+用jsp在一个页面输入行列值，在另个页面用表格显示
+==================================================
+test1.jsp代码
+  <body>
+  	<form action="test2.jsp">
+  	    行数:<input type="text" name="row"><br>
+              列数:<input type="text" name="col"><br>     
+    <input type="submit" value="submit">
+  	</form>
+  </body>
+=====================================================
+test2.jsp代码
+  <body>
+    <%
+    int row = Integer.parseInt(request.getParameter("row"));
+    int col = Integer.parseInt(request.getParameter("col"));
+    int value = 0;
+    %>
+
+	<table border ="1" width="50%">
+		<% for(int i = 0;i < row; i++){
+		%>
+		<tr>
+			<% for(int j =0;j < col;j++){	
+			%>
+			<td><%= ++value %></td>
+			<%} %>
+		</tr>
+		<% } %>
+	</table>
+  </body>
+============================================================
+运行结果：在第一个页面输入3，4，结果为
+1 2 3 4 
+5 6 7 8 
+9 10 11 12 

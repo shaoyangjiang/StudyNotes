@@ -1,0 +1,25 @@
+实体	符号
+&lt;	<
+&gt;	>
+&amp;	&
+&quot	"
+&apos	'
+=======================================
+<?xml version="1.0"?>
+<!DOCTYPE student[
+<!ENTITY id "100">
+<!ENTITY name "lisi">
+<!ENTITY address "beijing">
+]>
+<students>
+	<student>
+		<id>&id;</id>
+		<name>&name;</name>
+		<address>&address;</address>
+	</student>
+</students>
+===========================================================
+1:普通实体是在dtd中定义，xml中使用，使用的时候格式为：&address；
+<!ENTITY 实体名 "文本内容">
+2.参数实体是在dtd中定义，dtd中使用，定义的时候使用%，使用的时候也需要使用%，%address；
+<!ENTITY %实体名 "文本内容">

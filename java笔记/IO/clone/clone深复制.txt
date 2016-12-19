@@ -1,0 +1,113 @@
+/**
+ * 深复制,不仅成员变量复制，而且引用的对象也复制，
+ * 修改引用前的变量不会影响克隆后的变量，因为是不同的对象
+ * @author Administrator
+ *1.为获得对象的一份拷贝，我们可以利用Object类的clone()方法
+ *2.在派生类中覆盖基类的clone()方法，并申明为public
+ *3.在派生类的clone()方法中，调用super.clone();
+ *4.在派生类中实现Cloneable接口
+ */
+public class CloneTest {
+	
+	public static void main(String[] args) throws Throwable {	
+		Teacher teacher = new Teacher();
+		teacher.setAge(40);
+		teacher.setName("Teacher wang");
+		
+		Student student = new Student();
+		student.setAge(10);
+		student.setName("zhangsan");
+		student.setTeacher(teacher);
+		
+		Student student2 = (Student)student.clone();
+		System.out.println(student2.getAge());
+		System.out.println(student2.getName());
+		System.out.println(student2.getTeacher().getAge());
+		System.out.println(student2.getTeacher().getName());
+		
+		System.out.println("-----------------------------");
+		teacher.setName("Teacher zhang");//修改引用前的teacher名字
+		System.out.println(student2.getAge());
+		System.out.println(student2.getName());
+		System.out.println(student2.getTeacher().getAge());
+		System.out.println(student2.getTeacher().getName());
+		
+	}
+
+}
+
+class Teacher implements Cloneable{
+	private int age;
+	private String name;
+	
+	@Override
+	public Object clone() throws CloneNotSupportedException {
+		return super.clone();
+	}
+	
+	public int getAge() {
+		return age;
+	}
+	public void setAge(int age) {
+		this.age = age;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+}
+/**
+ * 派生类
+ * @author Administrator
+ *
+ */
+class Student implements Cloneable{
+	private int age;
+	private String name;
+	private Teacher teacher;
+
+	/**
+	 * 重写clone方法，并且为public
+	 */
+	@Override
+	public  Object clone() throws CloneNotSupportedException {
+		Student student = (Student)super.clone();
+		student.setTeacher((Teacher)student.getTeacher().clone());
+		return student;
+	}
+	
+	//属性的get和set方法
+	public int getAge() {
+		return age;
+	}
+	public void setAge(int age) {
+		this.age = age;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public Teacher getTeacher() {
+		return teacher;
+	}
+	public void setTeacher(Teacher teacher) {
+		this.teacher = teacher;
+	}
+	
+}
+============================================================
+运行结果;
+10
+zhangsan
+40
+Teacher wang
+-----------------------------
+10
+zhangsan
+40
+Teacher wang

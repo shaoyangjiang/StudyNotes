@@ -1,0 +1,27 @@
+功能：在图片上显示一些文字
+项目地址：https://github.com/mrwonderman/driveimageview
+=====================================
+第一步：
+allprojects {
+    repositories {
+        jcenter()
+        maven { url "https://jcenter.bintray.com" }
+    }
+}
+-----------------------------------
+dependencies {
+    // other repos ...
+    compile 'ch.halcyon:driveimageview:1.0.0'
+}
+--------------------------------
+布局文件：
+<ch.haclyon.driveimageview.DriveImageView
+  android:id="@+id/driveImageView"
+  android:layout_width="wrap_content"
+  android:layout_height="wrap_content"
+  android:layout_centerHorizontal="true" />
+------------------------------------------
+代码：
+DriveImageView driveImageView = (DriveImageView) rootView.findViewById(R.id.driveImageView);
+driveImageView.setDriveImageModel(new DriveImageModel("main text", "small text", R.drawable.image));
+driveImageView.setAlphaValue(0.7f);

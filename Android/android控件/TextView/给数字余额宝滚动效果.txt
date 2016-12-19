@@ -1,0 +1,5 @@
+项目地址：
+https://github.com/robinhood/ticker
+
+数字更新才会产生效果。
+源码中是Activity继承BaseActivity，然后在OnUpdate()方法中更新数据，这样就会出现滚动效果。

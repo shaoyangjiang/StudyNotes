@@ -1,0 +1,82 @@
+多态的实际应用好处
+先举例一个一般的，不使用多态
+public class Test {
+
+	public void run(BMW bmw) {
+		bmw.run();
+	}
+
+	public void run(QQ qq) {
+		qq.run();
+	}
+
+	public static void main(String[] args) {
+		Test test = new Test();
+		
+		BMW bmw = new BMW();
+		test.run(bmw);
+		
+		QQ qq = new QQ();
+		test.run(qq);
+	}
+}
+
+class Car {
+	public void run() {
+		System.out.println("car is running");
+	}
+}
+
+class BMW extends Car {
+	public void run() {
+		System.out.println("BMW is running");
+	}
+}
+
+class QQ extends Car {
+	public void run() {
+		System.out.println("QQ is running");
+	}
+}
+运行结果-------------------
+BMW is running
+QQ is running
+
+使用多态后，马上就能看到好多，只要定义一个父类方法，子类都可以调用它
+public class Test {
+
+	public void run(Car car) {
+		car.run();
+	}
+
+	public static void main(String[] args) {
+		Test test = new Test();
+
+		Car car = new BMW();//父类引用指向子类对象
+		test.run(car);
+
+		QQ qq = new QQ();
+		test.run(qq);//把子类强制转化为父类
+	}
+}
+
+class Car {
+	public void run() {
+		System.out.println("car is running");
+	}
+}
+
+class BMW extends Car {
+	public void run() {
+		System.out.println("BMW is running");
+	}
+}
+
+class QQ extends Car {
+	public void run() {
+		System.out.println("QQ is running");
+	}
+}
+运行结果------------------------------
+BMW is running
+QQ is running

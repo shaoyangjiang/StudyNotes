@@ -1,0 +1,134 @@
+- 更改student表的名字：
+ALTER TABLE `student` RENAME `stu`;
+
+- student表在stu_birth字段后面增加stu_extra 字段：
+ALTER TABLE `student` ADD stu_extra VARCHAR(20) AFTER stu_birth;
+
+- student表在stu_age字段后面增加stu_gender 字段，并默认是"M"：
+ALTER TABLE `student` ADD stu_gender VARCHAR(10) DEFAULT 'M' AFTER stu_age;
+
+- 在student中删除stu_extra字段：
+ALTER TABLE `student` DROP stu_extra;
+
+- 把student表中的stu_extra字段改成stu_ex（可更改定义类型）
+ALTER TABLE `student` CHANGE stu_extra stu_ex VARCHAR(20);
+
+- 把student表中的stu_name修改非空约束：
+ALTER TABLE `student` MODIFY stu_name VARCHAR(20) NOT NULL;
+
+--------------------------------------------------------------------------
+UNIQUE约束 唯一：
+- 指定table的列或列组合不能重复，保证数据的唯一性，但是可以为多个null
+
+创建一个user表，并给username和password组合添加唯一约束：
+CREATE TABLE `user`(
+
+	id INT AUTO_INCREMENT PRIMARY KEY,
+
+	username VARCHAR(20),
+
+	password VARCHAR(20),
+
+	CONSTRAINT uk_name_pwd	UNIQUE(username, password)
+
+);
+上述表示用户名和密码的组合不能重复
+
+
+- 添加表的约束：
+// username和password的组合约束，指定key是"uk_name_pwd"
+ALTER TABLE `user` ADD CONSTRAINT uk_name_pwd UNIQUE(`username`, `password`);
+或者不指定key（默认key是第一个列名("username")）：
+ALTER TABLE `user` ADD UNIQUE(`username`, `password`);
+
+- 删除表的约束（指定key为"uk_name_pwd"）：
+ALTER TABLE `user` DROP KEY `uk_name_pwd`;
+----------------------------------------------------------------------------
+主键约束：
+CREATE TABLE temp3(
+
+    /*主键约束*/
+
+    id INT PRIMARY KEY,
+    name VARCHAR(25)
+
+);
+
+
+CREATE TABLE temp4(
+
+    id INT,
+
+    name VARCHAR(25),
+
+    pwd VARCHAR(15),
+
+    /*创建主键约束并且取名*/
+  
+  CONSTRAINT pk_temp4_id PRIMARY KEY(id)
+
+);
+
+组合模式：
+
+CREATE TABLE temp5(
+    id INT NOT NULL,
+    name VARCHAR(25),
+    pwd VARCHAR(15),
+    PRIMARY KEY(name, pwd)
+);
+
+- 删除主键：
+alter table `user` drop primary key;
+
+- 增加主键：
+alter table `user` add primary key(name, pwd);
+
+- 修改id列为主键：
+alter table `user` modify id int primary key;
+----------------------------------------------------------------------------
+外键约束：
+CREATE TABLE `person`(
+
+	person_id INT AUTO_INCREMENT PRIMARY KEY,
+
+	person_name VARCHAR(20),
+
+	person_age INT,
+
+	book_id INT,
+
+	/* 设置外键约束（未设置名称） */
+	FOREIGN KEY(book_id) REFERENCES book(book_id)
+
+);
+或者：
+CREATE TABLE `person`(
+
+	person_id INT AUTO_INCREMENT PRIMARY KEY,
+
+	person_name VARCHAR(20),
+
+	person_age INT,
+
+	book_id INT,
+
+	/* 设置外键约束（设置名称为fk_book_id） */
+	CONSTRAINT fk_book_id FOREIGN KEY(book_id) REFERENCES book(book_id)
+
+);
+
+组合外键约束：
+FOREIGN KEY(book_id, book_name) REFERENCES book(book_id, book_name)
+
+- 删除外键约束：
+alter table student drop foreign key student_ibfk_1;
+
+- 增加外键约束
+alter table student add foreign key(classes_name, classes_number) references classes(name, number);
+----------------------------------------------------------------------------------
+级联删除：
+删除主表的数据时，关联的从表数据也删除，则需要在建立外键约束的后面增加on delete cascade或on delete set null
+
+
+

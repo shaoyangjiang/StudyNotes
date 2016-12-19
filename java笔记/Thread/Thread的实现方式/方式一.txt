@@ -1,0 +1,28 @@
+/**
+ * 线程实现方法一：子类继承Thread类，重写run方法
+ * @author Administrator
+ *
+ */
+public class ThreadTest {
+
+	public static void main(String[] args) {
+		Thread1 t = new Thread1();
+		t.start();//启动线程
+	}
+
+}
+
+class Thread1 extends Thread{
+	
+	@Override
+	public void run() {
+		for(int i= 0; i < 3;i++){
+			System.out.println("hello world :"+i);
+		}
+	}
+}
+=============================================================
+运行结果：
+hello world :0
+hello world :1
+hello world :2

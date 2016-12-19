@@ -1,0 +1,21 @@
+public class Factorial {
+	/**
+	 * ì³²¨ÄÇÆõÊıÁĞ
+	 * @param num
+	 * @return
+	 */
+	private int computer3(int num){
+		if(num ==1 || num == 2){
+			return 1;
+		} 
+		
+		return computer3(num-1)+computer3(num-2);
+	}
+	
+	public static void main(String[] args) {
+		Factorial fact1 = new Factorial();
+		System.out.println(fact1.computer3(5));
+	}
+}
+===============================================
+5

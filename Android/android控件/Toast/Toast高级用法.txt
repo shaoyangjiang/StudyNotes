@@ -1,0 +1,14 @@
+项目地址：https://github.com/Pierry/SimpleToast
+================================================
+Into your build.gradle:
+
+repositories {
+  maven { url "https://jitpack.io" }
+}
+--------------------------
+dependencies {
+  compile 'com.github.Pierry:SimpleToast:v1.7'
+}
+----------------------------------
+使用
+SimpleToast.ok(Context, CharSequence);

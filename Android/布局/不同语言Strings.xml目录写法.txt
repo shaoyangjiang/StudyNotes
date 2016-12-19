@@ -1,0 +1,7 @@
+strings.xml:
+美式英语：res/values-en-rUS/strings.xml 
+英式英语：res/values-en-rGB/strings.xml
+法语：res/values-fr/strings.xml
+简体中文：res/values-zh-rCN/strings.xml
+繁体中文：res/values-zh-rTW/strings.xml
+德语：res/values-de/strings.xml

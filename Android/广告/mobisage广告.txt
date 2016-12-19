@@ -1,0 +1,154 @@
+步骤一：将youmiad-android.jar 导入您的工程中。
+1 右键您的工程根目录，选择“Properties”
+2 在左面板中选择“Java Build Path”
+3 然后选择“Libraries”标签
+4 点击“Add External JARs…”
+5 选择youmiad-android.jar 的目录路径
+6 点击“OK”即导入成功
+===============================================================
+第二步：
+在androidMainFest.xml文件下写入,application上
+
+                <!-- 设置艾德聚合平台渠道参数（可选功能） -->
+        <!-- 如果不单独设置聚到参数，我们会使用一个默认值 -->
+        <!-- 设置渠道 Begin -->
+        <meta-data
+            android:name="adSage_channel"
+            android:value="yourChannel" />
+        <!-- 设置渠道 End -->
+        
+ 
+	<!-- ************************************************************************** -->
+    <!-- 以下为我们列出来的各平台需要进行的特殊配置  -->   
+        <!-- 艾德思奇：Mobisage Start -->
+        <meta-data
+            android:name="Mobisage_channel"
+            android:value="mobiSageMediatorSDK_1.0.0" />
+        <activity
+            android:name="com.mobisage.android.MobiSageActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:label="@string/app_name"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <service
+            android:name="com.mobisage.android.MobiSageApkService"
+            android:enabled="true" />
+        <!-- 艾德思奇：Mobisage End -->
+<!-- ************************************************************************** -->
+        <!-- 多盟：Domob Begin-->
+        <activity
+            android:name="cn.domob.android.ads.DomobActivity"
+            android:theme="@android:style/Theme.Translucent" />
+        <!-- 多盟：Domob End-->
+        
+        <!-- 安沃：Adwo Begin -->
+        <activity
+            android:name="com.adwo.adsdk.AdwoAdBrowserActivity"
+            android:label="@string/app_name" />
+        <!-- 安沃：Adwo End -->
+        
+        <!-- 亿动智道：SmartMad Begin -->
+        <activity
+            android:name=".FileBrowser"
+            android:configChanges="orientation|keyboardHidden"
+            android:label="@string/app_name" />
+        <!-- 亿动智道：SmartMad End -->
+        
+        <!-- 易传媒：AdChina Begin -->
+        <activity
+            android:name="com.adchina.android.ads.views.FullScreenAdActivity"
+            android:configChanges="orientation|keyboard|keyboardHidden"
+            android:label="@string/app_name" />
+        <!-- 易传媒：AdChina End -->
+===================================================================================
+第三步：权限
+    <!-- ************************************************************************** -->
+    <!-- 以下我们将各个平台需要的权限列出，您可以根据需要添加，并且去掉重复项目 -->
+	
+	<!-- 艾德思奇：Mobisage Begin -->
+	<uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+	<!-- 艾德思奇：Mobisage End -->
+
+	<!-- AdMob Begin -->
+	<uses-permission android:name="android.permission.INTERNET"/>
+  	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <!-- AdMob End -->
+    <!-- 多盟：Domob Begin-->
+    <uses-permission android:name="android.permission.INTERNET" />
+	<uses-permission android:name="android.permission.READ_PHONE_STATE" />
+ 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+  	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> 
+  	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <!-- 多盟：Domob End-->
+        
+    <!-- 安沃：Adwo Begin -->
+	<uses-permission android:name="android.permission.INTERNET" />
+	<uses-permission android:name="android.permission.READ_PHONE_STATE" /> 
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!-- 安沃：Adwo End -->
+        
+    <!-- 亿动智道：SmartMad Begin -->
+    <uses-permission android:name="android.permission.INTERNET"/>
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+	<uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <!-- 亿动智道：SmartMad End -->
+        
+    <!-- 易传媒：AdChina Begin -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+	<uses-permission android:name="android.permission.INTERNET"/>
+	<uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+	<uses-permission android:name="android.permission.CHANGE_CONFIGURATION"/> 
+	<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <!-- 易传媒：AdChina End -->
+
+======================================================================================
+第四步：在代码中写入
+1.实现接口
+public class RunningActivity extends Activity implements AdSageListener{
+===============================================================================
+2.全局变量
+	//此处为sample程序中需要添加广告的view
+	private LinearLayout layoutMain = null; 	
+	//此处为sample程序中艾德聚合广告view
+	private AdSageLayout adSageLayout = null;
+	private AdSageLayout adSageLayout1 = null;
+    //此处配置 您的艾德聚合平台publishId；
+	private String yourPublishId = "9f178b6e47fb42f2b32079489094b973";
+===================================================================================
+3.onCreat()函数里写入
+//广告
+        //这里的myid指的是布局文件里的那个id
+        //广告   这里的myid指的是布局文件里的那个id
+        layoutMain = ((LinearLayout)this.findViewById(R.id.myid));
+        adSageLayout = new AdSageLayout(this, yourPublishId);
+        adSageLayout.setAdListener(this);
+        layoutMain.addView(adSageLayout);
+        adSageLayout.resumeAd();
+
+//得到广告代码
+adSageLayout.resumeAd();
+
+=============================================================================================
+在onResume()里面写入
+AdSageTrackManager.getInstance(this).pushSystemBeginTrack(yourPublishId);
+==============================================================================================
+在onPasue()写入
+AdSageTrackManager.getInstance(this).pushSystemEndTrack(yourPublishId);
+==============================================================================================
+    /* 7.释放资源（请务必执行此操作） */
+    @Override
+    public void onDestroy(){
+    	super.onDestroy();
+    	/* 请您于此处释放资源*/
+    	if (adSageLayout != null){
+    		adSageLayout.destroy();
+    	}
+    }

@@ -1,0 +1,125 @@
+object LoginForm: TLoginForm
+  Left = 279
+  Top = 200
+  Width = 469
+  Height = 349
+  Caption = #30331#24405
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'MS Sans Serif'
+  Font.Style = []
+  OldCreateOrder = False
+  Position = poDefault
+  Scaled = False
+  Visible = True
+  OnCreate = FormCreate
+  PixelsPerInch = 96
+  TextHeight = 13
+  object Label1: TLabel
+    Left = 114
+    Top = 97
+    Width = 65
+    Height = 16
+    AutoSize = False
+    Caption = #29992#25143#21517#65306
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -15
+    Font.Name = 'MS Sans Serif'
+    Font.Style = []
+    ParentFont = False
+  end
+  object Label2: TLabel
+    Left = 117
+    Top = 146
+    Width = 65
+    Height = 16
+    AutoSize = False
+    Caption = #23494'    '#30721#65306
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -15
+    Font.Name = 'MS Sans Serif'
+    Font.Style = []
+    ParentFont = False
+  end
+  object Label3: TLabel
+    Left = 97
+    Top = 192
+    Width = 81
+    Height = 16
+    AutoSize = False
+    Caption = #30331#24405#36523#20221#65306
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -15
+    Font.Name = 'MS Sans Serif'
+    Font.Style = []
+    ParentFont = False
+  end
+  object Label4: TLabel
+    Left = 80
+    Top = 24
+    Width = 273
+    Height = 41
+    Alignment = taCenter
+    AutoSize = False
+    Caption = #31995'  '#32479'  '#30331'  '#24405
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -31
+    Font.Name = #21326#25991#24425#20113
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object UserEdit: TEdit
+    Left = 180
+    Top = 93
+    Width = 145
+    Height = 21
+    TabOrder = 0
+  end
+  object PassEdit: TEdit
+    Left = 180
+    Top = 142
+    Width = 145
+    Height = 21
+    PasswordChar = '*'
+    TabOrder = 1
+  end
+  object IdentityComboBox: TComboBox
+    Left = 180
+    Top = 189
+    Width = 145
+    Height = 22
+    Style = csOwnerDrawFixed
+    ItemHeight = 16
+    ItemIndex = 0
+    TabOrder = 2
+    Text = #19968#33324#35835#32773
+    Items.Strings = (
+      #19968#33324#35835#32773
+      #35835#20070#39302#24037#20316#20154#21592
+      #31995#32479#31649#29702#21592)
+  end
+  object Button1: TButton
+    Left = 131
+    Top = 257
+    Width = 75
+    Height = 25
+    Caption = #30331'    '#24405
+    TabOrder = 3
+    OnClick = Button1Click
+  end
+  object Button2: TButton
+    Left = 243
+    Top = 257
+    Width = 75
+    Height = 25
+    Caption = #37325'    '#32622
+    TabOrder = 4
+    OnClick = Button2Click
+  end
+end

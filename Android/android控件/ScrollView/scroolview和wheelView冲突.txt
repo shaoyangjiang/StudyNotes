@@ -1,0 +1,18 @@
+当scrollview滑动的时候，发现wheelView不会滑动，冲突。
+
+在WheelView类中的onTouchEvent方法中添加
+		//解决了滚轮和Scrollview冲突的问题
+	    switch (event.getAction()) {
+		    case MotionEvent.ACTION_DOWN: //added to fix problem
+		    case MotionEvent.ACTION_MOVE:
+		        if (getParent() != null) {
+		            getParent().requestDisallowInterceptTouchEvent(true);
+			}
+			break;
+
+		    case MotionEvent.ACTION_UP:
+		        if (getParent() != null) { //added to fix problem, this may be uneeded
+		            getParent().requestDisallowInterceptTouchEvent(false);
+		        }
+			break;
+		}

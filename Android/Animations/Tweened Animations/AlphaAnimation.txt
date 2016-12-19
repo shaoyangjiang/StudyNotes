@@ -1,0 +1,11 @@
+*AlphaAnimation(淡入淡出)
+// 创建一个AnimationSet对象
+AnimationSet animationSet = new AnimationSet(true);
+//创建一个AlphaAnimation对象
+AlphaAnimation alphaAnimation = new AlphaAnimation(1,0);
+//设置动画执行的时间，单位毫秒
+alphaAnimation.setDuration(1000);
+//将AlphaAnimation对象添加到AnimationSet中
+animationSet.addAnimation(alphaAnimation);
+//使用ImageViewde StartAnimation方法执行动画
+imageView.startAnimation(animationSet);

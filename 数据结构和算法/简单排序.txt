@@ -1,0 +1,54 @@
+简单排序包括：
+冒泡排序、选择排序、插入排序
+
+一、冒泡排序（BubbleSort）
+int[] sources;
+……
+for(int i = sources.length - 1; i > 0; i--){
+	for(int j = 0; j < i; j++){
+		if(sources[j] > sources[j + 1]){
+			sources[j] = sources[j] + sources[j + 1];
+			sources[j + 1] = sources[j] - sources[j + 1];
+			sources[j] = sources[j] - sources[j + 1];
+		}
+	}
+}
+
+所要比较的次数为：(N-1)+(N-2)+(N-3)+...+1=N*(n-1)/2 =(约) N^2/2次
+所要交换的次数约为：N^2/4次
+所以大O表示法中，交换和比较的次数为O(N^2)时间级别的，很慢！
+------------------------------------------------------------------------------------
+二、选择排序（SelectSort）
+int min;
+for(int i = 0; i < sources.length - 1; i++){
+	min = i;
+	for(int j = i + 1; j < sources.length; j++){
+		if(sources[j] < sources[min]){
+			min = j;
+		}
+	}
+	if(min != i){
+		sources[i] = sources[i] + sources[min];
+		sources[min] = sources[i] - sources[min];
+		sources[i] = sources[i] - sources[min];
+	}
+}
+
+选择排序与冒泡排序执行了相同次数的比较：N*(N-1)/2
+排序排序和冒泡排序一样运行了O(N^2)时间。
+但是选择排序无疑更快，因为它进行的交换少得多。
+当N值较小时，特别是如果交换的时间级比比较时间级大得多时，选择排序实际上是相当快的。
+------------------------------------------------------------------------------------
+三、插入排序（InsertSort）
+int j;
+for(int i = 1; i < sources.length; i++){
+	int temp = sources[i];
+	j = i;
+	while(j > 0 && sources[j - 1] >= temp){
+		sources[j] = sources[j - 1];
+		--j;
+	}
+	sources[j] = temp;
+}
+
+大多数情况下，插入排序算法是基本的排序算法中最好的一种，虽然插入排序算法仍然需要O(N^2)的时间，但是一般情况下，它比冒泡排序快一倍，比选择排序还要快一点。它经常用在较复杂的排序算法的最后阶段，例如快速排序。
